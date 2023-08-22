@@ -20,7 +20,7 @@ def list_dir_on_folder(path):
         return folders
 
     except OSError as e:
-        print(f"Erro ao listar dir: {e}")
+        print(f"nada encontrado no dir: {e}")
         return []
 
 def list_files_on_folder(path):
@@ -41,3 +41,12 @@ def is_a_java_project():
         if file.endswith(pom):
             return True
     return False
+
+def find_folder(target_folder):
+    path = os.getcwd()
+    for root, directories, _ in os.walk(path):
+        if target_folder in directories:
+            return os.path.join(root, target_folder)
+    return None
+
+
