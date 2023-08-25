@@ -7,6 +7,7 @@ def filter_dir_and_files(path):
     files = []
 
     for item in content:
+        
         if os.path.isdir(os.path.join(path, item)):
             folders.append(item)
         elif os.path.isfile(os.path.join(path, item)):
@@ -29,7 +30,6 @@ def list_dir_on_folder(path):
 def list_files_on_folder(path):
     try:
         _, files = filter_dir_and_files(path)
-
         return files
 
     except OSError as e:
@@ -37,8 +37,8 @@ def list_files_on_folder(path):
 
 
 def find_folder(target_folder):
-    path = os.getcwd()
-    for root, directories, _ in os.walk(path):
+    for root, directories, _ in os.walk('.'):
         if target_folder in directories:
-            return os.path.join(root, target_folder)
+            relative_path = os.path.relpath(os.path.join(root, target_folder))
+            return relative_path
     return None
