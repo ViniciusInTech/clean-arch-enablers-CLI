@@ -32,9 +32,22 @@ def to_pascal_case(input_list):
     return pascal_case_string
 
 
+def to_camel_case(input_list):
+    camel_case_string = "".join(word.capitalize() if index > 0 else word for index, word in enumerate(input_list))
+    return camel_case_string
+
+
 def to_package_format(path):
     parts = path.split(filter_package_java, filter_java)
     if len(parts) > filter_java:
         return parts[filter_java].replace("\\", ".")
     else:
         return path
+
+
+def remove_after_string(original_string, target_string):
+    parts = original_string.split(target_string, 1)
+    if len(parts) > 1:
+        result = parts[0] + target_string
+        return result
+    return original_string
