@@ -1,3 +1,4 @@
+import os
 import re
 
 from variables import filter_package_java, filter_java
@@ -51,3 +52,11 @@ def remove_after_string(original_string, target_string):
         result = parts[0] + target_string
         return result
     return original_string
+
+
+def find_folder(target_folder):
+    for root, directories, _ in os.walk('.'):
+        if target_folder in directories:
+            relative_path = os.path.relpath(os.path.join(root, target_folder))
+            return relative_path
+    return None

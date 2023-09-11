@@ -1,4 +1,15 @@
 import os
+import re
+
+from criateDirAndFiles import create_file
+from utils import to_pascal_case, to_snake_case, split_words, find_folder, join_words
+
+dir_of_code = os.path.dirname(os.path.abspath(__file__))
+dir_of_config = dir_of_code + "\\config\\functions"
+
+string_manipulation = {"case_name_pascal_case": to_pascal_case,
+                       "case_name_snake_case": to_snake_case}
+
 
 
 def filter_dir_and_files(path):
@@ -36,9 +47,59 @@ def list_files_on_folder(path):
         print(f"Error ao listar files: {e}")
 
 
-def find_folder(target_folder):
-    for root, directories, _ in os.walk('.'):
-        if target_folder in directories:
-            relative_path = os.path.relpath(os.path.join(root, target_folder))
-            return relative_path
-    return None
+def read_file_txt(path):
+    try:
+        with open(path, 'r') as file:
+            lines = file.readlines()
+        return lines
+    except FileNotFoundError:
+        print(f"The file {path} dont´t find.")
+        return []
+
+
+def remove_blank_lines(lines_list):
+    non_blank_lines = [line.strip() for line in lines_list if line.strip()]
+    return non_blank_lines
+
+
+def structure_dir_function(function):
+    list_to_add_structure = []
+    structures = remove_blank_lines(read_file_txt(dir_of_config+"\\"+function+"\\dir_structure.txt"))
+    for structure in structures:
+        list_to_add_structure.append(structure)
+    print(list_to_add_structure)
+    return list_to_add_structure
+
+
+def replace_text(list_of_string, substituion_dictionary, name_case):
+    standard = r"<<(.*?)>>"
+    for i, linha in enumerate(list_of_string):
+        match = re.search(standard, linha)
+        if match:
+            string_found = match.group(1)
+            if string_found in substituion_dictionary:
+                func = substituion_dictionary[string_found]
+                list_of_string[i] = re.sub(standard, func(name_case), linha)
+    return list_of_string
+
+
+
+def structure_file_functions(function, name_case):
+    list_files_to_be_created = []
+    name_case = split_words(name_case)
+    path_of_file = dir_of_config+"\\"+function+"\\files"
+    list_of_files = list_files_on_folder(path_of_file)
+    path_of_case = find_folder("use_cases")
+    for file in list_of_files:
+        conteudo_file = read_file_txt(path_of_file+"\\"+file)
+        content = remove_blank_lines(replace_text(conteudo_file, string_manipulation, name_case))
+        print(content[0])
+        print(content[1])
+        print(content[2])
+        path_of_case += "\\"+content[1]+content[0]
+
+        create_file(path_of_case, join_words(conteudo_file[2:]))
+        print("teste")
+
+        #print(replace_text(conteudo_file, string_manipulation, name_case))
+        #print(conteudo_file)

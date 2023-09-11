@@ -29,7 +29,6 @@ public abstract class {file_name_pascal_case}UseCase extends FunctionUseCase<{fi
     return conteudo
 
 
-
 def fuc_content_factory(path, file_name):
     packeage = make_package(path, file_name)
     file_name_pascal_case = to_pascal_case(file_name)
@@ -44,7 +43,7 @@ import java.util.Optional;
 public class {file_name_pascal_case}UseCaseFactory {{
 
     private {file_name_pascal_case}UseCaseFactory(){{}}
-    
+
     private static {file_name_pascal_case}UseCase singleton = null;
 
     public static {file_name_pascal_case}UseCase makeInstance({file_name_pascal_case}UseCaseDependencyWrapper dependencyWrapper){{
@@ -53,7 +52,7 @@ public class {file_name_pascal_case}UseCaseFactory {{
             return singleton;
         }});
     }}
-    
+
     public static Optional<{file_name_pascal_case}> getSingleton() {{ return Optional.ofNullable(singleton);}}
 
 }}"""
@@ -63,28 +62,82 @@ public class {file_name_pascal_case}UseCaseFactory {{
 def fuc_content_wrapper(path, file_name):
     packeage = make_package(path, file_name)
     file_name_pascal_case = to_pascal_case(file_name)
-    file_name_camel_case = to_camel_case(file_name)
     packeage_not_use_case = remove_after_string(packeage, "use_cases")
 
     conteudo = f"""package {packeage}.factories.dependency_wrapper;
-    
-import {packeage}.factories.dependency_wrapper;
-    
+
 import {packeage_not_use_case}.Loggers.loggers;
 import {packeage}.dependency_wrappers.UseCaseDependencyWrapper;
-    
-    public class {file_name_pascal_case}UseCaseDependencyWrapper extends UseCaseDependencyWrapper {{
-    
+
+public class {file_name_pascal_case}UseCaseDependencyWrapper extends UseCaseDependencyWrapper {{
+
     //declare here the dependencies your uses case has
-    
     private final Logger logger;
-    
+
     public {file_name_pascal_case}UseCaseDependencyWrapper(Logger logger) {{this.logger = logger;}}
-    
+
     //it is a good thing to make sure the attributes aren´t null, unless explicitly intended otherwise
-    
+
     public Logger getLogger() {{return this.getValueWithNullSafety(this.logger);}}
-    
+
     }}
 """
+    return conteudo
+
+
+def fuc_content_implementations(path, file_name):
+    packeage = make_package(path, file_name)
+    packeage_not_use_case = remove_after_string(packeage, "use_cases")
+    file_name_pascal_case = to_pascal_case(file_name)
+    conteudo = f"""package {packeage}.implementations;
+
+import {packeage_not_use_case}.loggers.Logger;
+import {packeage_not_use_case}.use_cases.correlations.UseCaseExecutionCorrelation;
+import {packeage}.{file_name_pascal_case}UseCase;
+import {packeage}.io.inputs.{file_name_pascal_case}UseCaseInput;
+import {packeage}.io.outputs.{file_name_pascal_case}UseCaseOutput;
+
+public class {file_name_pascal_case}UseCaseImplementation extends {file_name_pascal_case}UseCase{{
+
+    //declare here the ports and other dependencies you might need within this use case implementation
+
+    public {file_name_pascal_case}UseCaseImplementation(Logger logger) {{super(logger);}}
+
+    @Override
+    protected {file_name_pascal_case}UseCaseOutput applyInternalLogic({file_name_pascal_case}UseCaseInput input, UseCaseExecutionCorrelation correlation) {{
+    //implement the logic of the use case here. to make contact with dependencies from here, create ports.
+    return null;
+    }}
+}}
+    """
+    return conteudo
+
+
+def fuc_content_case_inputs(path, file_name):
+    packeage = make_package(path, file_name)
+    packeage_not_use_case = remove_after_string(packeage, "use_cases")
+    file_name_pascal_case = to_pascal_case(file_name)
+    conteudo = f"""package {packeage}.io.inputs;
+
+import {packeage}.io.UseCaseInput;
+
+public class {file_name_pascal_case}UseCaseInput extends UseCaseInput {{
+    //Define the attributes for the input of the {file_name_pascal_case}UseCase here.
+}}
+    """
+    return conteudo
+
+
+def fuc_content_case_outputs(path, file_name):
+    packeage = make_package(path, file_name)
+    packeage_not_use_case = remove_after_string(packeage, "use_cases")
+    file_name_pascal_case = to_pascal_case(file_name)
+    conteudo = f"""package {packeage}.io.outputs;
+
+import {packeage}.io.UseCaseInput;
+
+public class {file_name_pascal_case}UseCaseOutput {{
+    //Define the attributes for the output of the {file_name_pascal_case}UseCase here.
+}}
+    """
     return conteudo

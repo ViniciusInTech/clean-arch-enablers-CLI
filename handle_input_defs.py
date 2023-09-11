@@ -1,10 +1,14 @@
-from criateDirAndFiles import create_folder_structure, create_files_structure
+from criateDirAndFiles import create_folder_structure
+from findDir import structure_dir_function, structure_file_functions
 from variables import input_function_position, input_word_position
 
 
 def function_use_case(args):
-    create_folder_structure(args[input_word_position])
-    create_files_structure(args[input_word_position])
+    arg = args[input_word_position]
+    dir_structure = structure_dir_function(args[1])
+    create_folder_structure(arg, dir_structure)
+    structure_file_functions(args[1], arg)
+    #create_files_structure(arg)
 
 
 def consume_use_case(args):
@@ -26,3 +30,5 @@ def handle_input(args):
         function(args)
     else:
         print("Function not found!")
+
+
