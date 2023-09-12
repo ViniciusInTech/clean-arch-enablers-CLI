@@ -45,6 +45,13 @@ def to_package_format(path):
     else:
         return path
 
+def to_package_format_case(case):
+    path = find_folder(to_snake_case(case))
+    parts = path.split(filter_package_java, filter_java)
+    if len(parts) > filter_java:
+        return parts[filter_java].replace("\\", ".")
+    else:
+        return path
 
 def remove_after_string(original_string, target_string):
     parts = original_string.split(target_string, 1)
@@ -53,6 +60,11 @@ def remove_after_string(original_string, target_string):
         return result
     return original_string
 
+
+def remove_after_use_case(original_string):
+    path_to_remove = to_package_format_case(original_string)
+    target_string = "use_cases"
+    return remove_after_string(path_to_remove, target_string)
 
 def find_folder(target_folder):
     for root, directories, _ in os.walk('.'):

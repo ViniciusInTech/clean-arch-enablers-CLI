@@ -2,13 +2,16 @@ import os
 import re
 
 from criateDirAndFiles import create_file
-from utils import to_pascal_case, to_snake_case, split_words, find_folder, join_words
+from utils import to_pascal_case, to_snake_case, split_words, find_folder, join_words, to_package_format_case, \
+    remove_after_use_case
 
 dir_of_code = os.path.dirname(os.path.abspath(__file__))
 dir_of_config = dir_of_code + "\\config\\functions"
 
 string_manipulation = {"case_name_pascal_case": to_pascal_case,
-                       "case_name_snake_case": to_snake_case}
+                       "case_name_snake_case": to_snake_case,
+                       "package": to_package_format_case,
+                       "package_no_use_case": remove_after_use_case}
 
 
 
@@ -85,7 +88,6 @@ def replace_text(list_of_string, substituion_dictionary, name_case):
 
 
 def structure_file_functions(function, name_case):
-    list_files_to_be_created = []
     name_case = split_words(name_case)
     path_of_file = dir_of_config+"\\"+function+"\\files"
     list_of_files = list_files_on_folder(path_of_file)
@@ -93,13 +95,6 @@ def structure_file_functions(function, name_case):
     for file in list_of_files:
         conteudo_file = read_file_txt(path_of_file+"\\"+file)
         content = remove_blank_lines(replace_text(conteudo_file, string_manipulation, name_case))
-        print(content[0])
-        print(content[1])
-        print(content[2])
         path_of_case += "\\"+content[1]+content[0]
-
         create_file(path_of_case, join_words(conteudo_file[2:]))
-        print("teste")
-
-        #print(replace_text(conteudo_file, string_manipulation, name_case))
-        #print(conteudo_file)
+        print("file created in: " + path_of_case)
