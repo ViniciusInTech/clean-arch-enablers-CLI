@@ -95,6 +95,5 @@ def structure_file_functions(function, name_case):
     for file in list_of_files:
         conteudo_file = read_file_txt(path_of_file+"\\"+file)
         content = remove_blank_lines(replace_text(conteudo_file, string_manipulation, name_case))
-        path_of_case += "\\"+content[1]+content[0]
-        create_file(path_of_case, join_words(conteudo_file[2:]))
-        print("file created in: " + path_of_case)
+        create_file(path_of_case+"\\"+content[1]+"\\"+content[0], join_words(conteudo_file[2:]))
+        print("file created " + content[0])

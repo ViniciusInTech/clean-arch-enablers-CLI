@@ -1,0 +1,9 @@
+<<case_name_pascal_case>>UseCaseInput.java
+\<<case_name_snake_case>>\io\inputs\
+package <<package>>.io.inputs;
+
+import <<package>>.io.UseCaseInput;
+
+public class <<case_name_pascal_case>>UseCaseInput extends UseCaseInput {{
+    //Define the attributes for the input of the <<case_name_pascal_case>>UseCase here.
+}}
