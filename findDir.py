@@ -74,17 +74,18 @@ def structure_dir_function(function):
     return list_to_add_structure
 
 
-def replace_text(list_of_string, substituion_dictionary, name_case):
+def replace_text(list_of_strings, substitution_dictionary, name_case):
     standard = r"<<(.*?)>>"
-    for i, linha in enumerate(list_of_string):
-        match = re.search(standard, linha)
-        if match:
-            string_found = match.group(1)
-            if string_found in substituion_dictionary:
-                func = substituion_dictionary[string_found]
-                list_of_string[i] = re.sub(standard, func(name_case), linha)
-    return list_of_string
+    for i, linha in enumerate(list_of_strings):
+        matches = re.findall(standard, linha)
+        for match in matches:
+            if match in substitution_dictionary:
+                replacement_func = substitution_dictionary[match]
+                replaced_text = re.sub(standard, lambda x: replacement_func(name_case), linha, count=1)
+                linha = replaced_text  # Atualiza a linha com a substituição
+        list_of_strings[i] = linha  # Atualiza a linha na lista
 
+    return list_of_strings
 
 
 def structure_file_functions(function, name_case):
