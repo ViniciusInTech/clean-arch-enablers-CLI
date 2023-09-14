@@ -1,11 +1,7 @@
 import os
 
-from utils import join_words, to_package_format, to_pascal_case, to_snake_case, split_words, remove_after_string, \
-    find_folder
-from variables import write_permission, dir_to_be_created, file_to_be_created
-
-
-
+from utils import to_pascal_case, to_snake_case, split_words, find_folder
+from variables import write_permission, file_to_be_created
 
 
 def create_dir(path):
@@ -41,6 +37,3 @@ def create_files_structure(name_file):
     for file in updated_file_to_be_created:
         path_file = path_use_case_file + "\\" + file
         create_file(path_file, name_file)
-
-def make_path_format(name_file, path):
-    path_use_case_file = find_folder(to_snake_case(name_file))

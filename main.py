@@ -1,4 +1,5 @@
 import sys
+
 from authCae import is_valid_args, is_a_java_project
 from handle_input_defs import handle_input
 from variables import ignore_args_first
