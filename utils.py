@@ -1,6 +1,6 @@
-import os
 import re
 
+from searchAndRead import find_folder
 from variables import filter_package_java, filter_java
 
 
@@ -45,6 +45,7 @@ def to_package_format(path):
     else:
         return path
 
+
 def to_package_format_case(case):
     path = find_folder(to_snake_case(case))
     parts = path.split(filter_package_java, filter_java)
@@ -52,6 +53,7 @@ def to_package_format_case(case):
         return parts[filter_java].replace("\\", ".")
     else:
         return path
+
 
 def remove_after_string(original_string, target_string):
     parts = original_string.split(target_string, 1)
@@ -66,9 +68,7 @@ def remove_after_use_case(original_string):
     target_string = "use_cases"
     return remove_after_string(path_to_remove, target_string)
 
-def find_folder(target_folder):
-    for root, directories, _ in os.walk('.'):
-        if target_folder in directories:
-            relative_path = os.path.relpath(os.path.join(root, target_folder))
-            return relative_path
-    return None
+
+def remove_blank_lines(lines_list):
+    non_blank_lines = [line.strip() for line in lines_list if line.strip()]
+    return non_blank_lines

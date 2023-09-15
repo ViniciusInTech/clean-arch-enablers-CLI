@@ -1,14 +1,10 @@
 import os
 
-dir_of_code = os.path.dirname(os.path.abspath(__file__))
+ignore_the_first_arg = 1
 
-dir_of_config = dir_of_code + "\\config\\functions"
+arg_index_of_use_case_name = 2
 
-ignore_args_first = 1
-
-input_word_position = 2
-
-input_function_position = 1
+arg_function_index = 1
 
 limit_args = 2
 
@@ -24,20 +20,14 @@ filter_package_java = "java\\"
 
 filter_java = 1
 
-
-dir_to_be_created = []
-"""["factories",
-                     "factories\\dependency_wrapper",
-                     "implementations",
-                     "implementations\\ports",
-                     "io",
-                     "io\\inputs",
-                     "io\\outputs"]"""
-
-file_to_be_created = ["case_nameUseCase.java",
-                      "factories\\case_nameUseCaseFactory.java",
-                      "factories\\dependency_wrapper\\case_nameUseCaseDependencyWrapper.java",
-                      "implementations\\case_nameUseCaseImplementation.java",
-                      "io\\inputs\\case_nameUseCaseInput.java", "io\\outputs\\case_nameUseCaseOutput.java"]
+dir_of_code = os.path.dirname(os.path.abspath(__file__))
+dir_of_config = dir_of_code + "\\config\\functions"
 
 
+structure_root_folder = "use_cases"
+
+name_of_file_structure_dir = "\\dir_structure.txt"
+
+regex_to_replace_template = r"<<(.*?)>>"
+
+file_folder_name = "\\files"
