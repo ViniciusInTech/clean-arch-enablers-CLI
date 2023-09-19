@@ -1,0 +1,21 @@
+<<case_name_pascal_case>>UseCaseImplementation.java
+\<<case_name_snake_case>>\implementations\
+package <<package>>.implementations;
+
+import <<package_no_use_case>>.loggers.Logger;
+import <<package_no_use_case>>.use_cases.correlations.UseCaseExecutionCorrelation;
+import <<package>>.<<case_name_pascal_case>>UseCase;
+import <<package>>.io.inputs.<<case_name_pascal_case>>UseCaseInput;
+
+public class <<case_name_pascal_case>>UseCaseImplementation extends <<case_name_pascal_case>>UseCase{
+
+    //declare here the ports and other dependencies you might need within this use case implementation
+
+    public <<case_name_pascal_case>>UseCaseImplementation(Logger logger) {super(logger);}
+
+    @Override
+    protected <<case_name_pascal_case>>UseCaseOutput applyInternalLogic(<<case_name_pascal_case>>UseCaseInput input, UseCaseExecutionCorrelation correlation) {
+    //implement the logic of the use case here. to make contact with dependencies from here, create ports.
+    return null;
+    }
+}

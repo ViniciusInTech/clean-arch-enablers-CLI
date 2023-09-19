@@ -1,0 +1,26 @@
+<<case_name_pascal_case>>UseCaseFactory.java
+\<<case_name_snake_case>>\factories\
+package <<package>>.factories;
+
+import <<package>>.<<case_name_pascal_case>>;
+import <<package>>.factories.dependency_wrapper.<<case_name_pascal_case>>UseCaseDependencyWrapper;
+import <<package>>.implementations.<<case_name_pascal_case>>UseCaseImplementation;
+
+import java.util.Optional;
+
+public class <<case_name_pascal_case>>UseCaseFactory {
+
+    private <<case_name_pascal_case>>UseCaseFactory(){}
+
+    private static <<case_name_pascal_case>>UseCase singleton = null;
+
+    public static <<case_name_pascal_case>>UseCase makeInstance(<<case_name_pascal_case>>UseCaseDependencyWrapper dependencyWrapper){
+        return Optional.ofNullable(singleton).orelseGet(() -> {
+            singleton = new <<case_name_pascal_case>>UseCaseImplementation(dependencyWrapper.getLogger());
+            return singleton;
+        });
+    }
+
+    public static Optional< <<case_name_pascal_case>> > getSingleton() { return Optional.ofNullable(singleton);}
+
+}
