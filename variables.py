@@ -1,4 +1,5 @@
 import os
+from db import get_all_commands, get_all_functions_name, map_list
 
 ignore_the_first_arg = 1
 
@@ -8,9 +9,7 @@ arg_function_index = 1
 
 limit_args = 2
 
-valid_args = ["new", "function-use-case", "consume-use-case",
-              "supplier-use-case", "runnable-use-case", "fuc",
-              "cuc", "suc", "ruc"]
+valid_args = map_list(get_all_commands()+get_all_functions_name())
 
 java_project_validator_file = "pom.xml"
 

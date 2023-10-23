@@ -1,0 +1,45 @@
+{
+  "functions":{
+    "fuc":{
+      "name":[
+       "function use case",
+        "fuc",
+        "functionUseCase"
+      ],
+      "dir":[
+        "implementes",
+        "io",
+        "io/inputs"
+      ],
+      "files":[
+        {
+          "name":"Use Case",
+          "path":"/",
+          "content":"arquivos"
+        }
+      ]
+    },
+    "suc":{
+      "name":[
+        "supplier use case",
+        "suc",
+        "supplierUseCase"
+      ],
+      "dir":[
+        "implementes",
+        "io/inputs"
+      ],
+      "files":[
+        {
+          "name":"Use case p",
+          "path":"/",
+          "content":"arquivos teste"
+        }
+      ]
+    }
+  },
+  "commands": [
+    "new",
+    "teste"
+  ]
+}
