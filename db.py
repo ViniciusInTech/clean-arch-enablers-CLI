@@ -55,6 +55,10 @@ def get_by_function(function):
     return FunctionClass(find_key(dados, function))
 
 
+def get_dir_by_function(function):
+    return get_by_function(function).GetDir()
+
+
 def get_all_commands():
     dados = load_json(db_path)
     return find_key(dados, "commands")
@@ -68,7 +72,3 @@ def map_list(input_list):
         else:
             combined_data.append(item)
     return combined_data
-
-
-print(get_all_functions_name())
-print(get_all_commands())

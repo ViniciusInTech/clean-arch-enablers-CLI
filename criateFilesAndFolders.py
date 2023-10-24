@@ -37,15 +37,6 @@ def create_folder_structure(name_folder, folder_structure):
         create_dir(path_use_case + "\\" + case)
 
 
-def create_dir_structure(function):
-    list_to_add_structure = []
-    structures = remove_blank_lines(read_file_txt(dir_of_config+"\\"+function+name_of_file_structure_dir))
-    for structure in structures:
-        list_to_add_structure.append(structure)
-    print(list_to_add_structure)
-    return list_to_add_structure
-
-
 def replace_text_template(list_of_strings, substitution_dictionary, name_case):
     for i, linha in enumerate(list_of_strings):
         matches = re.findall(regex_to_replace_template, linha)

@@ -7,9 +7,13 @@
         "functionUseCase"
       ],
       "dir":[
-        "implementes",
+        "factories",
+        "factories\\dependency_wrapper",
+        "implementations",
+        "implementations\\ports",
         "io",
-        "io/inputs"
+        "io\\inputs",
+        "io\\outputs"
       ],
       "files":[
         {
