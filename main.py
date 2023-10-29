@@ -13,7 +13,7 @@ def main():
         arg_function_name = args[arg_function_index]
         dir_structure = get_dir_by_function(arg_function_name)
         create_folder_structure(arg, dir_structure)
-        create_file_structure(arg_function_name, arg)
+        create_file_structure(arg, arg_function_name)
     else:
         print("could not find java project or invalid arguments")
 

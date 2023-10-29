@@ -1,11 +1,12 @@
 import os
 import re
 
-from searchAndRead import read_file_txt, list_files_on_folder, find_folder
-from utils import to_snake_case, split_words, remove_blank_lines, join_words, to_pascal_case, to_package_format_case, \
+from db import get_function_by_name
+from searchAndRead import find_folder
+from utils import to_snake_case, split_words, join_words, to_pascal_case, to_package_format_case, \
     remove_after_use_case
-from variables import write_permission, dir_of_config, structure_root_folder, \
-    name_of_file_structure_dir, regex_to_replace_template, file_folder_name
+from variables import write_permission, structure_root_folder, \
+    regex_to_replace_template, barra_system
 
 string_manipulation = {"case_name_pascal_case": to_pascal_case,
                        "case_name_snake_case": to_snake_case,
@@ -37,25 +38,25 @@ def create_folder_structure(name_folder, folder_structure):
         create_dir(path_use_case + "\\" + case)
 
 
-def replace_text_template(list_of_strings, substitution_dictionary, name_case):
-    for i, linha in enumerate(list_of_strings):
-        matches = re.findall(regex_to_replace_template, linha)
-        for match in matches:
-            if match in substitution_dictionary:
-                replacement_func = substitution_dictionary[match]
-                replaced_text = re.sub(regex_to_replace_template, lambda x: replacement_func(name_case), linha, count=1)
-                linha = replaced_text
-        list_of_strings[i] = linha
-    return list_of_strings
+def replace_text_in_string(input_string, substitution_dictionary, name_case):
+    matches = re.findall(regex_to_replace_template, input_string)
+    for match in matches:
+        if match in substitution_dictionary:
+            replacement_func = substitution_dictionary[match]
+            input_string = re.sub(regex_to_replace_template, lambda x: replacement_func(name_case), input_string, count=1)
+
+    return input_string
 
 
-def create_file_structure(function, name_case):
+def create_file_structure(name_case, function):
     name_case = split_words(name_case)
-    path_of_file = dir_of_config+"\\"+function+file_folder_name
-    list_of_files = list_files_on_folder(path_of_file)
+    function_obj = get_function_by_name(function)
+    files_to_be_created = function_obj.GetFiles()
     path_of_case = find_folder(structure_root_folder)
-    for file in list_of_files:
-        conteudo_file = read_file_txt(path_of_file+"\\"+file)
-        content = remove_blank_lines(replace_text_template(conteudo_file, string_manipulation, name_case))
-        create_file(path_of_case+"\\"+content[1]+"\\"+content[0], join_words(conteudo_file[2:]))
-        print("file created " + content[0])
+
+    for file in files_to_be_created:
+        content = (replace_text_in_string(file.GetContent(), string_manipulation, name_case))
+        path_of_file = (replace_text_in_string(file.GetPath(), string_manipulation, name_case))
+        name_of_file = (replace_text_in_string(file.GetName(), string_manipulation, name_case))
+        create_file(path_of_case+barra_system+path_of_file+barra_system+name_of_file, join_words(content))
+        print(f"file created '{name_of_file}' in {path_of_file}")

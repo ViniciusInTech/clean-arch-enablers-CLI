@@ -59,6 +59,19 @@ def get_dir_by_function(function):
     return get_by_function(function).GetDir()
 
 
+def get_function_by_name(name_function):
+    functions = get_all_functions()
+    try:
+        for function in functions:
+            names = function.GetName()
+            for name in names:
+                if name == name_function:
+                    return function
+    except Exception:
+        print(f"Function '{name_function}' don´t found")
+        return None
+
+
 def get_all_commands():
     dados = load_json(db_path)
     return find_key(dados, "commands")
@@ -72,3 +85,5 @@ def map_list(input_list):
         else:
             combined_data.append(item)
     return combined_data
+
+print(get_function_by_name("function use case").GetFiles())

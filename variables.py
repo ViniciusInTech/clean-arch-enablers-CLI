@@ -30,3 +30,5 @@ name_of_file_structure_dir = "\\dir_structure.txt"
 regex_to_replace_template = r"<<(.*?)>>"
 
 file_folder_name = "\\files"
+
+barra_system = "\\"
