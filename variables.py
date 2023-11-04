@@ -3,11 +3,11 @@ from db import get_all_commands, get_all_functions_name, map_list
 
 ignore_the_first_arg = 1
 
+function_index = 0
+
 arg_index_of_use_case_name = 2
 
 arg_function_index = 1
-
-limit_args = 2
 
 valid_args = map_list(get_all_commands()+get_all_functions_name())
 

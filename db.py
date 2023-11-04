@@ -5,11 +5,11 @@ from classes import *
 db_path = "db.json"
 
 
-def load_json(file_path):
+def load_json(file_path, modo='r'):
     root_dir = os.path.abspath(os.path.dirname(__file__))
     full_path = os.path.join(root_dir, file_path)
     try:
-        with open(full_path, "r") as json_file:
+        with open(full_path, modo) as json_file:
             data = json.load(json_file)
         return data
     except FileNotFoundError:
@@ -21,7 +21,7 @@ def load_json(file_path):
     return None
 
 
-def find_key(dados,key):
+def find_key(dados, key):
     try:
         return dados[key]
     except KeyError:
@@ -86,4 +86,24 @@ def map_list(input_list):
             combined_data.append(item)
     return combined_data
 
-print(get_function_by_name("function use case").GetFiles())
+
+def save_json(file_path, data, modo='w'):
+    root_dir = os.path.abspath(os.path.dirname(__file__))
+    full_path = os.path.join(root_dir, file_path)
+    try:
+        with open(full_path, modo) as json_file:
+            json.dump(data, json_file, indent=4)
+    except Exception as e:
+        print(f"An error occurred while saving JSON to '{file_path}': {e}")
+
+
+def save_new_function(data,name):
+    dados = load_json(db_path)
+    dados['functions'][name] = data
+    save_json(db_path, dados)
+    print("New template save sucess!!!")
+
+"""dados = load_json(db_path)
+dados['functions']["nova funcao"] = "NovoTeste"
+save_json(db_path, dados)"""
+#print(load_json(db_path))

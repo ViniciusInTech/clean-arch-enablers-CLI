@@ -1,49 +1,76 @@
 {
-  "functions":{
-    "fuc":{
-      "name":[
-       "function use case",
-        "fuc",
-        "functionUseCase"
-      ],
-      "dir":[
-        "factories",
-        "factories\\dependency_wrapper",
-        "implementations",
-        "implementations\\ports",
-        "io",
-        "io\\inputs",
-        "io\\outputs"
-      ],
-      "files":[
-        {
-          "name":"<<case_name_pascal_case>>UseCase.java",
-          "path":"\\<<case_name_snake_case>>\\",
-          "content":"package <<package>>;\n\nimport <<package_no_use_case>>.loggers.Logger;\nimport <<package_no_use_case>>.use_cases.metada.UseCaseMetadata;\nimport <<package_no_use_case>>.io.inputs.<<case_name_pascal_case>>UseCaseInput;\nimport <<package>>.io.outputs.<<case_name_pascal_case>>UseCaseOutput;\nimport <<package>>.specifics.functions.FunctionUseCase;\n\npublic abstract class <<case_name_pascal_case>>UseCase extends FunctionUseCase< <<case_name_pascal_case>>UseCaseInput, <<case_name_pascal_case>>UseCaseOutput> {\n    protected <<case_name_pascal_case>>UseCase(Logger logger) {\n        super(\n                UseCaseMetadata.ofOpenAccessUseCase(<<case_name_pascal_case>>UseCase.class, \"some description about this use case\"),\n                logger\n        );\n    }\n}"
+    "functions": {
+        "fuc": {
+            "name": [
+                "function use case",
+                "fuc",
+                "functionUseCase"
+            ],
+            "dir": [
+                "factories",
+                "factories\\dependency_wrapper",
+                "implementations",
+                "implementations\\ports",
+                "io",
+                "io\\inputs",
+                "io\\outputs"
+            ],
+            "files": [
+                {
+                    "name": "<<case_name_pascal_case>>UseCase.java",
+                    "path": "\\<<case_name_snake_case>>\\",
+                    "content": "package <<package>>;\n\nimport <<package_no_use_case>>.loggers.Logger;\nimport <<package_no_use_case>>.use_cases.metada.UseCaseMetadata;\nimport <<package_no_use_case>>.io.inputs.<<case_name_pascal_case>>UseCaseInput;\nimport <<package>>.io.outputs.<<case_name_pascal_case>>UseCaseOutput;\nimport <<package>>.specifics.functions.FunctionUseCase;\n\npublic abstract class <<case_name_pascal_case>>UseCase extends FunctionUseCase< <<case_name_pascal_case>>UseCaseInput, <<case_name_pascal_case>>UseCaseOutput> {\n    protected <<case_name_pascal_case>>UseCase(Logger logger) {\n        super(\n                UseCaseMetadata.ofOpenAccessUseCase(<<case_name_pascal_case>>UseCase.class, \"some description about this use case\"),\n                logger\n        );\n    }\n}"
+                },
+                {
+                    "name": "teste.java",
+                    "path": "\\<<case_name_snake_case>>\\",
+                    "content": "conteudo"
+                }
+            ]
+        },
+        "suc": {
+            "name": [
+                "supplier use case",
+                "suc",
+                "supplierUseCase"
+            ],
+            "dir": [
+                "implementes",
+                "io/inputs"
+            ],
+            "files": [
+                {
+                    "name": "Use case p",
+                    "path": "/",
+                    "content": "arquivos teste"
+                }
+            ]
+        },
+        "ruc": {
+            "name": [
+                "ruc",
+                "RuntimeUseCase"
+            ],
+            "dir": [
+                "factories",
+                "factories\\wrapper"
+            ],
+            "files": [
+                {
+                    "name": "useCase.json",
+                    "path": "\\",
+                    "content": "teste"
+                },
+                {
+                    "name": "factorie.java",
+                    "path": "\\factories\\",
+                    "content": "teste fabrica"
+                }
+            ]
         }
-      ]
     },
-    "suc":{
-      "name":[
-        "supplier use case",
-        "suc",
-        "supplierUseCase"
-      ],
-      "dir":[
-        "implementes",
-        "io/inputs"
-      ],
-      "files":[
-        {
-          "name":"Use case p",
-          "path":"/",
-          "content":"arquivos teste"
-        }
-      ]
-    }
-  },
-  "commands": [
-    "new",
-    "teste"
-  ]
+    "commands": [
+        "new",
+        "add"
+    ]
 }
