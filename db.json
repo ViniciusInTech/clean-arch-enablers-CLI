@@ -45,28 +45,6 @@
                     "content": "arquivos teste"
                 }
             ]
-        },
-        "ruc": {
-            "name": [
-                "ruc",
-                "RuntimeUseCase"
-            ],
-            "dir": [
-                "factories",
-                "factories\\wrapper"
-            ],
-            "files": [
-                {
-                    "name": "useCase.json",
-                    "path": "\\",
-                    "content": "teste"
-                },
-                {
-                    "name": "factorie.java",
-                    "path": "\\factories\\",
-                    "content": "teste fabrica"
-                }
-            ]
         }
     },
     "commands": [
