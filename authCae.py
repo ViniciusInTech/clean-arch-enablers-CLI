@@ -33,10 +33,10 @@ def is_valid_args(args):
         print('Number of args invalid. options:')
         print(";\n".join(valid_args))
         return False
-    args = args[:1]
+    args = args[:2]
     for arg in args:
         if arg not in valid_args:
-            print('arg: ', arg, 'Invalid')
+            print(f"arg: '{arg}' is Invalid")
             print('args valid: ', valid_args)
             return False
     return True
