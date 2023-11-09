@@ -8,10 +8,17 @@ from utils import to_snake_case, split_words, join_words, to_pascal_case, to_pac
 from variables import write_permission, structure_root_folder, \
     regex_to_replace_template, barra_system
 
-string_manipulation = {"case_name_pascal_case": to_pascal_case,
+"""string_manipulation = {"case_name_pascal_case": to_pascal_case,
                        "case_name_snake_case": to_snake_case,
                        "package": to_package_format_case,
                        "package_no_use_case": remove_after_use_case}
+"""
+string_manipulation = {
+    "pc": to_pascal_case,
+    "sc": to_snake_case,
+    "pk": to_package_format_case,
+    "pk_no_name": remove_after_use_case
+}
 
 
 def create_dir(path):
@@ -40,10 +47,17 @@ def create_folder_structure(name_folder, folder_structure):
 
 def replace_text_in_string(input_string, substitution_dictionary, name_case):
     matches = re.findall(regex_to_replace_template, input_string)
-    for match in matches:
-        if match in substitution_dictionary:
-            replacement_func = substitution_dictionary[match]
-            input_string = re.sub(regex_to_replace_template, lambda x: replacement_func(name_case), input_string, count=1)
+
+    for tag, content in matches:
+        if content.lower() == "<name>" and tag in substitution_dictionary:
+            #input_string = input_string.replace(f"<{tag}>{content}</{tag}>", "")
+            replacement_func = substitution_dictionary[tag]
+            replacement = replacement_func(name_case)
+            input_string = input_string.replace(f"<{tag}>{content}</{tag}>", replacement)
+        elif tag in substitution_dictionary:
+            replacement_func = substitution_dictionary[tag]
+            replacement = replacement_func(name_case)
+            input_string = input_string.replace(f"<{tag}>{content}</{tag}>", replacement)
 
     return input_string
 

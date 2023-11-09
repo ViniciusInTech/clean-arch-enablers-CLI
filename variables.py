@@ -27,7 +27,7 @@ structure_root_folder = "use_cases"
 
 name_of_file_structure_dir = "\\dir_structure.txt"
 
-regex_to_replace_template = r"<<(.*?)>>"
+regex_to_replace_template = r"<(.*?)>(.*?)<\/\1>"
 
 file_folder_name = "\\files"
 

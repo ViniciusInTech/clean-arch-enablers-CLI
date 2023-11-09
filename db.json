@@ -17,13 +17,13 @@
             ],
             "files": [
                 {
-                    "name": "<<case_name_pascal_case>>UseCase.java",
-                    "path": "\\<<case_name_snake_case>>\\",
-                    "content": "package <<package>>;\n\nimport <<package_no_use_case>>.loggers.Logger;\nimport <<package_no_use_case>>.use_cases.metada.UseCaseMetadata;\nimport <<package_no_use_case>>.io.inputs.<<case_name_pascal_case>>UseCaseInput;\nimport <<package>>.io.outputs.<<case_name_pascal_case>>UseCaseOutput;\nimport <<package>>.specifics.functions.FunctionUseCase;\n\npublic abstract class <<case_name_pascal_case>>UseCase extends FunctionUseCase< <<case_name_pascal_case>>UseCaseInput, <<case_name_pascal_case>>UseCaseOutput> {\n    protected <<case_name_pascal_case>>UseCase(Logger logger) {\n        super(\n                UseCaseMetadata.ofOpenAccessUseCase(<<case_name_pascal_case>>UseCase.class, \"some description about this use case\"),\n                logger\n        );\n    }\n}"
+                    "name": "<pc></pc>UseCase.java",
+                    "path": "\\<sc></sc>\\",
+                    "content": "package <pk></pk>;\n\nimport <pk_no_name></pk_no_name>.loggers.Logger;\nimport <pk_no_name></pk_no_name>.use_cases.metada.UseCaseMetadata;\nimport <pk_no_name></pk_no_name>.io.inputs.<pc></pc>UseCaseInput;\nimport <pk></pk>.io.outputs.<pc></pc>UseCaseOutput;\nimport <pk></pk>.specifics.functions.FunctionUseCase;\n\npublic abstract class <pc></pc>UseCase extends FunctionUseCase< <pc></pc>UseCaseInput, <pc></pc>UseCaseOutput> {\n    protected <pc></pc>UseCase(Logger logger) {\n        super(\n                UseCaseMetadata.ofOpenAccessUseCase(<pc></pc>UseCase.class, \"some description about this use case\"),\n                logger\n        );\n    }\n}"
                 },
                 {
                     "name": "teste.java",
-                    "path": "\\<<case_name_snake_case>>\\",
+                    "path": "\\<sc></sc>\\",
                     "content": "conteudo"
                 }
             ]
@@ -45,14 +45,14 @@
             ],
             "files": [
                 {
-                    "name": "<<case_name_pascal_case>>UseCaseFactory.java",
-                    "path": "\\<<case_name_snake_case>>\\factories\\",
-                    "content": "package <<package>>.factories;\n\nimport <<package>>.<<case_name_pascal_case>>;\nimport <<package>>.factories.dependency_wrapper.<<case_name_pascal_case>>UseCaseDependencyWrapper;\nimport <<package>>.implementations.<<case_name_pascal_case>>UseCaseImplementation;\n\nimport java.util.Optional;\n\npublic class <<case_name_pascal_case>>UseCaseFactory {\n\n    private <<case_name_pascal_case>>UseCaseFactory(){}\n\n    private static <<case_name_pascal_case>>UseCase singleton = null;\n\n    public static <<case_name_pascal_case>>UseCase makeInstance(<<case_name_pascal_case>>UseCaseDependencyWrapper dependencyWrapper){\n        return Optional.ofNullable(singleton).orelseGet(() -> {\n            singleton = new <<case_name_pascal_case>>UseCaseImplementation(dependencyWrapper.getLogger());\n            return singleton;\n        });\n    }\n\n    public static Optional< <<case_name_pascal_case>> > getSingleton() { return Optional.ofNullable(singleton);}\n\n}"
+                    "name": "<pc>UseCaseFactory.java",
+                    "path": "\\<sc></sc>\\factories\\",
+                    "content": "package <pk></pk>.factories;\n\nimport <pk></pk>.<pc></pc>;\nimport <pk></pk>.factories.dependency_wrapper.<pc></pc>UseCaseDependencyWrapper;\nimport <pk></pk>.implementations.<pc></pc>UseCaseImplementation;\n\nimport java.util Optional;\n\npublic class <pc></pc>UseCaseFactory {\n\n    private <pc></pc>UseCaseFactory(){}\n\n    private static <pc></pc>UseCase singleton = null;\n\n    public static <pc></pc>UseCase makeInstance(<pc></pc>UseCaseDependencyWrapper dependencyWrapper){\n        return Optional.ofNullable(singleton).orElseGet(() -> {\n            singleton = new <pc></pc>UseCaseImplementation(dependencyWrapper.getLogger());\n            return singleton;\n        });\n    }\n\n    public static Optional< <pc></pc> > getSingleton() { return Optional.ofNullable(singleton);}\n\n}"
                 },
                 {
-                    "name": "<<case_name_pascal_case>>UseCase.java",
-                    "path": "\\<<case_name_snake_case>>\\",
-                    "content": "package <<package>>;\n\nimport <<package_no_use_case>>.loggers.Logger;\nimport <<package_no_use_case>>.use_cases.metada.UseCaseMetadata;\nimport <<package>>.io.outputs.<<case_name_pascal_case>>UseCaseOutput;\nimport <<package>>.specifics.functions.SupplierUseCase;\n\npublic abstract class <<case_name_pascal_case>>UseCase extends SupplierUseCase< <<case_name_pascal_case>>UseCaseOutput> {\n    protected <<case_name_pascal_case>>UseCase(Logger logger) {\n        super(\n                UseCaseMetadata.ofOpenAccessUseCase(<<case_name_pascal_case>>UseCase.class, \"some description about this use case\"),\n                logger\n        );\n    }\n}"
+                    "name": "<pc></pc>UseCase.java",
+                    "path": "\\<sc></sc>\\",
+                    "content": "package <pk></pk>;\n\nimport <pk_no_name></pk_no_name>.loggers.Logger;\nimport <pk_no_name></pk_no_name>.use_cases.metada.UseCaseMetadata;\nimport <pk></pk>.io.outputs.<pc></pc>UseCaseOutput;\nimport <pk></pk>.specifics.functions.SupplierUseCase;\n\npublic abstract class <pc></pc>UseCase extends SupplierUseCase< <pc></pc>UseCaseOutput> {\n    protected <pc></pc>UseCase(Logger logger) {\n        super(\n                UseCaseMetadata.ofOpenAccessUseCase(<pc></pc>UseCase.class, \"some description about this use case\"),\n                logger\n        );\n    }\n}"
                 }
             ]
         }
