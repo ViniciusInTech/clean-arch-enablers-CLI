@@ -1,8 +1,8 @@
 import json
 import os
-from classes import *
+from cae_core.classes import *
 
-db_path = "db.json"
+db_path = "../db.json"
 
 
 def load_json(file_path, modo='r'):

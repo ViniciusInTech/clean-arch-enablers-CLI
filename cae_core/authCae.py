@@ -1,7 +1,7 @@
 import os
 
-from searchAndRead import list_files_on_folder
-from variables import valid_args, java_project_validator_file
+from cae_core.searchAndRead import list_files_on_folder
+from cae_core.variables import valid_args, java_project_validator_file
 
 
 arg_function_min_args = {
@@ -33,7 +33,7 @@ def is_valid_args(args):
         print('Number of args invalid. options:')
         print(";\n".join(valid_args))
         return False
-    args = args[:2]
+    args = args[:find_limit(args[0])]
     for arg in args:
         if arg not in valid_args:
             print(f"arg: '{arg}' is Invalid")

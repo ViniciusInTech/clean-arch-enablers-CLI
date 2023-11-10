@@ -1,7 +1,9 @@
 import re
+import subprocess
+import tempfile
 
-from searchAndRead import find_folder
-from variables import filter_package_java, filter_java
+from cae_core.searchAndRead import find_folder
+from cae_core.variables import filter_package_java, filter_java
 
 
 def split_words(string):
@@ -72,3 +74,18 @@ def remove_after_use_case(original_string):
 def remove_blank_lines(lines_list):
     non_blank_lines = [line.strip() for line in lines_list if line.strip()]
     return non_blank_lines
+
+
+def open_in_nano():
+    with tempfile.NamedTemporaryFile(suffix=".txt", delete=False) as temp_file:
+        temp_file.write(b"")
+        temp_file_name = temp_file.name
+    try:
+        subprocess.call(["notepad", temp_file_name])
+    except FileNotFoundError:
+        print("Please install nano or use a different text editor.")
+        return None
+    with open(temp_file_name, "r") as edited_file:
+        edited_content = edited_file.read()
+
+    return edited_content

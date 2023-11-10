@@ -2,9 +2,8 @@
     "functions": {
         "fuc": {
             "name": [
-                "function use case",
                 "fuc",
-                "functionUseCase"
+                "function use case"
             ],
             "dir": [
                 "factories",
@@ -22,37 +21,29 @@
                     "content": "package <pk></pk>;\n\nimport <pk_no_name></pk_no_name>.loggers.Logger;\nimport <pk_no_name></pk_no_name>.use_cases.metada.UseCaseMetadata;\nimport <pk_no_name></pk_no_name>.io.inputs.<pc></pc>UseCaseInput;\nimport <pk></pk>.io.outputs.<pc></pc>UseCaseOutput;\nimport <pk></pk>.specifics.functions.FunctionUseCase;\n\npublic abstract class <pc></pc>UseCase extends FunctionUseCase< <pc></pc>UseCaseInput, <pc></pc>UseCaseOutput> {\n    protected <pc></pc>UseCase(Logger logger) {\n        super(\n                UseCaseMetadata.ofOpenAccessUseCase(<pc></pc>UseCase.class, \"some description about this use case\"),\n                logger\n        );\n    }\n}"
                 },
                 {
-                    "name": "teste.java",
-                    "path": "\\<sc></sc>\\",
-                    "content": "conteudo"
-                }
-            ]
-        },
-        "suc": {
-            "name": [
-                "suc",
-                "supplierUseCase",
-                "Supplier use case",
-                "supplier use case"
-            ],
-            "dir": [
-                "factories",
-                "factories\\dependency_wrapper",
-                "implementations",
-                "implementations\\ports",
-                "io",
-                "io\\outputs"
-            ],
-            "files": [
-                {
-                    "name": "<pc>UseCaseFactory.java",
+                    "name": "<pc></pc>UseCaseFactory.java",
                     "path": "\\<sc></sc>\\factories\\",
-                    "content": "package <pk></pk>.factories;\n\nimport <pk></pk>.<pc></pc>;\nimport <pk></pk>.factories.dependency_wrapper.<pc></pc>UseCaseDependencyWrapper;\nimport <pk></pk>.implementations.<pc></pc>UseCaseImplementation;\n\nimport java.util Optional;\n\npublic class <pc></pc>UseCaseFactory {\n\n    private <pc></pc>UseCaseFactory(){}\n\n    private static <pc></pc>UseCase singleton = null;\n\n    public static <pc></pc>UseCase makeInstance(<pc></pc>UseCaseDependencyWrapper dependencyWrapper){\n        return Optional.ofNullable(singleton).orElseGet(() -> {\n            singleton = new <pc></pc>UseCaseImplementation(dependencyWrapper.getLogger());\n            return singleton;\n        });\n    }\n\n    public static Optional< <pc></pc> > getSingleton() { return Optional.ofNullable(singleton);}\n\n}"
+                    "content": "package <pk></pk>.factories;\n\nimport <pk></pk>.<pc></pc>;\nimport <pk></pk>.factories.dependency_wrapper.<pc></pc>UseCaseDependencyWrapper;\nimport <pk></pk>.implementations.<pc></pc>UseCaseImplementation;\n\nimport java.util.Optional;\n\npublic class <pc></pc>UseCaseFactory {\n\n    private <pc></pc>UseCaseFactory(){}\n\n    private static <pc></pc>UseCase singleton = null;\n\n    public static <pc></pc>UseCase makeInstance(<pc></pc>UseCaseDependencyWrapper dependencyWrapper){\n        return Optional.ofNullable(singleton).orelseGet(() -> {\n            singleton = new <pc></pc>UseCaseImplementation(dependencyWrapper.getLogger());\n            return singleton;\n        });\n    }\n\n    public static Optional< <pc></pc> > getSingleton() { return Optional.ofNullable(singleton);}\n\n}"
                 },
                 {
-                    "name": "<pc></pc>UseCase.java",
-                    "path": "\\<sc></sc>\\",
-                    "content": "package <pk></pk>;\n\nimport <pk_no_name></pk_no_name>.loggers.Logger;\nimport <pk_no_name></pk_no_name>.use_cases.metada.UseCaseMetadata;\nimport <pk></pk>.io.outputs.<pc></pc>UseCaseOutput;\nimport <pk></pk>.specifics.functions.SupplierUseCase;\n\npublic abstract class <pc></pc>UseCase extends SupplierUseCase< <pc></pc>UseCaseOutput> {\n    protected <pc></pc>UseCase(Logger logger) {\n        super(\n                UseCaseMetadata.ofOpenAccessUseCase(<pc></pc>UseCase.class, \"some description about this use case\"),\n                logger\n        );\n    }\n}"
+                    "name": "<pc></pc>UseCaseImplementation.java",
+                    "path": "\\<sc></sc>\\implementations\\",
+                    "content": "package <pk></pk>.implementations;\n\nimport <pk_no_name></pk_no_name>.loggers.Logger;\nimport <pk_no_name></pk_no_name>.use_cases.correlations.UseCaseExecutionCorrelation;\nimport <pk></pk>.<pc></pc>UseCase;\nimport <pk></pk>.io.inputs.<pc></pc>UseCaseInput;\nimport <pk></pk>.io.outputs.<pc></pc>UseCaseOutput;\n\npublic class <pc></pc>UseCaseImplementation extends <pc></pc>UseCase{\n\n    //declare here the ports and other dependencies you might need within this use case implementation\n\n    public <pc></pc>UseCaseImplementation(Logger logger) {super(logger);}\n\n    @Override\n    protected <pc></pc>UseCaseOutput applyInternalLogic(<pc></pc>UseCaseInput input, UseCaseExecutionCorrelation correlation) {\n    //implement the logic of the use case here. to make contact with dependencies from here, create ports.\n    return null;\n    }\n}"
+                },
+                {
+                    "name": "<pc></pc>UseCaseInput.java",
+                    "path": "\\<sc></sc>\\io\\inputs\\",
+                    "content": "package <pk></pk>.io.inputs;\n\nimport <pk></pk>.io.UseCaseInput;\n\npublic class <pc></pc>UseCaseInput extends UseCaseInput {\n    //Define the attributes for the input of the <pc></pc>UseCase here.\n}"
+                },
+                {
+                    "name": "<pc></pc>UseCaseOutput.java",
+                    "path": "\\<sc></sc>\\io\\outputs\\",
+                    "content": "package <pk></pk>.io.outputs;\n\nimport <pk></pk>.io.UseCaseInput;\n\npublic class <pc></pc>UseCaseOutput {\n    //Define the attributes for the output of the <pc></pc>UseCase here.\n}"
+                },
+                {
+                    "name": "<pc></pc>UseCaseDependencyWrapper.java",
+                    "path": "\\<sc></sc>\\factories\\dependency_wrapper",
+                    "content": "package <pk></pk>.factories.dependency_wrapper;\n\nimport <<package_no_use_case>>.Loggers.loggers;\nimport <pk></pk>.dependency_wrappers.UseCaseDependencyWrapper;\n\npublic class <pc></pc>UseCaseDependencyWrapper extends UseCaseDependencyWrapper {\n\n    //declare here the dependencies your uses case has\n    private final Logger logger;\n\n    public <pc></pc>UseCaseDependencyWrapper(Logger logger) {this.logger = logger;}\n\n    //it is a good thing to make sure the attributes aren\u00c2\u00b4t null, unless explicitly intended otherwise\n\n    public Logger getLogger() {return this.getValueWithNullSafety(this.logger);}\n\n    }"
                 }
             ]
         }

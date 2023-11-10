@@ -1,12 +1,11 @@
 import sys
 
-from authCae import is_valid_args, is_a_java_project
-from db import *
-from criateFilesAndFolders import create_folder_structure, create_file_structure
-from template_commands_json import new_file_json, new_function_json
-from variables import ignore_the_first_arg, arg_index_of_use_case_name, arg_function_index, function_index
-import subprocess
-import tempfile
+from cae_core.authCae import is_valid_args, is_a_java_project
+from cae_core.utils import open_in_nano
+from cae_plugins.db import *
+from cae_core.criateFilesAndFolders import create_folder_structure, create_file_structure
+from cae_plugins.template_commands_json import new_file_json, new_function_json
+from cae_core.variables import ignore_the_first_arg, arg_index_of_use_case_name, arg_function_index, function_index
 
 
 def main():
@@ -75,21 +74,6 @@ def file_add():
         content = open_in_nano()
         files.append(new_file_json(name, path, content))
     return files
-
-
-def open_in_nano():
-    with tempfile.NamedTemporaryFile(suffix=".txt", delete=False) as temp_file:
-        temp_file.write(b"")
-        temp_file_name = temp_file.name
-    try:
-        subprocess.call(["notepad", temp_file_name])
-    except FileNotFoundError:
-        print("Please install nano or use a different text editor.")
-        return None
-    with open(temp_file_name, "r") as edited_file:
-        edited_content = edited_file.read()
-
-    return edited_content
 
 
 options_functions = {

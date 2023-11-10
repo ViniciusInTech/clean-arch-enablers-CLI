@@ -1,9 +1,0 @@
-<<case_name_pascal_case>>UseCaseInput.java
-\<<case_name_snake_case>>\io\outputs\
-package <<package>>.io.outputs;
-
-import <<package>>.io.UseCaseInput;
-
-public class <<case_name_pascal_case>>UseCaseOutput {
-    //Define the attributes for the output of the <<case_name_pascal_case>>UseCase here.
-}

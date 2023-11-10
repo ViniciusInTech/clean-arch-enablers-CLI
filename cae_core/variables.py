@@ -1,5 +1,5 @@
 import os
-from db import get_all_commands, get_all_functions_name, map_list
+from cae_plugins.db import get_all_commands, get_all_functions_name, map_list
 
 ignore_the_first_arg = 1
 
