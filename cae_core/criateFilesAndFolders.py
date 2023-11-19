@@ -35,9 +35,9 @@ def create_file(path, conteudo):
 
 def create_folder_structure(name_folder, folder_structure):
     name_folder = split_words(name_folder)
-    path_use_case = create_dir(find_folder(structure_root_folder) + "\\" + to_snake_case(name_folder))
+    path_use_case = create_dir(find_folder(structure_root_folder) + barra_system + to_snake_case(name_folder))
     for case in folder_structure:
-        create_dir(path_use_case + "\\" + case)
+        create_dir(path_use_case + barra_system + case)
 
 
 def replace_text_in_string(input_string, substitution_dictionary, name_case):

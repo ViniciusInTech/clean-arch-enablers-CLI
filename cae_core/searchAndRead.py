@@ -47,7 +47,7 @@ def read_file_txt(path):
 
 
 def find_folder(target_folder):
-    for root, directories, _ in os.walk('..'):
+    for root, directories, _ in os.walk('.'):
         if target_folder in directories:
             relative_path = os.path.relpath(os.path.join(root, target_folder))
             return relative_path
