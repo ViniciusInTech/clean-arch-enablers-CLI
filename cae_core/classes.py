@@ -22,6 +22,18 @@ def MapToFile(data):
     return files
 
 
+class ProjectClass:
+    def __init__(self, name, path):
+        self.name = name
+        self.path = path
+
+    def GetName(self):
+        return self.name
+
+    def GetPath(self):
+        return self.path
+
+
 class FunctionClass:
     def __init__(self, data):
         self.name = data['name']

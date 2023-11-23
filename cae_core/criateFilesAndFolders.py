@@ -19,7 +19,7 @@ string_manipulation = {
 def create_dir(path):
     if not os.path.exists(path):
         os.mkdir(path)
-        print(f"create use-case in: {path}")
+        print(f"create dir: {path}")
         return path
     else:
         print(f'don´t possible create use-case in: {path}')
@@ -56,6 +56,10 @@ def replace_text_in_string(input_string, substitution_dictionary, name_case):
     return input_string
 
 
+def replace_tag(content, name):
+    return replace_text_in_string(content, string_manipulation, name)
+
+
 def create_file_structure(name_case, function):
     name_case = split_words(name_case)
     function_obj = get_function_by_name(function)
@@ -63,8 +67,8 @@ def create_file_structure(name_case, function):
     path_of_case = find_folder(structure_root_folder)
 
     for file in files_to_be_created:
-        content = (replace_text_in_string(file.GetContent(), string_manipulation, name_case))
-        path_of_file = (replace_text_in_string(file.GetPath(), string_manipulation, name_case))
-        name_of_file = (replace_text_in_string(file.GetName(), string_manipulation, name_case))
+        content = replace_tag(file.GetContent(), name_case)
+        path_of_file = replace_tag(file.GetPath(), name_case)
+        name_of_file = replace_tag(file.GetName(), name_case)
         create_file(path_of_case+barra_system+path_of_file+barra_system+name_of_file, join_words(content))
         print(f"file created '{name_of_file}' in {path_of_file}")

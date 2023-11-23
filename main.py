@@ -1,6 +1,7 @@
 import sys
 
 from cae_core.authCae import is_valid_args, is_a_java_project
+from cae_core.createProject import create_dir_structure_pk, create_maven_project, create_project_pk
 from cae_core.utils import open_in_nano
 from cae_plugins.db import *
 from cae_core.criateFilesAndFolders import create_folder_structure, create_file_structure
@@ -23,6 +24,11 @@ def new(args):
         dir_structure = get_dir_by_function(arg_function_name)
         create_folder_structure(arg, dir_structure)
         create_file_structure(arg, arg_function_name)
+    if not is_a_java_project() and args[arg_function_index] == "project":
+        arg = args[arg_index_of_use_case_name]
+        group_id = args[arg_index_of_use_case_name+1]
+        create_dir_structure_pk(arg)
+        create_project_pk(group_id, ["companies"])
     else:
         print("could not find java project")
 

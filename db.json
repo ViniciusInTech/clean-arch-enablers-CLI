@@ -1,5 +1,43 @@
 {
     "functions": {
+        "project": {
+            "name": [
+                "project",
+                "NewProject"
+            ],
+            "dir": [
+                "<pc></pc>",
+                "<pc></pc>\\Adaptadores",
+                "<pc></pc>\\Core",
+                "<pc></pc>\\Montadores",
+                "<pc></pc>\\Provisionadores"
+            ],
+            "files": [
+                {
+                    "name": "dependency_sync.sh",
+                    "path": "<pc></pc>\\",
+                    "content": "teste"
+                }
+            ],
+            "projects": [
+                {
+                    "name": "<sc></sc>-adapters",
+                    "path": "<pc></pc>\\Adaptadores\\"
+                },
+                {
+                    "name": "<sc></sc>",
+                    "path": "<pc></pc>\\Core\\"
+                },
+                {
+                    "name": "<sc></sc>-assemblers",
+                    "path": "<pc></pc>\\Montadores\\"
+                },
+                {
+                    "name": "<sc><sc>-rest-endpoint-dispatchers",
+                    "path": "<pc></pc>\\Provisionadores\\"
+                }
+            ]
+        },
         "fuc": {
             "name": [
                 "fuc",
@@ -44,6 +82,33 @@
                     "name": "<pc></pc>UseCaseDependencyWrapper.java",
                     "path": "\\<sc></sc>\\factories\\dependency_wrapper",
                     "content": "package <pk></pk>.factories.dependency_wrapper;\n\nimport <<package_no_use_case>>.Loggers.loggers;\nimport <pk></pk>.dependency_wrappers.UseCaseDependencyWrapper;\n\npublic class <pc></pc>UseCaseDependencyWrapper extends UseCaseDependencyWrapper {\n\n    //declare here the dependencies your uses case has\n    private final Logger logger;\n\n    public <pc></pc>UseCaseDependencyWrapper(Logger logger) {this.logger = logger;}\n\n    //it is a good thing to make sure the attributes aren\u00c2\u00b4t null, unless explicitly intended otherwise\n\n    public Logger getLogger() {return this.getValueWithNullSafety(this.logger);}\n\n    }"
+                }
+            ]
+        },
+        "suc": {
+            "name": [
+                "suc",
+                "supplier use case",
+                "SupplierUseCase"
+            ],
+            "dir": [
+                "factories",
+                "factories\\dependency_wrapper",
+                "implementations",
+                "implementations\\ports",
+                "io",
+                "io\\outputs"
+            ],
+            "files": [
+                {
+                    "name": "<pc></pc>UseCaseFactory.java",
+                    "path": "\\<sc></sc>\\factories\\",
+                    "content": "package <pk></pk>.factories;\n\nimport <pk></pk>.<pc></pc>;\nimport <pk></pk>.factories.dependency_wrapper.<pc></pc>UseCaseDependencyWrapper;\nimport <pk></pk>.implementations.<pc></pc>UseCaseImplementation;\n\nimport java.util.Optional;\n\npublic class <pc></pc>UseCaseFactory {\n\n    private <pc></pc>UseCaseFactory(){}\n\n    private static <pc></pc>UseCase singleton = null;\n\n    public static <pc></pc>UseCase makeInstance(<pc></pc>UseCaseDependencyWrapper dependencyWrapper){\n        return Optional.ofNullable(singleton).orelseGet(() -> {\n            singleton = new <pc></pc>UseCaseImplementation(dependencyWrapper.getLogger());\n            return singleton;\n        });\n    }\n\n    public static Optional< <pc></pc> > getSingleton() { return Optional.ofNullable(singleton);}\n\n}"
+                },
+                {
+                    "name": "<pc></pc>UseCaseOutput.java",
+                    "path": "\\<sc></sc>\\io\\outputs\\",
+                    "content": "package <pk></pk>.io.outputs;\n\npublic class <pc></pc>UseCaseOutput {\n    //Define the attributes for the output of the <pc></pc>UseCase here.\n}"
                 }
             ]
         }
