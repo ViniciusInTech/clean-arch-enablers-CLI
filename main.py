@@ -25,10 +25,12 @@ def new(args):
         create_folder_structure(arg, dir_structure)
         create_file_structure(arg, arg_function_name)
     if not is_a_java_project() and args[arg_function_index] == "project":
+        arg_list = []
         arg = args[arg_index_of_use_case_name]
+        arg_list.append(arg)
         group_id = args[arg_index_of_use_case_name+1]
         create_dir_structure_pk(arg)
-        create_project_pk(group_id, ["companies"])
+        create_project_pk(group_id, arg_list)
     else:
         print("could not find java project")
 
