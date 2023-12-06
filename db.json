@@ -15,8 +15,8 @@
             "files": [
                 {
                     "name": "dependency_sync.sh",
-                    "path": "<pc></pc>\\",
-                    "content": "teste"
+                    "path": "<pc></pc>",
+                    "content": "#!/bin/bash\n\nprojects=(\n    \"<os></os>\\<pc></pc>\\Core\\<sc></sc>\"\n    \"<os></os>\\<pc></pc>\\Adaptadores\\<sc></sc>-adapters\"\n    \"<os></os>\\<pc></pc>\\Montadores\\<sc></sc>-assemblers\"\n    \"<os></os>\\<pc></pc>\\Provisionadores\\<sc></sc>-rest-endpoint-dispatchers\"\n)"
                 }
             ],
             "projects": [
@@ -33,7 +33,7 @@
                     "path": "<pc></pc>\\Montadores\\"
                 },
                 {
-                    "name": "<sc><sc>-rest-endpoint-dispatchers",
+                    "name": "<sc></sc>-rest-endpoint-dispatchers",
                     "path": "<pc></pc>\\Provisionadores\\"
                 }
             ]

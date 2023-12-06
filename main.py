@@ -30,6 +30,7 @@ def new(args):
         arg_list.append(arg)
         group_id = args[arg_index_of_use_case_name+1]
         create_dir_structure_pk(arg)
+        create_file_structure(arg, args[1])
         create_project_pk(group_id, arg_list)
     else:
         print("could not find java project")

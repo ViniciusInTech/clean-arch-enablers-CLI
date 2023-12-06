@@ -1,3 +1,4 @@
+import os
 import re
 import subprocess
 import tempfile
@@ -33,6 +34,9 @@ def to_snake_case(words):
 def to_pascal_case(input_list):
     pascal_case_string = "".join(word.capitalize() for word in input_list)
     return pascal_case_string
+
+def get_os_path(arg):
+    return os.getcwd()
 
 
 def to_camel_case(input_list):

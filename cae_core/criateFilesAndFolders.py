@@ -4,7 +4,7 @@ import re
 from cae_plugins.db import get_function_by_name
 from cae_core.searchAndRead import find_folder
 from cae_core.utils import to_snake_case, split_words, join_words, to_pascal_case, to_package_format_case, \
-    remove_after_use_case
+    remove_after_use_case, get_os_path
 from cae_core.variables import write_permission, structure_root_folder, \
     regex_to_replace_template, barra_system
 
@@ -12,7 +12,8 @@ string_manipulation = {
     "pc": to_pascal_case,
     "sc": to_snake_case,
     "pk": to_package_format_case,
-    "pk_no_name": remove_after_use_case
+    "pk_no_name": remove_after_use_case,
+    "os": get_os_path,
 }
 
 
@@ -65,6 +66,8 @@ def create_file_structure(name_case, function):
     function_obj = get_function_by_name(function)
     files_to_be_created = function_obj.GetFiles()
     path_of_case = find_folder(structure_root_folder)
+    if path_of_case is None:
+        path_of_case = os.getcwd()
 
     for file in files_to_be_created:
         content = replace_tag(file.GetContent(), name_case)
