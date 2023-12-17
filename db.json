@@ -22,19 +22,87 @@
             "projects": [
                 {
                     "name": "<sc></sc>-adapters",
-                    "path": "<pc></pc>\\Adaptadores\\"
+                    "path": "<pc></pc>\\Adaptadores\\",
+                    "dependencies":[
+                        {
+                            "groupId": "com.nimbusds",
+                            "artifactId": "nimbus-jose-jwt",
+                            "version": "9.30.2"
+                        },
+                        {
+                            "groupId": "org.projectlombok",
+                            "artifactId": "lombok",
+                            "version": "1.18.26"
+                        },
+                        {
+                            "groupId": "br.com.stockio",
+                            "artifactId": "clean-arch-enablers",
+                            "version": "2.0.3"
+                        }
+                    ]
                 },
                 {
                     "name": "<sc></sc>",
-                    "path": "<pc></pc>\\Core\\"
+                    "path": "<pc></pc>\\Core\\",
+                    "dependencies":[
+                        {
+                            "groupId": "com.nimbusds",
+                            "artifactId": "nimbus-jose-jwt",
+                            "version": "9.30.2"
+                        },
+                        {
+                            "groupId": "org.projectlombok",
+                            "artifactId": "lombok",
+                            "version": "1.18.26"
+                        },
+                        {
+                            "groupId": "br.com.stockio",
+                            "artifactId": "clean-arch-enablers",
+                            "version": "2.0.3"
+                        }
+                    ]
                 },
                 {
                     "name": "<sc></sc>-assemblers",
-                    "path": "<pc></pc>\\Montadores\\"
+                    "path": "<pc></pc>\\Montadores\\",
+                    "dependencies":[
+                        {
+                            "groupId": "com.nimbusds",
+                            "artifactId": "nimbus-jose-jwt",
+                            "version": "9.30.2"
+                        },
+                        {
+                            "groupId": "org.projectlombok",
+                            "artifactId": "lombok",
+                            "version": "1.18.26"
+                        },
+                        {
+                            "groupId": "br.com.stockio",
+                            "artifactId": "clean-arch-enablers",
+                            "version": "2.0.3"
+                        }
+                    ]
                 },
                 {
                     "name": "<sc></sc>-rest-endpoint-dispatchers",
-                    "path": "<pc></pc>\\Provisionadores\\"
+                    "path": "<pc></pc>\\Provisionadores\\",
+                    "dependencies":[
+                        {
+                            "groupId": "com.nimbusds",
+                            "artifactId": "nimbus-jose-jwt",
+                            "version": "9.30.2"
+                        },
+                        {
+                            "groupId": "org.projectlombok",
+                            "artifactId": "lombok",
+                            "version": "1.18.26"
+                        },
+                        {
+                            "groupId": "br.com.stockio",
+                            "artifactId": "clean-arch-enablers",
+                            "version": "2.0.3"
+                        }
+                    ]
                 }
             ]
         },

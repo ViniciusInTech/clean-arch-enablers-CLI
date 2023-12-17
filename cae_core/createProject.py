@@ -1,11 +1,12 @@
 import os
 import subprocess
-
-from cae_core.classes import ProjectClass
+import glob
+from cae_core.classes import ProjectClass, DependenciesClass
 from cae_core.criateFilesAndFolders import create_dir, replace_tag
 from cae_core.utils import split_words
 from cae_core.variables import barra_system
 from cae_plugins.db import get_function_by_name, get_project
+import xml.etree.ElementTree as ET
 
 
 def create_dir_pk(dir_structure):
@@ -17,8 +18,9 @@ def create_project_pk(group_id, artifact_id):
     projects = project_name_and_path(get_project(), artifact_id)
     path = os.getcwd()+barra_system
     for project in projects:
+        print("teste")
         directory = path + project.GetPath()
-        create_maven_project(group_id, project.GetName(), directory)
+        create_maven_project(group_id, project.GetName(), directory, project.GetDependencies())
 
 
 def create_dir_structure_pk(name, name_project="project"):
@@ -30,27 +32,90 @@ def create_dir_structure_pk(name, name_project="project"):
         dirs_tag.append(replace_tag(dir, name_dir))
     create_dir_pk(dirs_tag)
 
-
 def project_name_and_path(projects_list, name=None):
     projects_obj = []
     for p in projects_list:
         if name is not None:
             name_tag = replace_tag(p['name'], name)
             path_tag = replace_tag(p['path'], name)
-            projects_obj.append(ProjectClass(name_tag, path_tag))
         else:
-            projects_obj.append(ProjectClass(p['name'], p['path']))
+            name_tag = p['name']
+            path_tag = p['path']
+
+        dependencies = [
+            DependenciesClass(dep['groupId'], dep['artifactId'], dep['version'])
+            for dep in p.get('dependencies', [])
+        ]
+
+        projects_obj.append(ProjectClass(name_tag, path_tag, dependencies))
+
     return projects_obj
+"""def project_name_and_path(projects_list, name=None):
+    projects_obj = []
+    for p in projects_list:
+        if name is not None:
+            name_tag = replace_tag(p['name'], name)
+            path_tag = replace_tag(p['path'], name)
+            projects_obj.append(ProjectClass(name_tag, path_tag,"teste"))
+        else:
+            projects_obj.append(ProjectClass(p['name'], p['path'], "testse"))
+    return projects_obj"""
 
 
-def create_maven_project(group_id, artifact_id, directory):
+def find_pom_file(directory):
+    pom_files = []
+    for root, dirs, files in os.walk(directory):
+        for file in files:
+            if file == 'pom.xml':
+                pom_files.append(os.path.join(root, file))
+    return pom_files
+
+
+def add_dependency_to_pom(group_id, artifact_id, version, directory):
+    pom_files = find_pom_file(directory)
+
+    if not pom_files:
+        print("Arquivo 'pom.xml' não encontrado no diretório ou subdiretórios.")
+        return
+
+    for pom_path in pom_files:
+        try:
+            tree = ET.parse(pom_path)
+            root = tree.getroot()
+
+            # Encontrar ou criar a seção de dependências no XML
+            dependencies = root.find('.//{http://maven.apache.org/POM/4.0.0}dependencies')
+            if dependencies is None:
+                dependencies = ET.SubElement(root, '{http://maven.apache.org/POM/4.0.0}dependencies')
+
+            # Criar um novo elemento para a dependência
+            dependency = ET.Element('{http://maven.apache.org/POM/4.0.0}dependency')
+            ET.SubElement(dependency, '{http://maven.apache.org/POM/4.0.0}groupId').text = group_id
+            ET.SubElement(dependency, '{http://maven.apache.org/POM/4.0.0}artifactId').text = artifact_id
+            ET.SubElement(dependency, '{http://maven.apache.org/POM/4.0.0}version').text = version
+
+            # Adicionar a nova dependência na seção de dependências
+            dependencies.append(dependency)
+
+            # Salvar as alterações de volta no arquivo pom.xml
+            tree.write(pom_path, xml_declaration=True, encoding='UTF-8')
+            print(f"Dependência {artifact_id} adicionada com sucesso ao arquivo 'pom.xml' em {pom_path}!")
+            break  # Adicionou em um arquivo, então para o loop
+        except Exception as e:
+            print(f"Erro ao adicionar a dependência: {e}")
+
+def create_maven_project(group_id, artifact_id, directory, dependency=None):
     try:
         os.makedirs(directory, exist_ok=True)  # Criar o diretório se não existir
         os.chdir(directory)  # Mudar para o diretório do projeto
+
         command_maven = f"mvn archetype:generate -DgroupId={group_id} -DartifactId={artifact_id} -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false"
         subprocess.run(command_maven, shell=True, check=True)
         print(f"Projeto Maven {artifact_id} criado com sucesso no diretório {directory}!")
+        if dependency:
+            for d in dependency:
+                add_dependency_to_pom(d.getGroupId(), d.getArtifactId(), d.getVersion(), directory)
     except subprocess.CalledProcessError as erro:
-        print(f"Erro ao criar o projeto Maven: {erro}")
+        print(f"Erro ao criar o projeto Maven:")
 
 
