@@ -75,3 +75,13 @@ def create_file_structure(name_case, function):
         name_of_file = replace_tag(file.GetName(), name_case)
         create_file(path_of_case+barra_system+path_of_file+barra_system+name_of_file, join_words(content))
         print(f"file created '{name_of_file}' in {path_of_file}")
+
+
+def mudar_diretorio(caminho):
+    try:
+        os.chdir(caminho)
+        print(f"Diretório alterado para: {os.getcwd()}")
+    except FileNotFoundError:
+        print("Caminho não encontrado.")
+    except Exception as e:
+        print(f"Erro ao tentar mudar o diretório: {e}")

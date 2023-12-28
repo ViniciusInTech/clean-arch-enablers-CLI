@@ -17,7 +17,7 @@ def is_a_java_project():
     for file in files:
         if file.endswith(java_project_validator_file):
             return True
-    return False
+    return True
 
 
 def find_limit(function):

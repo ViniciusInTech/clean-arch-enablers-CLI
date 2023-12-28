@@ -80,6 +80,10 @@ def remove_blank_lines(lines_list):
     return non_blank_lines
 
 
+def filtrar_itens(lista, palavras_chave):
+    itens_filtrados = [item for item in lista if any(palavra.lower() in item.lower() for palavra in palavras_chave)]
+    return itens_filtrados
+
 def open_in_nano():
     with tempfile.NamedTemporaryFile(suffix=".txt", delete=False) as temp_file:
         temp_file.write(b"")

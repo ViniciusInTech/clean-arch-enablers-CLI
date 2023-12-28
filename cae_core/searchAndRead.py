@@ -52,3 +52,10 @@ def find_folder(target_folder):
             relative_path = os.path.relpath(os.path.join(root, target_folder))
             return relative_path
     return None
+
+def find_folder_absolute(target_folder):
+    for root, directories, _ in os.walk('.'):
+        if target_folder in directories:
+            absolute_path = os.path.abspath(os.path.join(root, target_folder))
+            return absolute_path
+    return None
