@@ -11,6 +11,7 @@ from cae_plugins.template_commands_json import new_file_json, new_function_json
 from cae_core.variables import ignore_the_first_arg, arg_index_of_use_case_name, arg_function_index, function_index
 
 
+
 def main():
     args = sys.argv[ignore_the_first_arg:]
     if is_valid_args(args):
