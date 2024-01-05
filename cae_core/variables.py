@@ -31,4 +31,4 @@ regex_to_replace_template = r"<(.*?)>(.*?)<\/\1>"
 
 file_folder_name = "\\files"
 
-barra_system = "\\"
+barra_system = "/"
