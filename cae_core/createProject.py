@@ -1,6 +1,7 @@
 import os
 import subprocess
 import glob
+import xml.dom.minidom
 from cae_core.classes import ProjectClass, DependenciesClass
 from cae_core.criateFilesAndFolders import create_dir, replace_tag
 from cae_core.utils import split_words
@@ -18,7 +19,6 @@ def create_project_pk(group_id, artifact_id):
     projects = project_name_and_path(get_project(), artifact_id)
     path = os.getcwd()+barra_system
     for project in projects:
-        print("teste")
         directory = path + project.GetPath()
         create_maven_project(group_id, project.GetName(), directory, project.GetDependencies())
 
@@ -71,6 +71,64 @@ def find_pom_file(directory):
     return pom_files
 
 
+def remove_namespace(directory):
+    pom_files = find_pom_file(directory)
+
+    if not pom_files:
+        print("Arquivo 'pom.xml' não encontrado no diretório ou subdiretórios.")
+        return
+
+    for pom_path in pom_files:
+        tree = ET.parse(pom_path)
+        root = tree.getroot()
+        for elem in root.iter():
+            if '}' in elem.tag:
+                elem.tag = elem.tag.split('}', 1)[1]
+        tree.write(pom_path, encoding='utf-8', xml_declaration=True)
+
+
+def format_xml(directory):
+    pom_files = find_pom_file(directory)
+
+    if not pom_files:
+        print("Arquivo 'pom.xml' não encontrado no diretório ou subdiretórios.")
+        return
+
+    for pom_path in pom_files:
+        with open(pom_path, 'r', encoding='utf-8') as file:
+            xml_content = file.read()
+            dom = xml.dom.minidom.parseString(xml_content)
+
+        # Reescrever o conteúdo formatado para o arquivo
+        with open(pom_path, 'w', encoding='utf-8') as file:
+            file.write(dom.toprettyxml(indent='    '))
+
+def remove_blank_lines(directory):
+    pom_files = find_pom_file(directory)
+
+    if not pom_files:
+        print("Arquivo 'pom.xml' não encontrado no diretório ou subdiretórios.")
+        return
+
+    for pom_path in pom_files:
+        with open(pom_path, 'r', encoding='utf-8') as file:
+            xml_content = file.read()
+            dom = xml.dom.minidom.parseString(xml_content)
+
+        # Remover sequências de duas linhas em branco
+        lines = dom.toprettyxml(indent='    ').splitlines()
+        filtered_lines = [lines[0]]  # Adiciona a primeira linha
+
+        for i in range(1, len(lines)):
+            if lines[i].strip() or lines[i - 1].strip():
+                filtered_lines.append(lines[i])
+
+        formatted_xml = '\n'.join(filtered_lines)
+
+        # Reescrever o conteúdo sem as sequências de duas linhas em branco
+        with open(pom_path, 'w', encoding='utf-8') as file:
+            file.write(formatted_xml)
+
 def add_dependency_to_pom(group_id, artifact_id, version, directory):
     pom_files = find_pom_file(directory)
 
@@ -115,6 +173,9 @@ def create_maven_project(group_id, artifact_id, directory, dependency=None):
         if dependency:
             for d in dependency:
                 add_dependency_to_pom(d.getGroupId(), d.getArtifactId(), d.getVersion(), directory)
+            remove_namespace(directory)
+            format_xml(directory)
+            remove_blank_lines(directory)
     except subprocess.CalledProcessError as erro:
         print(f"Erro ao criar o projeto Maven:")
 
