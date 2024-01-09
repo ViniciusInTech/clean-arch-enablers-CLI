@@ -172,7 +172,8 @@ def create_maven_project(group_id, artifact_id, directory, dependency=None):
         print(f"Projeto Maven {artifact_id} criado com sucesso no diretório {directory}!")
         if dependency:
             for d in dependency:
-                add_dependency_to_pom(d.getGroupId(), d.getArtifactId(), d.getVersion(), directory)
+                arti = split_words(artifact_id)[0]
+                add_dependency_to_pom(replace_tag(d.getGroupId(),group_id), replace_tag(d.getArtifactId(), arti), d.getVersion(), directory)
             remove_namespace(directory)
             format_xml(directory)
             remove_blank_lines(directory)

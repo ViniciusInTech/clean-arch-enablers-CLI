@@ -35,6 +35,9 @@ def to_pascal_case(input_list):
     pascal_case_string = "".join(word.capitalize() for word in input_list)
     return pascal_case_string
 
+def to_nomal_case(string):
+    return string
+
 def get_os_path(arg):
     return os.getcwd()
 

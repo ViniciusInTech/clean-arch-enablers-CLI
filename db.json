@@ -25,19 +25,24 @@
                     "path": "<pc></pc>/Adaptadores/",
                     "dependencies":[
                         {
-                            "groupId": "com.nimbusds",
-                            "artifactId": "nimbus-jose-jwt",
-                            "version": "9.30.2"
+                            "groupId": "<group_id></group_id>",
+                            "artifactId": "<artifact_id></artifact_id>",
+                            "version": "1.0-SNAPSHOT"
                         },
                         {
-                            "groupId": "org.projectlombok",
-                            "artifactId": "lombok",
-                            "version": "1.18.26"
+                            "groupId": "ch.qos.logback",
+                            "artifactId": "logback-classic",
+                            "version": "1.4.7"
                         },
                         {
-                            "groupId": "br.com.stockio",
-                            "artifactId": "clean-arch-enablers",
-                            "version": "2.0.3"
+                            "groupId": "io.github.julucinho",
+                            "artifactId": "httpClient",
+                            "version": "1.0.2"
+                        },
+                        {
+                            "groupId": "io.github.julucinho",
+                            "artifactId": "mapper",
+                            "version": "1.0.0"
                         }
                     ]
                 },
@@ -67,19 +72,9 @@
                     "path": "<pc></pc>/Montadores/",
                     "dependencies":[
                         {
-                            "groupId": "com.nimbusds",
-                            "artifactId": "nimbus-jose-jwt",
-                            "version": "9.30.2"
-                        },
-                        {
-                            "groupId": "org.projectlombok",
-                            "artifactId": "lombok",
-                            "version": "1.18.26"
-                        },
-                        {
-                            "groupId": "br.com.stockio",
-                            "artifactId": "clean-arch-enablers",
-                            "version": "2.0.3"
+                            "groupId": "<group_id></group_id>",
+                            "artifactId": "<artifact_id></artifact_id>-adapters",
+                            "version": "1.0-SNAPSHOT"
                         }
                     ]
                 },
@@ -96,11 +91,6 @@
                             "groupId": "org.projectlombok",
                             "artifactId": "lombok",
                             "version": "1.18.26"
-                        },
-                        {
-                            "groupId": "br.com.stockio",
-                            "artifactId": "clean-arch-enablers",
-                            "version": "2.0.3"
                         }
                     ]
                 }

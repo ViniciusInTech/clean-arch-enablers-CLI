@@ -1,10 +1,11 @@
 import os
 import re
+import json
 
 from cae_plugins.db import get_function_by_name
 from cae_core.searchAndRead import find_folder
 from cae_core.utils import to_snake_case, split_words, join_words, to_pascal_case, to_package_format_case, \
-    remove_after_use_case, get_os_path
+    remove_after_use_case, get_os_path, to_nomal_case
 from cae_core.variables import write_permission, structure_root_folder, \
     regex_to_replace_template, barra_system
 
@@ -14,8 +15,28 @@ string_manipulation = {
     "pk": to_package_format_case,
     "pk_no_name": remove_after_use_case,
     "os": get_os_path,
+    "group_id": to_nomal_case,
+    "artifact_id": to_nomal_case,
 }
 
+
+def criar_novo_project_config(group_id, artifact_id, pasta):
+    # Construindo o caminho do arquivo JSON
+    caminho_arquivo = os.path.join(pasta, 'configCae.json')
+
+    # Criando o dicionário com os dados groupId e artifactId
+    dados = {
+        "geral": {
+            "groupId": group_id,
+            "artifactId": artifact_id
+        }
+    }
+
+    # Escrevendo os dados no arquivo JSON
+    with open(caminho_arquivo, 'w') as arquivo_json:
+        json.dump(dados, arquivo_json, indent=4)
+    print(f"Arquivo config criado em {caminho_arquivo}")
+    return caminho_arquivo
 
 def create_dir(path):
     if not os.path.exists(path):
