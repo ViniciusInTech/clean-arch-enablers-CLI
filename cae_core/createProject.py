@@ -20,7 +20,7 @@ def create_project_pk(group_id, artifact_id):
     path = os.getcwd()+barra_system
     for project in projects:
         directory = path + project.GetPath()
-        create_maven_project(group_id, project.GetName(), directory, project.GetDependencies())
+        create_maven_project(group_id, project.GetName(), directory, project.GetDependencies(),project.structure)
 
 
 def create_dir_structure_pk(name, name_project="project"):
@@ -38,16 +38,18 @@ def project_name_and_path(projects_list, name=None):
         if name is not None:
             name_tag = replace_tag(p['name'], name)
             path_tag = replace_tag(p['path'], name)
+            structure_tag = replace_tag(p['structure'], name)
         else:
             name_tag = p['name']
             path_tag = p['path']
+            structure_tag = p['structure']
 
         dependencies = [
             DependenciesClass(dep['groupId'], dep['artifactId'], dep['version'])
             for dep in p.get('dependencies', [])
         ]
 
-        projects_obj.append(ProjectClass(name_tag, path_tag, dependencies))
+        projects_obj.append(ProjectClass(name_tag, path_tag, dependencies, structure_tag))
 
     return projects_obj
 """def project_name_and_path(projects_list, name=None):
@@ -162,12 +164,15 @@ def add_dependency_to_pom(group_id, artifact_id, version, directory):
         except Exception as e:
             print(f"Erro ao adicionar a dependência: {e}")
 
-def create_maven_project(group_id, artifact_id, directory, dependency=None):
+def create_maven_project(group_id, artifact_id, directory, dependency=None, structure=None):
     try:
         os.makedirs(directory, exist_ok=True)  # Criar o diretório se não existir
         os.chdir(directory)  # Mudar para o diretório do projeto
 
-        command_maven = f"mvn archetype:generate -DgroupId={group_id} -DartifactId={artifact_id} -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false"
+        package_structure = f"{group_id}.{split_words(artifact_id)[0]}{structure}"
+
+        # Comando Maven para gerar o projeto com a estrutura de pacotes específica
+        command_maven = f"mvn archetype:generate -DgroupId={group_id} -DartifactId={artifact_id} -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false -Dpackage={package_structure}"
         subprocess.run(command_maven, shell=True, check=True)
         print(f"Projeto Maven {artifact_id} criado com sucesso no diretório {directory}!")
         if dependency:

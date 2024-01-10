@@ -5,7 +5,7 @@ import json
 from cae_plugins.db import get_function_by_name
 from cae_core.searchAndRead import find_folder
 from cae_core.utils import to_snake_case, split_words, join_words, to_pascal_case, to_package_format_case, \
-    remove_after_use_case, get_os_path, to_nomal_case
+    remove_after_use_case, get_os_path, to_nomal_case, group_id, artifact_id
 from cae_core.variables import write_permission, structure_root_folder, \
     regex_to_replace_template, barra_system
 
@@ -15,8 +15,9 @@ string_manipulation = {
     "pk": to_package_format_case,
     "pk_no_name": remove_after_use_case,
     "os": get_os_path,
-    "group_id": to_nomal_case,
-    "artifact_id": to_nomal_case,
+    "replace": to_nomal_case,
+    "group_id": group_id,
+    "artifact_id": artifact_id,
 }
 
 

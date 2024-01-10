@@ -39,13 +39,17 @@ class DependenciesClass:
 
 
 class ProjectClass:
-    def __init__(self, name, path, dependencies):
+    def __init__(self, name, path, dependencies, structure):
         self.name = name
         self.path = path
+        self.structure = structure
         self.dependencies = dependencies  # Armazena as dependências como uma lista de objetos DependenciesClass
 
     def GetName(self):
         return self.name
+
+    def GetStructure(self):
+        return self.structure
 
     def GetPath(self):
         return self.path

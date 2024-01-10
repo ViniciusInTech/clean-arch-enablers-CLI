@@ -1,3 +1,4 @@
+import json
 import os
 import re
 import subprocess
@@ -35,9 +36,54 @@ def to_pascal_case(input_list):
     pascal_case_string = "".join(word.capitalize() for word in input_list)
     return pascal_case_string
 
+
+def buscar_arquivo(nome_arquivo, diretorio=os.getcwd()):
+    for pasta_atual, _, arquivos in os.walk(diretorio):
+        # Procura pelo arquivo dentro da pasta atual
+        if nome_arquivo in arquivos:
+            caminho_arquivo = os.path.join(pasta_atual, nome_arquivo)
+            with open(caminho_arquivo, 'r') as arquivo:
+                return arquivo.read()
+
+        # Procura nas pastas superiores
+        diretorio_pai = os.path.dirname(pasta_atual)
+        if diretorio_pai != pasta_atual:
+            caminho_arquivo_pai = os.path.join(diretorio_pai, nome_arquivo)
+            if os.path.exists(caminho_arquivo_pai):
+                with open(caminho_arquivo_pai, 'r') as arquivo_pai:
+                    return arquivo_pai.read()
+
+    return "Arquivo não encontrado"
+
+
+
+def extrair_ids_do_json(dados_json):
+    # Carregar o JSON
+    dados = json.loads(dados_json)
+
+    # Verificar se a estrutura do JSON está correta
+    if "geral" in dados and "groupId" in dados["geral"] and "artifactId" in dados["geral"]:
+        group_id = dados["geral"]["groupId"]
+        artifact_id = dados["geral"]["artifactId"]
+        return group_id, artifact_id
+    else:
+        return None, None
+
+
 def to_nomal_case(string):
     return string
 
+def artifact_id(arg):
+    group_id, artifact_id = extrair_ids_do_json(buscar_arquivo("configCae.json"))
+    return artifact_id
+def group_id(arg):
+    group_id, artifact_id = extrair_ids_do_json(buscar_arquivo("configCae.json"))
+    return group_id
+"""
+print(buscar_arquivo("configCae.json"))
+        group_id, artifact_id = extrair_ids_do_json(buscar_arquivo("configCae.json"))
+        print(group_id, artifact_id)
+"""
 def get_os_path(arg):
     return os.getcwd()
 
