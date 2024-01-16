@@ -44,7 +44,6 @@ def buscar_arquivo(nome_arquivo, diretorio=os.getcwd()):
             caminho_arquivo = os.path.join(pasta_atual, nome_arquivo)
             with open(caminho_arquivo, 'r') as arquivo:
                 return arquivo.read()
-
         # Procura nas pastas superiores
         diretorio_pai = os.path.dirname(pasta_atual)
         if diretorio_pai != pasta_atual:
@@ -79,11 +78,7 @@ def artifact_id(arg):
 def group_id(arg):
     group_id, artifact_id = extrair_ids_do_json(buscar_arquivo("configCae.json"))
     return group_id
-"""
-print(buscar_arquivo("configCae.json"))
-        group_id, artifact_id = extrair_ids_do_json(buscar_arquivo("configCae.json"))
-        print(group_id, artifact_id)
-"""
+
 def get_os_path(arg):
     return os.getcwd()
 

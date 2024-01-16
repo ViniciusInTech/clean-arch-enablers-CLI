@@ -174,7 +174,7 @@ def create_maven_project(group_id, artifact_id, directory, dependency=None, stru
         # Comando Maven para gerar o projeto com a estrutura de pacotes específica
         command_maven = f"mvn archetype:generate -DgroupId={group_id} -DartifactId={artifact_id} -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false -Dpackage={package_structure}"
         subprocess.run(command_maven, shell=True, check=True)
-        print(f"Projeto Maven {artifact_id} criado com sucesso no diretório {directory}!")
+        print(f"Maven project {artifact_id} was created successfully at {directory}!")
         if dependency:
             for d in dependency:
                 arti = split_words(artifact_id)[0]
@@ -183,6 +183,6 @@ def create_maven_project(group_id, artifact_id, directory, dependency=None, stru
             format_xml(directory)
             remove_blank_lines(directory)
     except subprocess.CalledProcessError as erro:
-        print(f"Erro ao criar o projeto Maven:")
+        print(f"Something went wrong while trying to create maven project: {erro}")
 
 

@@ -23,7 +23,18 @@ def main():
 
 def new(args):
     function = args[arg_function_index]
-    if is_a_java_project() and function == "fuc":
+    if function.lower() == "project":
+        arg_list = []
+        arg = args[arg_index_of_use_case_name].lower()
+        arg_list.append(arg)
+        group_id = args[arg_index_of_use_case_name+1]
+        create_dir_structure_pk(arg)
+        name_dir = to_pascal_case(split_words(arg))
+        criar_novo_project_config(group_id, arg, f"{os.getcwd()}{barra_system}{name_dir}")
+        mudar_diretorio(f"{os.getcwd()}{barra_system}{name_dir}")
+        create_file_structure(arg, args[1])
+        create_project_pk(group_id, arg_list)
+    else:
         arg = args[arg_index_of_use_case_name]
         arg_function_name = args[arg_function_index]
         dir_root = os.getcwd()
@@ -31,29 +42,16 @@ def new(args):
 
         for i in itens:
             mudar_diretorio(find_folder_absolute(i))
-            dir_structure = get_dir_by_function("fuc_"+i)
+            dir_structure = get_dir_by_function(f"{arg_function_name}_" + i)
             create_folder_structure(arg, dir_structure)
-            create_file_structure(arg, "fuc_"+i)
+            create_file_structure(arg, f"{arg_function_name}_" + i)
             mudar_diretorio(dir_root)
-            print("fuc_"+i)
-    if args[arg_function_index] == "project":
-        arg_list = []
-        arg = args[arg_index_of_use_case_name]
-        arg_list.append(arg)
-        group_id = args[arg_index_of_use_case_name+1]
-        create_dir_structure_pk(arg)
-        name_dir = to_pascal_case(split_words(arg))
-        project_config = criar_novo_project_config(group_id, arg, f"{os.getcwd()}{barra_system}{name_dir}")
-        create_file_structure(arg, args[1])
-        create_project_pk(group_id, arg_list)
-    else:
-        pass
 
 
 def add(args):
     names = [args[1]]
     print(f"You are about to create a new template '{args[1]}'")
-    print(f"press only ENTER to exit")
+    print(f"Press ENTER to exit")
     names = name_add(names)
     dirs = dir_add()
     files = file_add()
@@ -63,7 +61,7 @@ def add(args):
 
 def name_add(names):
     print(" ")
-    print("ID name for this templates")
+    print("Template ID:")
     while True:
         name = input("name: ")
         if name == "":
@@ -92,8 +90,8 @@ def file_add():
         name = input("name of file: ")
         if name == "":
             break
-        path = input("path relative of file: ")
-        input("Press any to open editor for content template")
+        path = input("Relative path of file: ")
+        input("Press any key to open content template editor")
         content = open_in_nano()
         files.append(new_file_json(name, path, content))
     return files

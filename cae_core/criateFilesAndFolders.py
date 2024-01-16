@@ -45,7 +45,7 @@ def create_dir(path):
         print(f"create dir: {path}")
         return path
     else:
-        print(f'don´t possible create use-case in: {path}')
+        print(f'It is not possible to create use case in: {path}')
 
 
 def create_file(path, conteudo):

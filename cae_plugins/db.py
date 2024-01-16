@@ -25,7 +25,7 @@ def find_key(dados, key):
     try:
         return dados[key]
     except KeyError:
-        print(f"don't find key '{key}'")
+        print(f"Key not found: ‘{key}’")
         return None
 
 
@@ -38,7 +38,7 @@ def get_all_functions():
         return functions
 
     except Exception:
-        print(f"Error in get all functions")
+        print(f"Error while getting all functions")
         return None
 
 
@@ -72,7 +72,7 @@ def get_function_by_name(name_function):
                 if name == name_function:
                     return function
     except Exception:
-        print(f"Function '{name_function}' don´t found")
+        print(f"Function ‘{name_function}’ was not found.")
         return None
 
 
