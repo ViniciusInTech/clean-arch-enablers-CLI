@@ -2,6 +2,7 @@ import os
 import re
 import json
 
+from cae_core.exceptions import function_dir_dont_found, dont_find_use_cases_dir
 from cae_plugins.db import get_function_by_name
 from cae_core.searchAndRead import find_folder
 from cae_core.utils import to_snake_case, split_words, join_words, to_pascal_case, to_package_format_case, \
@@ -58,7 +59,9 @@ def create_file(path, conteudo):
 
 def create_folder_structure(name_folder, folder_structure):
     name_folder = split_words(name_folder)
-    path_use_case = create_dir(find_folder(structure_root_folder) + barra_system + to_snake_case(name_folder))
+    folder = find_folder(structure_root_folder)
+    dont_find_use_cases_dir(folder)
+    path_use_case = create_dir( folder + barra_system + to_snake_case(name_folder))
     for case in folder_structure:
         create_dir(path_use_case + barra_system + case)
 

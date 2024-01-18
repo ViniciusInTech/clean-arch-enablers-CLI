@@ -1,6 +1,7 @@
 import json
 import os
 from cae_core.classes import *
+from cae_core.exceptions import function_dir_dont_found
 
 db_path = "../db.json"
 
@@ -25,7 +26,7 @@ def find_key(dados, key):
     try:
         return dados[key]
     except KeyError:
-        print(f"Key not found: ‘{key}’")
+        print(f"Key not found: '{key}'")
         return None
 
 
@@ -56,11 +57,16 @@ def get_all_functions_name():
 
 def get_by_function(function):
     dados = load_json(db_path)["functions"]
-    return FunctionClass(find_key(dados, function))
+    function_dados = find_key(dados, function)
+    if function_dados is None:
+        return None
+    return FunctionClass(function_dados)
 
 
 def get_dir_by_function(function):
-    return get_by_function(function).GetDir()
+    function_dados = get_by_function(function)
+    function_dir_dont_found(function_dados, function)
+    return function_dados.GetDir()
 
 
 def get_function_by_name(name_function):

@@ -39,14 +39,12 @@ def new(args):
         arg_function_name = args[arg_function_index]
         dir_root = os.getcwd()
         itens = filtrar_itens(list_dir_on_folder(os.getcwd()), ['Adaptadores', 'Core', "Montadores"])
-
         for i in itens:
             mudar_diretorio(find_folder_absolute(i))
             dir_structure = get_dir_by_function(f"{arg_function_name}_" + i)
             create_folder_structure(arg, dir_structure)
             create_file_structure(arg, f"{arg_function_name}_" + i)
             mudar_diretorio(dir_root)
-
 
 def add(args):
     names = [args[1]]
