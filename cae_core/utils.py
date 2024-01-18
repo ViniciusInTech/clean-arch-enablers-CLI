@@ -5,7 +5,7 @@ import subprocess
 import tempfile
 
 from cae_core.searchAndRead import find_folder
-from cae_core.variables import filter_package_java, filter_java
+from cae_core.variables import filter_package_java, filter_java, barra_system
 
 
 def split_words(string):
@@ -91,7 +91,7 @@ def to_camel_case(input_list):
 def to_package_format(path):
     parts = path.split(filter_package_java, filter_java)
     if len(parts) > filter_java:
-        return parts[filter_java].replace("\\", ".")
+        return parts[filter_java].replace(barra_system, ".")
     else:
         return path
 
@@ -100,7 +100,7 @@ def to_package_format_case(case):
     path = find_folder(to_snake_case(case))
     parts = path.split(filter_package_java, filter_java)
     if len(parts) > filter_java:
-        return parts[filter_java].replace("\\", ".")
+        return parts[filter_java].replace(barra_system, ".")
     else:
         return path
 
