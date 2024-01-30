@@ -5,7 +5,7 @@ import subprocess
 import tempfile
 
 from cae_core.searchAndRead import find_folder
-from cae_core.variables import filter_package_java, filter_java, barra_system
+from cae_core.variables import filter_package_java, filter_java
 
 
 def split_words(string):
@@ -44,6 +44,7 @@ def buscar_arquivo(nome_arquivo, diretorio=os.getcwd()):
             caminho_arquivo = os.path.join(pasta_atual, nome_arquivo)
             with open(caminho_arquivo, 'r') as arquivo:
                 return arquivo.read()
+
         # Procura nas pastas superiores
         diretorio_pai = os.path.dirname(pasta_atual)
         if diretorio_pai != pasta_atual:
@@ -78,7 +79,11 @@ def artifact_id(arg):
 def group_id(arg):
     group_id, artifact_id = extrair_ids_do_json(buscar_arquivo("configCae.json"))
     return group_id
-
+"""
+print(buscar_arquivo("configCae.json"))
+        group_id, artifact_id = extrair_ids_do_json(buscar_arquivo("configCae.json"))
+        print(group_id, artifact_id)
+"""
 def get_os_path(arg):
     return os.getcwd()
 
@@ -91,7 +96,7 @@ def to_camel_case(input_list):
 def to_package_format(path):
     parts = path.split(filter_package_java, filter_java)
     if len(parts) > filter_java:
-        return parts[filter_java].replace(barra_system, ".")
+        return parts[filter_java].replace("\\", ".")
     else:
         return path
 
@@ -100,7 +105,7 @@ def to_package_format_case(case):
     path = find_folder(to_snake_case(case))
     parts = path.split(filter_package_java, filter_java)
     if len(parts) > filter_java:
-        return parts[filter_java].replace(barra_system, ".")
+        return parts[filter_java].replace("\\", ".")
     else:
         return path
 

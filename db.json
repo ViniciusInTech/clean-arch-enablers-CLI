@@ -15,14 +15,14 @@
             "files": [
                 {
                     "name": "dependency_sync.sh",
-                    "path": "",
+                    "path": "<pc></pc>",
                     "content": "#!/bin/bash\n\nprojects=(\n    \"<os></os>/<pc></pc>/Core/<sc></sc>\"\n    \"<os></os>/<pc></pc>/Adaptadores/<sc></sc>-adapters\"\n    \"<os></os>/<pc></pc>/Montadores/<sc></sc>-assemblers\"\n    \"<os></os>/<pc></pc>/Provisionadores/<sc></sc>-rest-endpoint-dispatchers\"\n)"
                 }
             ],
             "projects": [
                 {
                     "name": "<sc></sc>-adapters",
-                    "path": "Adaptadores/",
+                    "path": "<pc></pc>/Adaptadores/",
                     "structure": ".adapters.use_cases",
                     "dependencies":[
                         {
@@ -49,7 +49,7 @@
                 },
                 {
                     "name": "<sc></sc>",
-                    "path": "Core/",
+                    "path": "<pc></pc>/Core/",
                     "structure": ".core.use_cases",
                     "dependencies":[
                         {
@@ -71,7 +71,7 @@
                 },
                 {
                     "name": "<sc></sc>-assemblers",
-                    "path": "Montadores/",
+                    "path": "<pc></pc>/Montadores/",
                     "structure": ".assemblers.use_cases",
                     "dependencies":[
                         {
@@ -80,6 +80,70 @@
                             "version": "1.0-SNAPSHOT"
                         }
                     ]
+                },
+                {
+                    "name": "<sc></sc>-rest-endpoint-dispatchers",
+                    "path": "<pc></pc>/Provisionadores/",
+                    "structure": ".rest_endpoint_dispatchers.use_cases",
+                    "dependencies":[
+                        {
+                            "groupId": "com.nimbusds",
+                            "artifactId": "nimbus-jose-jwt",
+                            "version": "9.30.2"
+                        },
+                        {
+                            "groupId": "org.projectlombok",
+                            "artifactId": "lombok",
+                            "version": "1.18.26"
+                        }
+                    ]
+                }
+            ]
+        },
+        "fuc": {
+            "name": [
+                "fuc",
+                "function use case"
+            ],
+            "dir": [
+                "factories",
+                "factories/dependency_wrapper",
+                "implementations",
+                "implementations/ports",
+                "io",
+                "io/inputs",
+                "io/outputs"
+            ],
+            "files": [
+                {
+                    "name": "<pc></pc>UseCase.java",
+                    "path": "/<sc></sc>/",
+                    "content": "package <group_id></group_id>;\n\nimport <pk_no_name></pk_no_name>.loggers.Logger;\nimport <pk_no_name></pk_no_name>.use_cases.metada.UseCaseMetadata;\nimport <pk_no_name></pk_no_name>.io.inputs.<pc></pc>UseCaseInput;\nimport <pk></pk>.io.outputs.<pc></pc>UseCaseOutput;\nimport <pk></pk>.specifics.functions.FunctionUseCase;\n\npublic abstract class <pc></pc>UseCase extends FunctionUseCase< <pc></pc>UseCaseInput, <pc></pc>UseCaseOutput> {\n    protected <pc></pc>UseCase(Logger logger) {\n        super(\n                UseCaseMetadata.ofOpenAccessUseCase(<pc></pc>UseCase.class, \"some description about this use case\"),\n                logger\n        );\n    }\n}"
+                },
+                {
+                    "name": "<pc></pc>UseCaseFactory.java",
+                    "path": "/<sc></sc>/factories/",
+                    "content": "package <pk></pk>.factories;\n\nimport <pk></pk>.<pc></pc>;\nimport <pk></pk>.factories.dependency_wrapper.<pc></pc>UseCaseDependencyWrapper;\nimport <pk></pk>.implementations.<pc></pc>UseCaseImplementation;\n\nimport java.util.Optional;\n\npublic class <pc></pc>UseCaseFactory {\n\n    private <pc></pc>UseCaseFactory(){}\n\n    private static <pc></pc>UseCase singleton = null;\n\n    public static <pc></pc>UseCase makeInstance(<pc></pc>UseCaseDependencyWrapper dependencyWrapper){\n        return Optional.ofNullable(singleton).orelseGet(() -> {\n            singleton = new <pc></pc>UseCaseImplementation(dependencyWrapper.getLogger());\n            return singleton;\n        });\n    }\n\n    public static Optional< <pc></pc> > getSingleton() { return Optional.ofNullable(singleton);}\n\n}"
+                },
+                {
+                    "name": "<pc></pc>UseCaseImplementation.java",
+                    "path": "/<sc></sc>/implementations/",
+                    "content": "package <pk></pk>.implementations;\n\nimport <pk_no_name></pk_no_name>.loggers.Logger;\nimport <pk_no_name></pk_no_name>.use_cases.correlations.UseCaseExecutionCorrelation;\nimport <pk></pk>.<pc></pc>UseCase;\nimport <pk></pk>.io.inputs.<pc></pc>UseCaseInput;\nimport <pk></pk>.io.outputs.<pc></pc>UseCaseOutput;\n\npublic class <pc></pc>UseCaseImplementation extends <pc></pc>UseCase{\n\n    //declare here the ports and other dependencies you might need within this use case implementation\n\n    public <pc></pc>UseCaseImplementation(Logger logger) {super(logger);}\n\n    @Override\n    protected <pc></pc>UseCaseOutput applyInternalLogic(<pc></pc>UseCaseInput input, UseCaseExecutionCorrelation correlation) {\n    //implement the logic of the use case here. to make contact with dependencies from here, create ports.\n    return null;\n    }\n}"
+                },
+                {
+                    "name": "<pc></pc>UseCaseInput.java",
+                    "path": "/<sc></sc>/io/inputs/",
+                    "content": "package <pk></pk>.io.inputs;\n\nimport <pk></pk>.io.UseCaseInput;\n\npublic class <pc></pc>UseCaseInput extends UseCaseInput {\n    //Define the attributes for the input of the <pc></pc>UseCase here.\n}"
+                },
+                {
+                    "name": "<pc></pc>UseCaseOutput.java",
+                    "path": "/<sc></sc>/io/outputs/",
+                    "content": "package <pk></pk>.io.outputs;\n\nimport <pk></pk>.io.UseCaseInput;\n\npublic class <pc></pc>UseCaseOutput {\n    //Define the attributes for the output of the <pc></pc>UseCase here.\n}"
+                },
+                {
+                    "name": "<pc></pc>UseCaseDependencyWrapper.java",
+                    "path": "/<sc></sc>/factories/dependency_wrapper",
+                    "content": "package <pk></pk>.factories.dependency_wrapper;\n\nimport <<package_no_use_case>>.Loggers.loggers;\nimport <pk></pk>.dependency_wrappers.UseCaseDependencyWrapper;\n\npublic class <pc></pc>UseCaseDependencyWrapper extends UseCaseDependencyWrapper {\n\n    //declare here the dependencies your uses case has\n    private final Logger logger;\n\n    public <pc></pc>UseCaseDependencyWrapper(Logger logger) {this.logger = logger;}\n\n    //it is a good thing to make sure the attributes aren\u00c2\u00b4t null, unless explicitly intended otherwise\n\n    public Logger getLogger() {return this.getValueWithNullSafety(this.logger);}\n\n    }"
                 }
             ]
         },
@@ -102,32 +166,32 @@
                 {
                     "name": "<pc></pc>UseCase.java",
                     "path": "/<sc></sc>/",
-                    "content": "package <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>;\n\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.io.inputs.<pc></pc>UseCaseInput;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.io.outputs.<pc></pc>UseCaseOutput;\nimport br.com.stockio.loggers.Logger;\nimport br.com.stockio.use_cases.metadata.UseCaseMetadata;\nimport br.com.stockio.use_cases.specifics.functions.FunctionUseCase;\n\npublic abstract class <pc></pc>UseCase extends FunctionUseCase<<pc></pc>UseCaseInput, <pc></pc>UseCaseOutput> {\n    protected <pc></pc>UseCase(Logger logger) {\n        super(UseCaseMetadata.ofOpenAccessUseCase(<pc></pc>UseCase.class, \"use case for...\"), logger);\n    }\n}\n"
+                    "content": "package <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>;\n\nimport <group_id></group_id>.loggers.Logger;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.io.inputs.<pc></pc>UseCaseInput;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.io.outputs.<pc></pc>UseCaseOutput;\nimport <group_id></group_id>.use_cases.metadata.UseCaseMetadata;\nimport <group_id></group_id>.use_cases.specifics.functions.FunctionUseCase;\n\npublic abstract class <pc></pc>UseCase extends FunctionUseCase<<pc></pc>UseCaseInput, <pc></pc>UseCaseOutput> {\n    protected <pc></pc>UseCase(Logger logger) {\n        super(UseCaseMetadata.ofOpenAccessUseCase(<pc></pc>UseCase.class, \"use case for...\"), logger);\n    }\n}\n"
                 },
                 {
                     "name": "<pc></pc>UseCaseFactory.java",
                     "path": "/<sc></sc>/factories/",
-                    "content": "package <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories;\n\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.<pc></pc>UseCase;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories.dependency_wrapper.<pc></pc>UseCaseDependencyWrapper;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.implementations.<pc></pc>UseCaseImplementation;\nimport lombok.AccessLevel;\nimport lombok.NoArgsConstructor;\n\nimport java.util.Optional;\n\n@NoArgsConstructor(access = AccessLevel.PRIVATE)\npublic class <pc></pc>UseCaseFactory {\n\n    private static <pc></pc>UseCase singleton;\n\n    public static <pc></pc>UseCase getSingleton(<pc></pc>UseCaseDependencyWrapper dependencyWrapper){\n        return Optional.ofNullable(singleton).orElseGet(() -> {\n            singleton = new <pc></pc>UseCaseImplementation(\n \t \t \t \tdependencyWrapper.getLoggerAdapter()\n \t \t \t);\n            return singleton;\n        });\n    }\n\n}"
+                    "content": "package <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories;\n\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.<pc></pc>;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories.dependency_wrapper.<pc></pc>DependencyWrapper;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.implementations.<pc></pc>Implementation;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.implementations.dependencies.mappers.factories.NewCompanyMapperFactory;\nimport lombok.AccessLevel;\nimport lombok.NoArgsConstructor;\n\nimport java.util.Optional;\n\n@NoArgsConstructor(access = AccessLevel.PRIVATE)\npublic class <pc></pc>Factory {\n\n    private static <pc></pc> singletonUseCaseV1;\n\n    public static <pc></pc> getSingletonInstanceV1Using(<pc></pc>DependencyWrapper dependencyWrapper){\n        return Optional.ofNullable(singletonUseCaseV1).orElseGet(() -> {\n            singletonUseCaseV1 = new <pc></pc>Implementation();\n            return singletonUseCaseV1;\n        });\n    }\n\n}"
                 },
                 {
                     "name": "<pc></pc>UseCaseImplementation.java",
                     "path": "/<sc></sc>/implementations/",
-                    "content": "package <pk></pk>.implementations;\n\nimport br.com.stockio.loggers.Logger;\nimport br.com.stockio.use_cases.correlations.UseCaseExecutionCorrelation;\nimport <pk></pk>.<pc></pc>UseCase;\nimport <pk></pk>.io.inputs.<pc></pc>UseCaseInput;\nimport <pk></pk>.io.outputs.<pc></pc>UseCaseOutput;\n\npublic class <pc></pc>UseCaseImplementation extends <pc></pc>UseCase{\n\n    //declare here the ports and other dependencies you might need within this use case implementation\n\n    public <pc></pc>UseCaseImplementation(Logger logger) { \n \t \tsuper(logger); \n \t}\n\n    @Override\n    protected <pc></pc>UseCaseOutput applyInternalLogic(<pc></pc>UseCaseInput input, UseCaseExecutionCorrelation correlation) {\n \t \t//implement the logic of the use case here. to make contact with dependencies from here, create ports.\n \t \treturn null;\n    }\n}"
+                    "content": "package <pk></pk>.implementations;\n\nimport <pk_no_name></pk_no_name>.loggers.Logger;\nimport <pk_no_name></pk_no_name>.use_cases.correlations.UseCaseExecutionCorrelation;\nimport <pk></pk>.<pc></pc>UseCase;\nimport <pk></pk>.io.inputs.<pc></pc>UseCaseInput;\nimport <pk></pk>.io.outputs.<pc></pc>UseCaseOutput;\n\npublic class <pc></pc>UseCaseImplementation extends <pc></pc>UseCase{\n\n    //declare here the ports and other dependencies you might need within this use case implementation\n\n    public <pc></pc>UseCaseImplementation(Logger logger) {super(logger);}\n\n    @Override\n    protected <pc></pc>UseCaseOutput applyInternalLogic(<pc></pc>UseCaseInput input, UseCaseExecutionCorrelation correlation) {\n    //implement the logic of the use case here. to make contact with dependencies from here, create ports.\n    return null;\n    }\n}"
                 },
                 {
                     "name": "<pc></pc>UseCaseInput.java",
                     "path": "/<sc></sc>/io/inputs/",
-                    "content": "package <pk></pk>.io.inputs;\n\nimport br.com.stockio.use_cases.io.UseCaseInput;\n\npublic class <pc></pc>UseCaseInput extends UseCaseInput {\n    //Define the attributes for the input of the <pc></pc>UseCase here.\n}"
+                    "content": "package <pk></pk>.io.inputs;\n\nimport <pk></pk>.io.UseCaseInput;\n\npublic class <pc></pc>UseCaseInput extends UseCaseInput {\n    //Define the attributes for the input of the <pc></pc>UseCase here.\n}"
                 },
                 {
                     "name": "<pc></pc>UseCaseOutput.java",
                     "path": "/<sc></sc>/io/outputs/",
-                    "content": "package <pk></pk>.io.outputs;\n\npublic class <pc></pc>UseCaseOutput {\n    //Define the attributes for the output of the <pc></pc>UseCase here.\n}"
+                    "content": "package <pk></pk>.io.outputs;\n\nimport <pk></pk>.io.UseCaseInput;\n\npublic class <pc></pc>UseCaseOutput {\n    //Define the attributes for the output of the <pc></pc>UseCase here.\n}"
                 },
                 {
                     "name": "<pc></pc>UseCaseDependencyWrapper.java",
                     "path": "/<sc></sc>/factories/dependency_wrapper",
-                    "content": "package <pk></pk>.factories.dependency_wrapper;\n\nimport br.com.stockio.loggers.Logger;\nimport br.com.stockio.use_cases.dependency_wrappers.UseCaseDependencyWrapper;\nimport lombok.Builder; \n\n@Builder \npublic class <pc></pc>UseCaseDependencyWrapper extends UseCaseDependencyWrapper {\n\n    //declare here the dependencies your use case has\n    private final Logger loggerAdapter;\n\n    //it is a good thing to make sure the attributes aren\u00c2\u00b4t null, unless explicitly intended otherwise\n\n    public Logger getLoggerAdapter() {\n \t \treturn this.getValueWithNullSafety(this.loggerAdapter);\n \t}\n\n}"
+                    "content": "package <pk></pk>.factories.dependency_wrapper;\n\nimport <<package_no_use_case>>.Loggers.loggers;\nimport <pk></pk>.dependency_wrappers.UseCaseDependencyWrapper;\n\npublic class <pc></pc>UseCaseDependencyWrapper extends UseCaseDependencyWrapper {\n\n    //declare here the dependencies your uses case has\n    private final Logger logger;\n\n    public <pc></pc>UseCaseDependencyWrapper(Logger logger) {this.logger = logger;}\n\n    //it is a good thing to make sure the attributes aren\u00c2\u00b4t null, unless explicitly intended otherwise\n\n    public Logger getLogger() {return this.getValueWithNullSafety(this.logger);}\n\n    }"
                 }
             ]
         },
@@ -139,7 +203,11 @@
             "dir": [
             ],
             "files": [
-                
+                {
+                    "name": "<pc></pc>UseCase.java",
+                    "path": "/<sc></sc>/",
+                    "content": "package <group_id></group_id>.<artifact_id></artifact_id>.assemblers.use_cases.<sc></sc>;\n\nimport <group_id></group_id>.<artifact_id></artifact_id>.adapters.logger.LoggerAdapter;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.<pc></pc>UseCase;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories.<pc></pc>UseCaseFactory;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories.dependency_wrapper.<pc></pc>UseCaseDependencyWrapper;\nimport lombok.AccessLevel;\nimport lombok.NoArgsConstructor;\n\n@NoArgsConstructor(access = AccessLevel.PRIVATE)\npublic class <pc></pc>UseCaseAssembler {\n\n    public static final <pc></pc>UseCase ASSEMBLED_INSTANCE;\n\n    static {\n        //teste\n    }\n\n}\n"
+                }
             ]
         },
         "fuc_Montadores": {
@@ -153,83 +221,15 @@
                 {
                     "name": "<pc></pc>UseCaseAssembler.java",
                     "path": "/<sc></sc>/",
-                    "content": "package <group_id></group_id>.<artifact_id></artifact_id>.assemblers.use_cases.<sc></sc>;\n\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.<pc></pc>UseCase;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories.<pc></pc>UseCaseFactory;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories.dependency_wrapper.<pc></pc>UseCaseDependencyWrapper;\nimport lombok.AccessLevel;\nimport lombok.NoArgsConstructor;\n\n@NoArgsConstructor(access = AccessLevel.PRIVATE)\npublic class <pc></pc>UseCaseAssembler {\n\n    public static final <pc></pc>UseCase ASSEMBLED_INSTANCE;\n\n    static {\n        var dependencyWrapper = <pc></pc>UseCaseDependencyWrapper.builder()\n                .loggerAdapter(null) //make sure to pass a not null instance of your own preferred logger, implementing the interface\n                .build();\n        ASSEMBLED_INSTANCE = <pc></pc>UseCaseFactory.getSingleton(dependencyWrapper);\n    }\n\n}"
+                    "content": "package <group_id></group_id>.<artifact_id></artifact_id>.assemblers.use_cases.<sc></sc>;\n\nimport <group_id></group_id>.<artifact_id></artifact_id>.adapters.logger.LoggerAdapter;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.<pc></pc>UseCase;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories.<pc></pc>UseCaseFactory;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories.dependency_wrapper.<pc></pc>UseCaseDependencyWrapper;\nimport lombok.AccessLevel;\nimport lombok.NoArgsConstructor;\n\n@NoArgsConstructor(access = AccessLevel.PRIVATE)\npublic class <pc></pc>UseCaseAssembler {\n\n    public static final <pc></pc>UseCase ASSEMBLED_INSTANCE;\n\n    static {\n        //teste\n    }\n\n}\n"
                 }
             ]
         },
-        "cuc_Core": {
+        "suc": {
             "name": [
-                "cuc_Core",
-                "cuc_core",
-                "consumer use case"
-            ],
-            "dir": [
-                "factories",
-                "factories/dependency_wrapper",
-                "implementations",
-                "implementations/ports",
-                "io",
-                "io/inputs"
-            ],
-            "files": [
-                {
-                    "name": "<pc></pc>UseCase.java",
-                    "path": "/<sc></sc>/",
-                    "content": "package <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>;\n\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.io.inputs.<pc></pc>UseCaseInput;\nimport br.com.stockio.loggers.Logger;\nimport br.com.stockio.use_cases.metadata.UseCaseMetadata;\nimport br.com.stockio.use_cases.specifics.consumers.ConsumerUseCase;\n\npublic abstract class <pc></pc>UseCase extends ConsumerUseCase<<pc></pc>UseCaseInput> {\n    protected <pc></pc>UseCase(Logger logger) {\n        super(UseCaseMetadata.ofOpenAccessUseCase(<pc></pc>UseCase.class, \"use case for...\"), logger);\n    }\n}\n"
-                },
-                {
-                    "name": "<pc></pc>UseCaseFactory.java",
-                    "path": "/<sc></sc>/factories/",
-                    "content": "package <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories;\n\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.<pc></pc>UseCase;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories.dependency_wrapper.<pc></pc>UseCaseDependencyWrapper;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.implementations.<pc></pc>UseCaseImplementation;\nimport lombok.AccessLevel;\nimport lombok.NoArgsConstructor;\n\nimport java.util.Optional;\n\n@NoArgsConstructor(access = AccessLevel.PRIVATE)\npublic class <pc></pc>UseCaseFactory {\n\n    private static <pc></pc>UseCase singleton;\n\n    public static <pc></pc>UseCase getSingleton(<pc></pc>UseCaseDependencyWrapper dependencyWrapper){\n        return Optional.ofNullable(singleton).orElseGet(() -> {\n            singleton = new <pc></pc>UseCaseImplementation(\n \t \t \t \tdependencyWrapper.getLoggerAdapter()\n \t \t \t);\n            return singleton;\n        });\n    }\n\n}"
-                },
-                {
-                    "name": "<pc></pc>UseCaseImplementation.java",
-                    "path": "/<sc></sc>/implementations/",
-                    "content": "package <pk></pk>.implementations;\n\nimport br.com.stockio.loggers.Logger;\nimport br.com.stockio.use_cases.correlations.UseCaseExecutionCorrelation;\nimport <pk></pk>.<pc></pc>UseCase;\nimport <pk></pk>.io.inputs.<pc></pc>UseCaseInput;\n\npublic class <pc></pc>UseCaseImplementation extends <pc></pc>UseCase{\n\n    //declare here the ports and other dependencies you might need within this use case implementation\n\n    public <pc></pc>UseCaseImplementation(Logger logger) { \n \t \tsuper(logger); \n \t}\n\n    @Override\n    protected void applyInternalLogic(<pc></pc>UseCaseInput input, UseCaseExecutionCorrelation correlation) {\n \t \t//implement the logic of the use case here. to make contact with dependencies from here, create ports.\n    }\n}"
-                },
-                {
-                    "name": "<pc></pc>UseCaseInput.java",
-                    "path": "/<sc></sc>/io/inputs/",
-                    "content": "package <pk></pk>.io.inputs;\n\nimport br.com.stockio.use_cases.io.UseCaseInput;\n\npublic class <pc></pc>UseCaseInput extends UseCaseInput {\n    //Define the attributes for the input of the <pc></pc>UseCase here.\n}"
-                },
-                {
-                    "name": "<pc></pc>UseCaseDependencyWrapper.java",
-                    "path": "/<sc></sc>/factories/dependency_wrapper",
-                    "content": "package <pk></pk>.factories.dependency_wrapper;\n\nimport br.com.stockio.loggers.Logger;\nimport br.com.stockio.use_cases.dependency_wrappers.UseCaseDependencyWrapper;\nimport lombok.Builder; \n\n@Builder \npublic class <pc></pc>UseCaseDependencyWrapper extends UseCaseDependencyWrapper {\n\n    //declare here the dependencies your use case has\n    private final Logger loggerAdapter;\n\n    //it is a good thing to make sure the attributes aren\u00c2\u00b4t null, unless explicitly intended otherwise\n\n    public Logger getLoggerAdapter() {\n \t \treturn this.getValueWithNullSafety(this.loggerAdapter);\n \t}\n\n}"
-                }
-            ]
-        },
-        "cuc_Adaptadores": {
-            "name": [
-                "cuc_Adaptadores",
-                "consumer use case"
-            ],
-            "dir": [
-            ],
-            "files": [
-                
-            ]
-        },
-        "cuc_Montadores": {
-            "name": [
-                "cuc_Montadores",
-                "consumer use case"
-            ],
-            "dir": [
-            ],
-            "files": [
-                {
-                    "name": "<pc></pc>UseCaseAssembler.java",
-                    "path": "/<sc></sc>/",
-                    "content": "package <group_id></group_id>.<artifact_id></artifact_id>.assemblers.use_cases.<sc></sc>;\n\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.<pc></pc>UseCase;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories.<pc></pc>UseCaseFactory;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories.dependency_wrapper.<pc></pc>UseCaseDependencyWrapper;\nimport lombok.AccessLevel;\nimport lombok.NoArgsConstructor;\n\n@NoArgsConstructor(access = AccessLevel.PRIVATE)\npublic class <pc></pc>UseCaseAssembler {\n\n    public static final <pc></pc>UseCase ASSEMBLED_INSTANCE;\n\n    static {\n        var dependencyWrapper = <pc></pc>UseCaseDependencyWrapper.builder()\n                .loggerAdapter(null) //make sure to pass a not null instance of your own preferred logger, implementing the interface\n                .build();\n        ASSEMBLED_INSTANCE = <pc></pc>UseCaseFactory.getSingleton(dependencyWrapper);\n    }\n\n}"
-                }
-            ]
-        },
-        "suc_Core": {
-            "name": [
-                "suc_Core",
-                "suc_core",
-                "supplier use case"
+                "suc",
+                "supplier use case",
+                "SupplierUseCase"
             ],
             "dir": [
                 "factories",
@@ -241,126 +241,20 @@
             ],
             "files": [
                 {
-                    "name": "<pc></pc>UseCase.java",
-                    "path": "/<sc></sc>/",
-                    "content": "package <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>;\n\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.io.outputs.<pc></pc>UseCaseOutput;\nimport br.com.stockio.loggers.Logger;\nimport br.com.stockio.use_cases.metadata.UseCaseMetadata;\nimport br.com.stockio.use_cases.specifics.suppliers.SupplierUseCase;\n\npublic abstract class <pc></pc>UseCase extends SupplierUseCase<<pc></pc>UseCaseOutput> {\n    protected <pc></pc>UseCase(Logger logger) {\n        super(UseCaseMetadata.ofOpenAccessUseCase(<pc></pc>UseCase.class, \"use case for...\"), logger);\n    }\n}\n"
-                },
-                {
                     "name": "<pc></pc>UseCaseFactory.java",
                     "path": "/<sc></sc>/factories/",
-                    "content": "package <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories;\n\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.<pc></pc>UseCase;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories.dependency_wrapper.<pc></pc>UseCaseDependencyWrapper;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.implementations.<pc></pc>UseCaseImplementation;\nimport lombok.AccessLevel;\nimport lombok.NoArgsConstructor;\n\nimport java.util.Optional;\n\n@NoArgsConstructor(access = AccessLevel.PRIVATE)\npublic class <pc></pc>UseCaseFactory {\n\n    private static <pc></pc>UseCase singleton;\n\n    public static <pc></pc>UseCase getSingleton(<pc></pc>UseCaseDependencyWrapper dependencyWrapper){\n        return Optional.ofNullable(singleton).orElseGet(() -> {\n            singleton = new <pc></pc>UseCaseImplementation(\n \t \t \t \tdependencyWrapper.getLoggerAdapter()\n \t \t \t);\n            return singleton;\n        });\n    }\n\n}"
-                },
-                {
-                    "name": "<pc></pc>UseCaseImplementation.java",
-                    "path": "/<sc></sc>/implementations/",
-                    "content": "package <pk></pk>.implementations;\n\nimport br.com.stockio.loggers.Logger;\nimport br.com.stockio.use_cases.correlations.UseCaseExecutionCorrelation;\nimport <pk></pk>.<pc></pc>UseCase;\nimport <pk></pk>.io.outputs.<pc></pc>UseCaseOutput;\n\npublic class <pc></pc>UseCaseImplementation extends <pc></pc>UseCase{\n\n    //declare here the ports and other dependencies you might need within this use case implementation\n\n    public <pc></pc>UseCaseImplementation(Logger logger) { \n \t \tsuper(logger); \n \t}\n\n    @Override\n    protected <pc></pc>UseCaseOutput applyInternalLogic(UseCaseExecutionCorrelation correlation) {\n \t \t//implement the logic of the use case here. to make contact with dependencies from here, create ports.\n \t \treturn null;\n    }\n}"
+                    "content": "package <pk></pk>.factories;\n\nimport <pk></pk>.<pc></pc>;\nimport <pk></pk>.factories.dependency_wrapper.<pc></pc>UseCaseDependencyWrapper;\nimport <pk></pk>.implementations.<pc></pc>UseCaseImplementation;\n\nimport java.util.Optional;\n\npublic class <pc></pc>UseCaseFactory {\n\n    private <pc></pc>UseCaseFactory(){}\n\n    private static <pc></pc>UseCase singleton = null;\n\n    public static <pc></pc>UseCase makeInstance(<pc></pc>UseCaseDependencyWrapper dependencyWrapper){\n        return Optional.ofNullable(singleton).orelseGet(() -> {\n            singleton = new <pc></pc>UseCaseImplementation(dependencyWrapper.getLogger());\n            return singleton;\n        });\n    }\n\n    public static Optional< <pc></pc> > getSingleton() { return Optional.ofNullable(singleton);}\n\n}"
                 },
                 {
                     "name": "<pc></pc>UseCaseOutput.java",
                     "path": "/<sc></sc>/io/outputs/",
                     "content": "package <pk></pk>.io.outputs;\n\npublic class <pc></pc>UseCaseOutput {\n    //Define the attributes for the output of the <pc></pc>UseCase here.\n}"
-                },
-                {
-                    "name": "<pc></pc>UseCaseDependencyWrapper.java",
-                    "path": "/<sc></sc>/factories/dependency_wrapper",
-                    "content": "package <pk></pk>.factories.dependency_wrapper;\n\nimport br.com.stockio.loggers.Logger;\nimport br.com.stockio.use_cases.dependency_wrappers.UseCaseDependencyWrapper;\nimport lombok.Builder; \n\n@Builder \npublic class <pc></pc>UseCaseDependencyWrapper extends UseCaseDependencyWrapper {\n\n    //declare here the dependencies your use case has\n    private final Logger loggerAdapter;\n\n    //it is a good thing to make sure the attributes aren\u00c2\u00b4t null, unless explicitly intended otherwise\n\n    public Logger getLoggerAdapter() {\n \t \treturn this.getValueWithNullSafety(this.loggerAdapter);\n \t}\n\n}"
-                }
-            ]
-        },
-        "suc_Adaptadores": {
-            "name": [
-                "suc_Adaptadores",
-                "supplier use case"
-            ],
-            "dir": [
-            ],
-            "files": [
-                
-            ]
-        },
-        "suc_Montadores": {
-            "name": [
-                "suc_Montadores",
-                "supplier use case"
-            ],
-            "dir": [
-            ],
-            "files": [
-                {
-                    "name": "<pc></pc>UseCaseAssembler.java",
-                    "path": "/<sc></sc>/",
-                    "content": "package <group_id></group_id>.<artifact_id></artifact_id>.assemblers.use_cases.<sc></sc>;\n\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.<pc></pc>UseCase;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories.<pc></pc>UseCaseFactory;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories.dependency_wrapper.<pc></pc>UseCaseDependencyWrapper;\nimport lombok.AccessLevel;\nimport lombok.NoArgsConstructor;\n\n@NoArgsConstructor(access = AccessLevel.PRIVATE)\npublic class <pc></pc>UseCaseAssembler {\n\n    public static final <pc></pc>UseCase ASSEMBLED_INSTANCE;\n\n    static {\n        var dependencyWrapper = <pc></pc>UseCaseDependencyWrapper.builder()\n                .loggerAdapter(null) //make sure to pass a not null instance of your own preferred logger, implementing the interface\n                .build();\n        ASSEMBLED_INSTANCE = <pc></pc>UseCaseFactory.getSingleton(dependencyWrapper);\n    }\n\n}"
-                }
-            ]
-        },
-        "ruc_Core": {
-            "name": [
-                "ruc_Core",
-                "ruc_core",
-                "runnable use case"
-            ],
-            "dir": [
-                "factories",
-                "factories/dependency_wrapper",
-                "implementations",
-                "implementations/ports"
-            ],
-            "files": [
-                {
-                    "name": "<pc></pc>UseCase.java",
-                    "path": "/<sc></sc>/",
-                    "content": "package <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>;\n\nimport br.com.stockio.loggers.Logger;\nimport br.com.stockio.use_cases.metadata.UseCaseMetadata;\nimport br.com.stockio.use_cases.specifics.runnables.RunnableUseCase;\n\npublic abstract class <pc></pc>UseCase extends RunnableUseCase {\n    protected <pc></pc>UseCase(Logger logger) {\n        super(UseCaseMetadata.ofOpenAccessUseCase(<pc></pc>UseCase.class, \"use case for...\"), logger);\n    }\n}\n"
-                },
-                {
-                    "name": "<pc></pc>UseCaseFactory.java",
-                    "path": "/<sc></sc>/factories/",
-                    "content": "package <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories;\n\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.<pc></pc>UseCase;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories.dependency_wrapper.<pc></pc>UseCaseDependencyWrapper;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.implementations.<pc></pc>UseCaseImplementation;\nimport lombok.AccessLevel;\nimport lombok.NoArgsConstructor;\n\nimport java.util.Optional;\n\n@NoArgsConstructor(access = AccessLevel.PRIVATE)\npublic class <pc></pc>UseCaseFactory {\n\n    private static <pc></pc>UseCase singleton;\n\n    public static <pc></pc>UseCase getSingleton(<pc></pc>UseCaseDependencyWrapper dependencyWrapper){\n        return Optional.ofNullable(singleton).orElseGet(() -> {\n            singleton = new <pc></pc>UseCaseImplementation(\n \t \t \t \tdependencyWrapper.getLoggerAdapter()\n \t \t \t);\n            return singleton;\n        });\n    }\n\n}"
-                },
-                {
-                    "name": "<pc></pc>UseCaseImplementation.java",
-                    "path": "/<sc></sc>/implementations/",
-                    "content": "package <pk></pk>.implementations;\n\nimport br.com.stockio.loggers.Logger;\nimport br.com.stockio.use_cases.correlations.UseCaseExecutionCorrelation;\nimport <pk></pk>.<pc></pc>UseCase;\n\npublic class <pc></pc>UseCaseImplementation extends <pc></pc>UseCase{\n\n    //declare here the ports and other dependencies you might need within this use case implementation\n\n    public <pc></pc>UseCaseImplementation(Logger logger) { \n \t \tsuper(logger); \n \t}\n\n    @Override\n    protected void applyInternalLogic(UseCaseExecutionCorrelation correlation) {\n \t \t//implement the logic of the use case here. to make contact with dependencies from here, create ports.\n    }\n}"
-                },
-                {
-                    "name": "<pc></pc>UseCaseDependencyWrapper.java",
-                    "path": "/<sc></sc>/factories/dependency_wrapper",
-                    "content": "package <pk></pk>.factories.dependency_wrapper;\n\nimport br.com.stockio.loggers.Logger;\nimport br.com.stockio.use_cases.dependency_wrappers.UseCaseDependencyWrapper;\nimport lombok.Builder; \n\n@Builder \npublic class <pc></pc>UseCaseDependencyWrapper extends UseCaseDependencyWrapper {\n\n    //declare here the dependencies your use case has\n    private final Logger loggerAdapter;\n\n    //it is a good thing to make sure the attributes aren\u00c2\u00b4t null, unless explicitly intended otherwise\n\n    public Logger getLoggerAdapter() {\n \t \treturn this.getValueWithNullSafety(this.loggerAdapter);\n \t}\n\n}"
-                }
-            ]
-        },
-        "ruc_Adaptadores": {
-            "name": [
-                "ruc_Adaptadores",
-                "runnable use case"
-            ],
-            "dir": [
-            ],
-            "files": [
-                
-            ]
-        },
-        "ruc_Montadores": {
-            "name": [
-                "ruc_Montadores",
-                "runnable use case"
-            ],
-            "dir": [
-            ],
-            "files": [
-                {
-                    "name": "<pc></pc>UseCaseAssembler.java",
-                    "path": "/<sc></sc>/",
-                    "content": "package <group_id></group_id>.<artifact_id></artifact_id>.assemblers.use_cases.<sc></sc>;\n\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.<pc></pc>UseCase;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories.<pc></pc>UseCaseFactory;\nimport <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc></sc>.factories.dependency_wrapper.<pc></pc>UseCaseDependencyWrapper;\nimport lombok.AccessLevel;\nimport lombok.NoArgsConstructor;\n\n@NoArgsConstructor(access = AccessLevel.PRIVATE)\npublic class <pc></pc>UseCaseAssembler {\n\n    public static final <pc></pc>UseCase ASSEMBLED_INSTANCE;\n\n    static {\n        var dependencyWrapper = <pc></pc>UseCaseDependencyWrapper.builder()\n                .loggerAdapter(null) //make sure to pass a not null instance of your own preferred logger, implementing the interface\n                .build();\n        ASSEMBLED_INSTANCE = <pc></pc>UseCaseFactory.getSingleton(dependencyWrapper);\n    }\n\n}"
                 }
             ]
         }
     },
     "commands": [
         "new",
-        "add",
-        "fuc",
-        "suc",
-        "cuc",
-        "ruc"
+        "add"
     ]
 }

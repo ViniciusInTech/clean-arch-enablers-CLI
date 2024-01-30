@@ -23,7 +23,7 @@ def list_dir_on_folder(path):
         return folders
 
     except OSError as e:
-        print(f"There was nothing in dir: {e}")
+        print(f"nada encontrado no dir: {e}")
         return []
 
 
@@ -33,7 +33,7 @@ def list_files_on_folder(path):
         return files
 
     except OSError as e:
-        print(f"Error while listing files: {e}")
+        print(f"Error ao listar files: {e}")
 
 
 def read_file_txt(path):
@@ -42,7 +42,7 @@ def read_file_txt(path):
             lines = file.readlines()
         return lines
     except FileNotFoundError:
-        print(f"The file {path} was not found.")
+        print(f"The file {path} dont´t find.")
         return []
 
 

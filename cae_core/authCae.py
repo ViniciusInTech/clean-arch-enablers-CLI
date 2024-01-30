@@ -30,7 +30,7 @@ def is_valid_args(args):
     if find_limit(args[0]) is None:
         return False
     if not args or len(args) <= find_limit(args[0]):
-        print('Invalid number of args. Options:')
+        print('Number of args invalid. options:')
         print(";\n".join(valid_args))
         return False
     args = args[:find_limit(args[0])]

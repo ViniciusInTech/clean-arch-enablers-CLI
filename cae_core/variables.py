@@ -15,6 +15,7 @@ java_project_validator_file = "pom.xml"
 
 write_permission = "w"
 
+filter_package_java = "java\\"
 
 filter_java = 1
 
@@ -31,5 +32,3 @@ regex_to_replace_template = r"<(.*?)>(.*?)<\/\1>"
 file_folder_name = "\\files"
 
 barra_system = "/"
-
-filter_package_java = "java"+barra_system
