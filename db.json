@@ -83,6 +83,45 @@
                 }
             ]
         },
+        "rest-api": {
+            "name": [
+                "rest-api",
+                "nem rest api"
+            ],
+            "dir": [],
+            "files": [
+            ],
+            "projects": [
+                {
+                    "name": "<sc></sc>-endpoints",
+                    "path": "",
+                    "structure": "",
+                    "dependencies":[
+                        {
+                            "groupId": "org.springframework.boot",
+                            "artifactId": "spring-boot-starter-web",
+                            "version": "3.2.2"
+                        },
+                        {
+                            "groupId": "org.springframework.boot",
+                            "artifactId": "spring-boot-starter-test",
+                            "version": "3.2.2"
+                        },
+                        {
+                            "groupId": "com.fasterxml.jackson.core",
+                            "artifactId": "jackson-databind",
+                            "version": "2.16.1"
+                        },
+                        {
+                            "groupId": "com.fasterxml.jackson.datatype",
+                            "artifactId": "jackson-datatype-jsr310",
+                            "version": "2.16.1"
+                        }
+                    ]
+                }
+
+            ]
+        },
         "fuc_Core": {
             "name": [
                 "fuc_Core",

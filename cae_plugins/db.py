@@ -43,8 +43,8 @@ def get_all_functions():
         return None
 
 
-def get_project():
-    return load_json(db_path)["functions"]["project"]["projects"]
+def get_project(name_project):
+    return load_json(db_path)["functions"][name_project]["projects"]
 
 
 def get_all_functions_name():

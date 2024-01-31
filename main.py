@@ -34,6 +34,11 @@ def new(args):
         mudar_diretorio(f"{os.getcwd()}{barra_system}{name_dir}")
         create_file_structure(arg, args[1])
         create_project_pk(group_id, arg_list)
+    if function.lower() == "rest-api":
+        arg = args[arg_index_of_use_case_name].lower()
+        arg_list_ = [arg]
+        group_id = args[arg_index_of_use_case_name + 1]
+        create_project_pk(group_id, arg_list_,function.lower())
     else:
         arg = args[arg_index_of_use_case_name]
         arg_function_name = args[arg_function_index]

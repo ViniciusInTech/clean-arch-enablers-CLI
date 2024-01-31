@@ -15,8 +15,8 @@ def create_dir_pk(dir_structure):
     for dir in dir_structure:
         create_dir(path + barra_system + dir)
 
-def create_project_pk(group_id, artifact_id):
-    projects = project_name_and_path(get_project(), artifact_id)
+def create_project_pk(group_id, artifact_id, project_name="project"):
+    projects = project_name_and_path(get_project(project_name), artifact_id)
     path = os.getcwd()+barra_system
     for project in projects:
         directory = path + project.GetPath()
