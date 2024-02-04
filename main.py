@@ -3,8 +3,9 @@ import sys
 
 from cae_core.authCae import is_valid_args, is_a_java_project
 from cae_core.createProject import create_dir_structure_pk, create_maven_project, create_project_pk
-from cae_core.searchAndRead import list_dir_on_folder, find_folder, find_folder_absolute
-from cae_core.utils import open_in_nano, filtrar_itens, split_words, to_camel_case, to_pascal_case
+from cae_core.searchAndRead import list_dir_on_folder, find_folder, find_folder_absolute, find_files_by_name
+from cae_core.utils import open_in_nano, filtrar_itens, split_words, to_camel_case, to_pascal_case, clean_project, \
+    install_project
 from cae_plugins.db import *
 from cae_core.criateFilesAndFolders import create_folder_structure, create_file_structure, mudar_diretorio, \
     criar_novo_project_config
@@ -21,6 +22,16 @@ def main():
         print("invalid arguments")
 
 
+def ci_all(args):
+    ci = args[function_index]
+    all = args[arg_function_index]
+    if ci == "-ci" and all == "-all":
+        paths = find_files_by_name("pom.xml")
+        for path in paths:
+            clean_project(path)
+            install_project(path)
+
+
 def new(args):
     function = args[arg_function_index]
     if function.lower() == "project":
@@ -33,7 +44,7 @@ def new(args):
         criar_novo_project_config(group_id, arg, f"{os.getcwd()}{barra_system}{name_dir}")
         mudar_diretorio(f"{os.getcwd()}{barra_system}{name_dir}")
         create_file_structure(arg, args[1])
-        create_project_pk(group_id, arg_list)
+        create_project_pk(group_id, arg_list, function.lower())
     if function.lower() == "rest-api":
         arg = args[arg_index_of_use_case_name].lower()
         arg_list_ = [arg]
@@ -50,6 +61,7 @@ def new(args):
             create_folder_structure(arg, dir_structure)
             create_file_structure(arg, f"{arg_function_name}_" + i)
             mudar_diretorio(dir_root)
+
 
 def add(args):
     names = [args[1]]
@@ -102,7 +114,8 @@ def file_add():
 
 options_functions = {
     "new": new,
-    "add": add
+    "add": add,
+    "-ci": ci_all
 }
 
 if __name__ == "__main__":

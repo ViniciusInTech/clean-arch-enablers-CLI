@@ -59,3 +59,15 @@ def find_folder_absolute(target_folder):
             absolute_path = os.path.abspath(os.path.join(root, target_folder))
             return absolute_path
     return None
+
+
+def find_files_by_name(file_name):
+    file_paths = []
+
+    for root, _, files in os.walk('.'):
+        if file_name in files:
+            file_path = os.path.abspath(os.path.join(root))
+            file_paths.append(file_path)
+
+    return file_paths
+

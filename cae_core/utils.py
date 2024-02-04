@@ -128,6 +128,7 @@ def filtrar_itens(lista, palavras_chave):
     itens_filtrados = [item for item in lista if any(palavra.lower() in item.lower() for palavra in palavras_chave)]
     return itens_filtrados
 
+
 def open_in_nano():
     with tempfile.NamedTemporaryFile(suffix=".txt", delete=False) as temp_file:
         temp_file.write(b"")
@@ -141,3 +142,21 @@ def open_in_nano():
         edited_content = edited_file.read()
 
     return edited_content
+
+def clean_project(caminho_projeto):
+    comando_maven = f"mvn clean -f {caminho_projeto}"
+
+    try:
+        subprocess.run(comando_maven, shell=True, check=True)
+        print("Projeto limpo com sucesso.")
+    except subprocess.CalledProcessError as e:
+        print(f"Erro ao limpar o projeto: {e}")
+
+
+def install_project(caminho_projeto):
+    comando_maven = f"mvn install -f {caminho_projeto}"
+    try:
+        subprocess.run(comando_maven, shell=True, check=True)
+        print("Projeto instalado com sucesso.")
+    except subprocess.CalledProcessError as e:
+        print(f"Erro ao instalar o projeto: {e}")

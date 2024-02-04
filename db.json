@@ -400,6 +400,8 @@
         "fuc",
         "suc",
         "cuc",
-        "ruc"
+        "ruc",
+        "-ci",
+        "-all"
     ]
 }

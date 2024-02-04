@@ -6,7 +6,8 @@ from cae_core.variables import valid_args, java_project_validator_file
 
 arg_function_min_args = {
     "new": 2,
-    "add": 1
+    "add": 1,
+    "-ci": 1
 }
 
 
@@ -27,11 +28,11 @@ def find_limit(function):
 
 
 def is_valid_args(args):
-    if find_limit(args[0]) is None:
-        return False
     if not args or len(args) <= find_limit(args[0]):
         print('Invalid number of args. Options:')
         print(";\n".join(valid_args))
+        return False
+    if find_limit(args[0]) is None:
         return False
     args = args[:find_limit(args[0])]
     for arg in args:
