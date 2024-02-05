@@ -7,7 +7,7 @@ from cae_core.variables import valid_args, java_project_validator_file
 arg_function_min_args = {
     "new": 2,
     "add": 1,
-    "-ci": 1
+    "-ci": 0
 }
 
 

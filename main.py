@@ -5,7 +5,7 @@ from cae_core.authCae import is_valid_args, is_a_java_project
 from cae_core.createProject import create_dir_structure_pk, create_maven_project, create_project_pk
 from cae_core.searchAndRead import list_dir_on_folder, find_folder, find_folder_absolute, find_files_by_name
 from cae_core.utils import open_in_nano, filtrar_itens, split_words, to_camel_case, to_pascal_case, clean_project, \
-    install_project
+    install_project, get_value_if_not_null
 from cae_plugins.db import *
 from cae_core.criateFilesAndFolders import create_folder_structure, create_file_structure, mudar_diretorio, \
     criar_novo_project_config
@@ -24,12 +24,14 @@ def main():
 
 def ci_all(args):
     ci = args[function_index]
-    all = args[arg_function_index]
-    if ci == "-ci" and all == "-all":
+    all = get_value_if_not_null(args, arg_function_index)
+    if ci == "-ci":
         paths = find_files_by_name("pom.xml")
+        install = all == "-all"
         for path in paths:
             clean_project(path)
-            install_project(path)
+            if install:
+                install_project(path)
 
 
 def new(args):

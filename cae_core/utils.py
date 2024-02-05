@@ -160,3 +160,10 @@ def install_project(caminho_projeto):
         print("Projeto instalado com sucesso.")
     except subprocess.CalledProcessError as e:
         print(f"Erro ao instalar o projeto: {e}")
+
+
+def get_value_if_not_null(args, arg_function_index):
+    if arg_function_index < len(args) and args[arg_function_index] is not None:
+        return args[arg_function_index]
+    else:
+        return None
