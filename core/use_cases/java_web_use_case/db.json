@@ -3,38 +3,24 @@
         "new_project": {
             "args": "terminal",
             "steps": [
-              {"create_folder": ["<pc> args[1] </pc>"]},
-
-              {"change_folder": ["<path><pc>args[1]</pc></path>"]},
-              {"create_folder": ["<pc> args[1] core</pc>"]},
-              {"change_folder": ["<path><pc>args[1]</pc>/<pc>args[1] core</pc></path>"]},
-              {"create_project": ["args[0]", "<sc>args[1]<sc>", "1.0",".core.use_cases"]},
-              {"return_root_path": "None"},
-
-              {"change_folder": ["<path><pc>args[1]</pc></path>"]},
-              {"create_folder": ["<pc> args[1] adaptadores</pc>"]},
-              {"change_folder": ["<path><pc>args[1]</pc>/<pc>args[1] adaptadores</pc></path>"]},
-              {"create_project": ["args[0]", "<sc>args[1]-adapters<sc>", "1.0",".adapters.use_cases"]},
-              {"return_root_path": "None"},
-
-              {"change_folder": ["<path><pc>args[1]</pc></path>"]},
-              {"create_folder": ["<pc> args[1] montadores</pc>"]},
-              {"change_folder": ["<path><pc>args[1]</pc>/<pc>args[1] montadores</pc></path>"]},
-              {"create_project": ["args[0]", "<sc>args[1]-assemblers<sc>", "1.0",".assemblers.use_cases"]},
-              {"return_root_path": "None"},
-              {"change_folder": ["<path><pc>args[1]</pc></path>"]},
-
-              {"create_folder": ["<pc> args[1]provisionadores</pc>"]}
-                ]
-        },
-
-      "java_project": {
-        "args": "terminal",
-            "steps": [
-              {"create_project": ["args[0]", "<sc>args[1]<sc>", "1.0",".use_cases"]}
+              {"create_folder": ["<pc> args[2] </pc>"]},
+              {"new_layer": ["tem[1]", "tem[2]", "core", "core"]},
+              {"new_layer": ["tem[1]", "tem[2]", "adaptadores", "adapters"]},
+              {"new_layer": ["tem[1]", "tem[2]", "montadores", "assemblers"]},
+              {"change_folder": ["<path><pc>args[2]</pc></path>"]},
+              {"create_folder": ["<pc> args[2] provisionadores</pc>"]}
             ]
+        },
+      "new_layer": {
+        "args": "template",
+          "steps": [
+            {"change_folder": ["<path><pc>args[1]</pc></path>"]},
+            {"create_folder": ["<pc> args[1] args[2]</pc>"]},
+            {"change_folder": ["<path><pc>args[1]</pc>/<pc>args[1] args[2]</pc></path>"]},
+            {"create_project": ["args[0]", "<sc>args[1]-args[3]<sc>", "1.0",".args[3].use_cases"]},
+            {"return_root_path": "None"}
+          ]
       },
-
 
         "--version": {
             "args": "None",
