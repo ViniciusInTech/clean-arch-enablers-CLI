@@ -69,6 +69,12 @@ class ArchFlowJavaWeb(ArchFlow):
             self.OutputHandler.alert_message(f"Error reading file {path_relative} error: {e}")
         return content
 
+    def read_file_template(self, path_relative, required=False):
+        root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), path_relative))
+        return self.DirectoryExplorer.read_file(root_path, required)
+
+
+
     def handler_input(self, args):
         def execute_step(steps_function, args_):
             for dic in steps_function:
@@ -120,3 +126,4 @@ class ArchFlowJavaWeb(ArchFlow):
             tag_replace = self.StringManipulator.replace_tags(tag)
             args_and_tags_replace.append(tag_replace)
         return args_and_tags_replace
+
