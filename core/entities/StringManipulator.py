@@ -4,8 +4,9 @@ from core.entities.implementations.StringManipulatorImplementation import String
 
 
 class StringManipulator:
-    def __init__(self):
+    def __init__(self, tag_functions_user=None):
         self.implementation = StringManipulatorImplementation
+        self.tag_functions_user = tag_functions_user
 
     def to_pascal_case(self, StringInput):
         return self.implementation.to_pascal_case(StringInput)
@@ -43,8 +44,8 @@ class StringManipulator:
     def to_packeage_case(self, string_input):
         return self.implementation.to_packeage_case(string_input)
 
-    def replace_tags(self, input_string, tag_functions_user=None):
-        return self.implementation().replace_tags(input_string, tag_functions_user)
+    def replace_tags(self, input_string):
+        return self.implementation().replace_tags(input_string, self.tag_functions_user)
 
     @staticmethod
     def prepare_path(input_string):

@@ -107,7 +107,29 @@ class DirectoryExplorerImplementation:
         except PermissionError:
             outuput.alert_message(f"permission denied to access folder: {path_folder}")
 
+    def change_folder_partial_match(self, partial_name, path_root):
+        try:
+            for folder_name in self.list_folders(path_root):
+                if partial_name.lower() in folder_name.lower() and os.path.isdir(os.path.join(path_root, folder_name)):
+                    new_path_root = os.path.join(path_root, folder_name)
+                    os.chdir(new_path_root)
+                    outuput.information_message(f"Temporarily moved to folder: {new_path_root}")
+                    return
+
+            NotFoundException.not_found_error(f"Folder with partial name '{partial_name}' not found in {path_root}")
+        except PermissionError:
+            NotFoundException.fatal_not_found_error(f"Permission denied to access folder: {path_root}")
+
     @staticmethod
     def return_root_path(path_root):
         os.chdir(path_root)
         outuput.information_message(f"Returned to the original folder: {path_root}")
+
+    def read_file_template(self, name_template, required=False):
+        path_script = os.path.dirname(os.path.abspath(__file__))
+        root_base = os.path.abspath(os.path.join(path_script, '..', '..'))
+        root_path = os.path.join(root_base, 'use_cases')
+        file = self.find_only_one_file(root_path, name_template)
+        if file:
+            return self.read_file(file[0], required)
+        return ""

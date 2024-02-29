@@ -1,0 +1,26 @@
+package <group_id></group_id>.<artifact_id></artifact_id>.assemblers.use_cases.<sc>args[0]</sc>;
+
+
+import <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc>args[0]</sc>.<pc>args[0]</pc>UseCase;
+import <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc>args[0]</sc>.factories.<pc>args[0]</pc>UseCaseFactory;
+import <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc>args[0]</sc>.factories.dependency_wrapper.<pc>args[0]</pc>UseCaseDependencyWrapper;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+
+public class <pc>args[0]</pc>UseCaseAssembler {
+
+
+    public static final <pc>args[0]</pc>UseCase ASSEMBLED_INSTANCE;
+
+
+        static {
+
+                var dependencyWrapper = <pc>args[0]</pc>UseCaseDependencyWrapper.builder()
+                                .loggerAdapter(null) //make sure to pass a not null instance of your own preferred logger, implementing the interface
+                                .build();
+                                ASSEMBLED_INSTANCE = <pc>args[0]</pc>UseCaseFactory.getSingleton(dependencyWrapper);
+        }
+}

@@ -33,7 +33,7 @@ class OutputHandler:
 
     @staticmethod
     def information_message(message):
-        print(OutputHandler.format_message("[information]", message, color_type=Fore.LIGHTBLACK_EX))
+        print(OutputHandler.format_message("[information]", message, color_type=Fore.LIGHTBLACK_EX, identification=3))
 
     @staticmethod
     def alert_message(message):

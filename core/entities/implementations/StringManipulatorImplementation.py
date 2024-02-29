@@ -111,7 +111,7 @@ class StringManipulatorImplementation:
 
         return combined_tags
 
-    def replace_tags(self, input_string, tag_functions_user=None):
+    def replace_tags(self, input_string, tag_functions_user):
         tag_functions = self.dictionary_of_standard_string_manipulation_functions()
         tags_not_found = []
         if tag_functions_user is None:

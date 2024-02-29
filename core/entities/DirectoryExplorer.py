@@ -15,8 +15,10 @@ class DirectoryExplorer:
     def get_directory(self):
         return self.directory
 
-    def list_files(self, extension=None):
-        return self.implementation.list_files(self.directory, extension)
+    def list_files(self, extension=None, directory=None):
+        if not directory:
+            directory = self.directory
+        return self.implementation.list_files(directory, extension)
 
     def list_folders(self, folder=None):
         return self.implementation.list_folders(self.directory, folder)
@@ -44,6 +46,12 @@ class DirectoryExplorer:
     def return_root_path(self):
         return self.implementation.return_root_path(self.directory)
 
+    def read_file_template(self, path_relative, required=False):
+        return self.implementation.read_file_template(path_relative, required)
+
+    def change_folder_partial_match(self, partial_name):
+        return self.implementation.change_folder_partial_match(partial_name, os.getcwd())
+
     def dictionary_of_standard_functions(self):
         return {'set_directory': self.set_directory,
                 'get_directory': self.get_directory,
@@ -58,6 +66,6 @@ class DirectoryExplorer:
                 'read_file': self.list_files,
 
                 'change_folder': self.change_folder,
-                'return_root_path': self.return_root_path
-
+                'return_root_path': self.return_root_path,
+                'change_folder_partial_match': self.change_folder_partial_match
                 }

@@ -4,24 +4,34 @@
             "args": "terminal",
             "steps": [
               {"create_folder": ["<pc> args[2] </pc>"]},
-              {"new_layer": ["tem[1]", "tem[2]", "core", "core"]},
-              {"new_layer": ["tem[1]", "tem[2]", "adaptadores", "adapters"]},
-              {"new_layer": ["tem[1]", "tem[2]", "montadores", "assemblers"]},
+              {"new_layer": ["tem[1]", "tem[2]", "core", "", "tem[1].tem[2].core.use_cases"]},
+              {"new_layer": ["tem[1]", "tem[2]", "adaptadores", "-adapters", "tem[1].tem[2].adapters.use_cases"]},
+              {"new_layer": ["tem[1]", "tem[2]", "montadores", "-assemblers", "tem[1].tem[2].assemblers.use_cases"]},
               {"change_folder": ["<path><pc>args[2]</pc></path>"]},
               {"create_folder": ["<pc> args[2] provisionadores</pc>"]}
             ]
         },
+      "teste": {
+        "args": "terminal",
+        "steps": [
+          {"change_folder_partial_match": ["assemblers"]},
+          {"change_folder_partial_match": ["use_cases"]},
+          {"create_folder": ["<sc>args[1]</sc>"]},
+          {"create_file_based_in_template":  ["<sc>args[1]</sc>/", "<pc>args[1] use case assembler</pc>.java", "assembler.txt", ["args[1]"]]}
+        ]
+      },
       "new_layer": {
         "args": "template",
           "steps": [
             {"change_folder": ["<path><pc>args[1]</pc></path>"]},
             {"create_folder": ["<pc> args[1] args[2]</pc>"]},
             {"change_folder": ["<path><pc>args[1]</pc>/<pc>args[1] args[2]</pc></path>"]},
-            {"create_project": ["args[0]", "<sc>args[1]-args[3]<sc>", "1.0",".args[3].use_cases"]},
+            {"create_project": ["args[0]", "args[1]args[3]", "1.0","args[4]"]},
+            {"create_file_based_in_template":  ["args[1]args[3]/","pom.xml", "pomargs[3].txt",
+              ["args[0]", "args[1]", "args[2]", "args[3]"]]},
             {"return_root_path": "None"}
           ]
       },
-
         "--version": {
             "args": "None",
             "steps": [

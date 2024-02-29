@@ -4,9 +4,15 @@ from core.entities.ArchFlow import ArchFlow
 import subprocess
 import sys
 import os
+import xml.etree.ElementTree as ET
 
 
 class ArchFlowJavaWeb(ArchFlow):
+
+    def __init__(self):
+        super().__init__()
+        self.StringManipulator.tag_functions_user = {"artifact_id": self.artifact_id,
+                                                     "group_id": self.group_id}
 
     def create_project(self, group_id, artifact_id, version, package_name, dependencies=None):
         maven_command = [
@@ -39,7 +45,46 @@ class ArchFlowJavaWeb(ArchFlow):
             self.OutputHandler.alert_message(f"Error executing Maven command: {e}")
 
     def functions_flow(self):
-        pass
+        return {
+            "buscar_pom": self.buscar_pom
+        }
+
+    def buscar_pom(self):
+        poms = self.DirectoryExplorer.list_files("pom.xml")
+        core_pom_path = self.find_item_with_key(poms, "Core")
+        content = self.DirectoryExplorer.read_file(core_pom_path)
+        return self.extrair_valores_pom(content)
+
+    def artifact_id(self, input_string):
+        group, artifact = self.buscar_pom()
+        return artifact
+
+    def group_id(self, input_string):
+        group, artifact = self.buscar_pom()
+        return group
+
+    def extrair_valores_pom(self, conteudo_pom):
+        try:
+            root = ET.fromstring(conteudo_pom)
+
+            group_id = root.find(".//groupId")
+            artifact_id = root.find(".//artifactId")
+
+            return (group_id.text if group_id is not None else None,
+                    artifact_id.text if artifact_id is not None else None)
+
+        except ET.ParseError:
+            self.OutputHandler.information_message("Erro ao analisar o conteúdo XML.")
+            return None, None
+
+
+
+    @staticmethod
+    def find_item_with_key(lista, chave):
+        for item in lista:
+            if chave in item:
+                return item
+        return None
 
     def find_key_in_dictionaries(self, dictionaries, key):
         if key in dictionaries:
@@ -68,21 +113,6 @@ class ArchFlowJavaWeb(ArchFlow):
         except Exception as e:
             self.OutputHandler.alert_message(f"Error reading file {path_relative} error: {e}")
         return content
-
-    def read_file_template(self, path_relative, required=False):
-        root_path = os.path.abspath(os.path.join(os.path.dirname(__file__)))
-        file = self.DirectoryExplorer.find_only_one_file(path_relative, root_path)
-        if file:
-            return self.DirectoryExplorer.read_file(file[0], required)
-        return ""
-
-    def create_file_based_in_template(self, file_destination, file_name, args=None):
-        file_destination = self.diretorio_original+file_destination
-        content = self.read_file_template(file_name)
-        if args:
-            content = self.StringManipulator.replace_args(content, args)
-        content = self.StringManipulator.replace_tags(content)
-        self.DirectoryCreator.create_file(file_destination, file_name, content)
 
     def handler_input(self, args):
         def execute_step(steps_function, args_):
@@ -124,15 +154,28 @@ class ArchFlowJavaWeb(ArchFlow):
         else:
             self.OutputHandler.alert_message(f"function '{nome_funcao}' is not valid, try another one or try --help ")
 
+
+
     def map_args(self, list_args, list_replace, parameter="args["):
         args_replace = []
         args_and_tags_replace = []
         for obj in list_args:
-            for i, arg in enumerate(list_replace):
-                obj = obj.replace(f"{parameter}{i}]", arg)
-            args_replace.append(obj)
+            if isinstance(obj, list):
+                mapped_list = self.map_args(obj, list_replace, parameter)
+                args_replace.append(mapped_list)
+            else:
+                for i, arg in enumerate(list_replace):
+                    obj = obj.replace(f"{parameter}{i}]", arg)
+                args_replace.append(obj)
         for tag in args_replace:
-            tag_replace = self.StringManipulator.replace_tags(tag)
-            args_and_tags_replace.append(tag_replace)
+            if isinstance(tag, list):
+                subs = []
+                for sub_ in tag:
+                    tag_replace = self.StringManipulator.replace_tags(sub_)
+                    subs.append(tag_replace)
+                args_and_tags_replace.append(subs)
+            else:
+                tag_replace = self.StringManipulator.replace_tags(tag)
+                args_and_tags_replace.append(tag_replace)
         return args_and_tags_replace
 

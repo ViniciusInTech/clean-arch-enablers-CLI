@@ -32,17 +32,27 @@ class ArchFlow(ABC):
         print("⚡️ ArchFlow Version 1.0 ⚡️")
         print("Pikachu is evolving... slowly. But hey, we still love him! 🤣⚡️")
 
+    def create_file_based_in_template(self, file_destination, file_name, template_file_name, args=None):
+        file_destination = file_destination
+        content = self.DirectoryExplorer.read_file_template(template_file_name)
+        if args:
+            content = self.StringManipulator.replace_args(content, args)
+        content = self.StringManipulator.replace_tags(content)
+        self.DirectoryCreator.create_file(file_destination, file_name, content)
+
     def dictionary_of_standard_functions(self):
         dictionary_directory_creator = self.DirectoryCreator.dictionary_of_standard_functions()
         dictionary_directory_explorer = self.DirectoryExplorer.dictionary_of_standard_functions()
         dictionary_string_manipulator = self.StringManipulator.dictionary_of_standard_functions()
         dictionary_output_handler = self.OutputHandler.dictionary_of_standard_functions()
+        functions_flow = self.functions_flow()
         return {'create_project': self.create_project,
-                'functions_flow': self.functions_flow,
+                'functions_flow': functions_flow,
                 'directory_creator': dictionary_directory_creator,
                 'directory_explorer': dictionary_directory_explorer,
                 'string_manipulator': dictionary_string_manipulator,
                 'output_handler': dictionary_output_handler,
+                'create_file_based_in_template': self.create_file_based_in_template,
                 '--version': self.version,
                 '-v': self.version,
                 }
