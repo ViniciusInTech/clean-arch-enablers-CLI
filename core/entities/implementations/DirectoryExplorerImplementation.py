@@ -43,7 +43,7 @@ class DirectoryExplorerImplementation:
         return folders
 
     @staticmethod
-    def find_only_file(directory, file):
+    def find_only_one_file(directory, file):
         files = DirectoryExplorerImplementation.list_files(directory, file)
         qtde_files = len(files) if files is not None else 0
         if qtde_files == 0:
@@ -58,7 +58,7 @@ class DirectoryExplorerImplementation:
         return files
 
     @staticmethod
-    def find_only_folder(directory, folder):
+    def find_only_one_folder(directory, folder):
         folders = DirectoryExplorerImplementation.list_folders(directory, folder)
         qtde_folders = len(folders) if folders is not None else 0
         if qtde_folders == 0:

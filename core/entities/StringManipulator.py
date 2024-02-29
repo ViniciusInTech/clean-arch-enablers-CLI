@@ -52,6 +52,14 @@ class StringManipulator:
         path = os.path.join(*input_string.split("\\"))
         return path
 
+    @staticmethod
+    def replace_args(text, args):
+        for i, arg in enumerate(args):
+            placeholder = f'args[{i}]'
+            if placeholder in text:
+                text = text.replace(placeholder, str(arg))
+        return text
+
     def dictionary_of_standard_functions(self):
         return {'to_pascal_case': self.to_pascal_case,
                 'to_camel_case': self.to_camel_case,

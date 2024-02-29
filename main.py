@@ -4,7 +4,9 @@ arch = ArchFlowJavaWeb()
 
 
 if __name__ == "__main__":
-    print(arch.read_file_template("templates/pom.txt"))
+    args = ["teste", "vinicius"]
+    arch.DirectoryCreator.create_folder("teste")
+    arch.create_file_based_in_template("/teste/", "pom.txt", args)
     input()
     args = arch.handle_args()
     arch.handler_input(args)

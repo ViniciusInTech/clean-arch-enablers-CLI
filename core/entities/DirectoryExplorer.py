@@ -21,13 +21,13 @@ class DirectoryExplorer:
     def list_folders(self, folder=None):
         return self.implementation.list_folders(self.directory, folder)
 
-    def find_only_file(self, file, directory=None):
+    def find_only_one_file(self, file, directory=None):
         if directory is None:
             directory = os.getcwd()
-        return self.implementation.find_only_file(directory, file)
+        return self.implementation.find_only_one_file(directory, file)
 
-    def find_only_folder(self, folder):
-        return self.implementation.find_only_folder(self.directory, folder)
+    def find_only_one_folder(self, folder):
+        return self.implementation.find_only_one_folder(self.directory, folder)
 
     def find_files_ignoring_this_folder(self, file, folder):
         return self.implementation.find_files_ignoring_this_folder(self.directory, file, folder)
@@ -50,8 +50,8 @@ class DirectoryExplorer:
                 'list_files': self.list_files,
 
                 'list_folders': self.list_folders,
-                'find_only_file': self.find_only_file,
-                'find_only_folder': self.find_only_folder,
+                'find_only_one_file': self.find_only_one_file,
+                'find_only_one_folder': self.find_only_one_folder,
 
                 'find_files_ignoring_this_folder': self.find_files_ignoring_this_folder,
                 'find_folders_ignoring_this_folder': self.find_folders_ignoring_this_folder,

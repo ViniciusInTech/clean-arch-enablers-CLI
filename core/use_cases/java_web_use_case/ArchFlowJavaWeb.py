@@ -70,10 +70,19 @@ class ArchFlowJavaWeb(ArchFlow):
         return content
 
     def read_file_template(self, path_relative, required=False):
-        root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), path_relative))
-        return self.DirectoryExplorer.read_file(root_path, required)
+        root_path = os.path.abspath(os.path.join(os.path.dirname(__file__)))
+        file = self.DirectoryExplorer.find_only_one_file(path_relative, root_path)
+        if file:
+            return self.DirectoryExplorer.read_file(file[0], required)
+        return ""
 
-
+    def create_file_based_in_template(self, file_destination, file_name, args=None):
+        file_destination = self.diretorio_original+file_destination
+        content = self.read_file_template(file_name)
+        if args:
+            content = self.StringManipulator.replace_args(content, args)
+        content = self.StringManipulator.replace_tags(content)
+        self.DirectoryCreator.create_file(file_destination, file_name, content)
 
     def handler_input(self, args):
         def execute_step(steps_function, args_):
