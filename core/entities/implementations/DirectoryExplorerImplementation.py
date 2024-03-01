@@ -107,9 +107,12 @@ class DirectoryExplorerImplementation:
         except PermissionError:
             outuput.alert_message(f"permission denied to access folder: {path_folder}")
 
-    def change_folder_partial_match(self, partial_name, path_root):
+    def change_folder_partial_match(self, partial_name, path_root, folder_to_ignore=None):
         try:
-            for folder_name in self.list_folders(path_root):
+            folders = self.list_folders(path_root)
+            if folder_to_ignore:
+                folders = util.filter_entities_by_name(folders, folder_to_ignore)
+            for folder_name in folders:
                 if partial_name.lower() in folder_name.lower() and os.path.isdir(os.path.join(path_root, folder_name)):
                     new_path_root = os.path.join(path_root, folder_name)
                     os.chdir(new_path_root)

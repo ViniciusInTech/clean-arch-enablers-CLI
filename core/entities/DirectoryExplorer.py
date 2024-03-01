@@ -49,8 +49,8 @@ class DirectoryExplorer:
     def read_file_template(self, path_relative, required=False):
         return self.implementation.read_file_template(path_relative, required)
 
-    def change_folder_partial_match(self, partial_name):
-        return self.implementation.change_folder_partial_match(partial_name, os.getcwd())
+    def change_folder_partial_match(self, partial_name, folder_to_ignore=None):
+        return self.implementation.change_folder_partial_match(partial_name, os.getcwd(), folder_to_ignore)
 
     def dictionary_of_standard_functions(self):
         return {'set_directory': self.set_directory,

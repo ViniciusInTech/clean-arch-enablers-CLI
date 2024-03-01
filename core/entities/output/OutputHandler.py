@@ -1,4 +1,6 @@
 from colorama import init, Fore, Style
+import time
+import random
 
 init(autoreset=True)  # config  only for windows
 
@@ -25,6 +27,7 @@ class OutputHandler:
 
         top_line = f"{color_type}{'-' * character_limit} {Style.RESET_ALL}"
         bottom_line = f"{color_type}{'-' * character_limit} {Style.RESET_ALL}"
+        OutputHandler.random_pause()
         return f"{top_line}\n{formatted_message}\n{bottom_line}"
 
     @staticmethod
@@ -37,7 +40,12 @@ class OutputHandler:
 
     @staticmethod
     def alert_message(message):
-        print(OutputHandler.format_message("[alert message️]", message, color_type=Fore.YELLOW))
+        print(OutputHandler.format_message("[alert message️]", message, color_type=Fore.YELLOW, identification=1))
+
+    @staticmethod
+    def random_pause(min_interval=0.1, max_interval=1.0):
+        pause_time = random.uniform(min_interval, max_interval)
+        time.sleep(pause_time)
 
     def dictionary_of_standard_functions(self):
         return {'format_message': self.format_message,

@@ -13,4 +13,4 @@ class ExceptionHandler(Exception):
         self.output = OutputHandler
 
     def __str__(self):
-        return self.output.format_message(self.type_error, self.args[0], self.color_type)
+        return self.output.format_message(self.type_error, self.args[0], self.color_type, identification=1)
