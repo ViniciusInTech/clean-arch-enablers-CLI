@@ -52,6 +52,9 @@ class DirectoryExplorer:
     def change_folder_partial_match(self, partial_name, folder_to_ignore=None):
         return self.implementation.change_folder_partial_match(partial_name, os.getcwd(), folder_to_ignore)
 
+    def read_json_file(self, root_path_json):
+        return self.implementation.read_json_file(root_path_json)
+
     def dictionary_of_standard_functions(self):
         return {'set_directory': self.set_directory,
                 'get_directory': self.get_directory,

@@ -1,5 +1,3 @@
-import json
-
 from core.entities.ArchFlow import ArchFlow
 import subprocess
 import sys
@@ -104,16 +102,6 @@ class ArchFlowJavaWeb(ArchFlow):
         args_input = sys.argv
         return args_input[1:]
 
-    def read_json_file(self, path_relative):
-        try:
-            root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), path_relative))
-
-            with open(root_path, 'r') as file_json:
-                content = json.load(file_json)
-        except Exception as e:
-            self.OutputHandler.alert_message(f"Error reading file {path_relative} error: {e}")
-        return content
-
     def handler_input(self, args):
         def execute_step(steps_function, args_):
             for dic in steps_function:
@@ -142,8 +130,8 @@ class ArchFlowJavaWeb(ArchFlow):
             self.OutputHandler.success_message("Whoopsie-daisy! It seems like you forgot to provide a function. "
                                                "How about trying --help for some magic commands?")
             return None
-
-        functions_json = self.read_json_file("db.json")
+        root_path_json = os.path.abspath(os.path.join(os.path.dirname(__file__), "db.json"))
+        functions_json = self.DirectoryExplorer.read_json_file(root_path_json)
         nome_funcao = args[0]
 
         func = self.find_key_in_dictionaries(functions_json, nome_funcao)

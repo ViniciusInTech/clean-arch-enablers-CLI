@@ -1,8 +1,8 @@
+import json
 import os
 from core.entities.exceptions.NotFoundException import NotFoundException
 from core.entities.utils.DirectoryExplorerUtil import DirectoryExplorerUtil
 from core.entities.output.OutputHandler import OutputHandler
-
 
 util = DirectoryExplorerUtil
 outuput = OutputHandler()
@@ -136,3 +136,12 @@ class DirectoryExplorerImplementation:
         if file:
             return self.read_file(file[0], required)
         return ""
+
+    @staticmethod
+    def read_json_file(root_path_json):
+        try:
+            with open(root_path_json, 'r') as file_json:
+                content = json.load(file_json)
+        except Exception as e:
+            outuput.alert_message(f"Error reading file {root_path_json} error: {e}")
+        return content
