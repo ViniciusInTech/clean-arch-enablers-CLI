@@ -47,8 +47,38 @@ class ArchFlowJavaWeb(ArchFlow):
 
     def functions_flow(self):
         return {"-v": self.version,
-                "--version": self.version
+                "--version": self.version,
+                "clear_all": self.clear_all_project,
+                "install_all_project": self.install_all_project
                 }
+
+    def clear_all_project(self):
+        self.OutputHandler.information_message("starting cleaning of all projects")
+        files_pom = self.DirectoryExplorer.list_files("pom.xml")
+        for project in files_pom:
+            self.clean_project(project)
+
+    def install_all_project(self):
+        self.OutputHandler.information_message("starting installing of all projects")
+        files_pom = self.DirectoryExplorer.list_files("pom.xml")
+        for project in files_pom:
+            self.install_project(project)
+
+    def clean_project(self, root_project_pom):
+        maven_command = f"mvn clean -f {root_project_pom}"
+        try:
+            subprocess.run(maven_command, shell=True, check=True)
+            self.OutputHandler.success_message("Project clean successfully.")
+        except subprocess.CalledProcessError as e:
+            self.OutputHandler.alert_message(f"error when cleaning the project {e}")
+
+    def install_project(self, root_project_pom):
+        comando_maven = f"mvn install -f {root_project_pom}"
+        try:
+            subprocess.run(comando_maven, shell=True, check=True)
+            self.OutputHandler.success_message("Project installing successfully.")
+        except subprocess.CalledProcessError as e:
+            self.OutputHandler.alert_message(f"error when installing a project {e}")
 
     @staticmethod
     def version():

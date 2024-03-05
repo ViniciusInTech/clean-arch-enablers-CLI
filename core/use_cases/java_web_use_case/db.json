@@ -11,6 +11,25 @@
               {"create_folder": ["<pc> args[2] provisionadores</pc>"]}
             ]
         },
+        "clear_all": {
+          "args": "terminal",
+          "steps": [
+            {"clear_all": "None"}
+          ]
+        },
+        "install_all": {
+          "args": "terminal",
+          "steps": [
+            {"install_all_project": "None"}
+          ]
+        },
+        "c_i": {
+          "args": "terminal",
+          "steps": [
+            {"clear_all": "None"},
+            {"install_all":  "None"}
+          ]
+        },
         "new_fuc": {
           "args": "terminal",
           "steps": [
