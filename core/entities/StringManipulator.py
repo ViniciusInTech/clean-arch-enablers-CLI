@@ -49,8 +49,8 @@ class StringManipulator:
 
     @staticmethod
     def prepare_path(input_string):
-        path = os.path.join(*input_string.split("/"))
-        path = os.path.join(*input_string.split("\\"))
+        path = input_string.replace("\\", "/")
+        path = os.path.join(*path.split("/"))
         return path
 
     @staticmethod

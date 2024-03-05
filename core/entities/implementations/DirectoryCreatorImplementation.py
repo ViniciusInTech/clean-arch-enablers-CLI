@@ -2,6 +2,7 @@ import os.path
 from core.entities.exceptions.FileOrDirectoryExistsError import FileOrDirectoryExistsError
 from core.entities.output.OutputHandler import OutputHandler
 from core.entities.exceptions.NotFoundException import NotFoundException
+from core.entities.StringManipulator import StringManipulator
 
 exception_file_exists = FileOrDirectoryExistsError()
 exception_not_found = NotFoundException()
@@ -15,6 +16,7 @@ class DirectoryCreatorImplementation:
 
     @staticmethod
     def create_folder(folder_path):
+        folder_path = StringManipulator().prepare_path(folder_path)
         try:
             os.makedirs(folder_path)
             output.success_message(f"folder '{folder_path}' created successfully")
@@ -24,6 +26,7 @@ class DirectoryCreatorImplementation:
             exception_file_exists.fatal_error(f"error creating folder '{folder_path}' exception: {e}")
 
     def create_file(self, path, file_name, file_content, required=False):
+        path = StringManipulator().prepare_path(path)
         if not self.does_file_or_directory_exist(path):
             if required:
                 exception_not_found.fatal_not_found_error(f"path '{path}' does not exist. Could not create file "
