@@ -5,4 +5,4 @@ arch = ArchFlowJavaWeb()
 
 if __name__ == "__main__":
     args = arch.handle_args()
-    arch.handler_input(args)
+    arch.handler_functions_flow_java(args)
