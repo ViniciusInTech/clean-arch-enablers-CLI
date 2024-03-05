@@ -1,12 +1,16 @@
 from core.entities.ArchFlow import ArchFlow
+from core.entities.utils.Filter import Filter
 import subprocess
 import sys
 import os
 import xml.etree.ElementTree as ET
 
 
-class ArchFlowJavaWeb(ArchFlow):
+filter = Filter()
 
+
+class ArchFlowJavaWeb(ArchFlow):
+        
     def __init__(self):
         super().__init__()
         self.StringManipulator.tag_functions_user = {"artifact_id": self.artifact_id,
@@ -49,7 +53,7 @@ class ArchFlowJavaWeb(ArchFlow):
 
     def buscar_pom(self):
         poms = self.DirectoryExplorer.list_files("pom.xml")
-        core_pom_path = self.find_item_with_key(poms, "Core")
+        core_pom_path = filter.find_one_obj_by_key(poms, "Core")
         content = self.DirectoryExplorer.read_file(core_pom_path)
         return self.extrair_valores_pom(content)
 
@@ -75,28 +79,6 @@ class ArchFlowJavaWeb(ArchFlow):
             self.OutputHandler.information_message("Erro ao analisar o conteúdo XML.")
             return None, None
 
-
-
-    @staticmethod
-    def find_item_with_key(lista, chave):
-        for item in lista:
-            if chave in item:
-                return item
-        return None
-
-    def find_key_in_dictionaries(self, dictionaries, key):
-        if key in dictionaries:
-            return dictionaries.get(key)
-        else:
-            for key_ in dictionaries.keys():
-                if isinstance(dictionaries.get(key_), dict):
-                    dictionary = dictionaries.get(key_)
-                    if dictionary is not None:
-                        function = self.find_key_in_dictionaries(dictionary, key)
-                        if function is not None:
-                            return function
-        return None
-    
     @staticmethod
     def handle_args():
         args_input = sys.argv
@@ -106,20 +88,20 @@ class ArchFlowJavaWeb(ArchFlow):
         def execute_step(steps_function, args_):
             for dic in steps_function:
                 for step in dic:
-                    args_function = self.find_key_in_dictionaries(dic, step)
-                    function = self.find_key_in_dictionaries(dictonary_functions, step)
+                    args_function = filter.find_key_in_dictionaries(dic, step)
+                    function = filter.find_key_in_dictionaries(dictonary_functions, step)
                     if function is None:
-                        function = self.find_key_in_dictionaries(functions_json, step)
-                        steps_funcao = self.find_key_in_dictionaries(function, 'steps')
-                        args_function_ = self.find_key_in_dictionaries(dic, step)
-                        args_mapeados = self.map_args(args_function_, args_[0:], "tem[")
+                        function = filter.find_key_in_dictionaries(functions_json, step)
+                        steps_funcao = filter.find_key_in_dictionaries(function, 'steps')
+                        args_function_ = filter.find_key_in_dictionaries(dic, step)
+                        args_mapeados = filter.map_args(args_function_, args_[0:], "tem[")
                         execute_step(steps_funcao, args_mapeados)
                         break
                     try:
                         if args_function == "None":
                             function()
                         elif isinstance(args_function, list):
-                            args_mapeados = self.map_args(args_function, args_[0:])
+                            args_mapeados = filter.map_args(args_function, args_[0:])
                             function(*args_mapeados)
                         else:
                             function(*args_[1:])
@@ -134,36 +116,10 @@ class ArchFlowJavaWeb(ArchFlow):
         functions_json = self.DirectoryExplorer.read_json_file(root_path_json)
         nome_funcao = args[0]
 
-        func = self.find_key_in_dictionaries(functions_json, nome_funcao)
+        func = filter.find_key_in_dictionaries(functions_json, nome_funcao)
         if func is not None:
-            steps_funcao = self.find_key_in_dictionaries(func, 'steps')
+            steps_funcao = filter.find_key_in_dictionaries(func, 'steps')
             dictonary_functions = self.dictionary_of_standard_functions()
             execute_step(steps_funcao, args)
         else:
             self.OutputHandler.alert_message(f"function '{nome_funcao}' is not valid, try another one or try --help ")
-
-
-
-    def map_args(self, list_args, list_replace, parameter="args["):
-        args_replace = []
-        args_and_tags_replace = []
-        for obj in list_args:
-            if isinstance(obj, list):
-                mapped_list = self.map_args(obj, list_replace, parameter)
-                args_replace.append(mapped_list)
-            else:
-                for i, arg in enumerate(list_replace):
-                    obj = obj.replace(f"{parameter}{i}]", arg)
-                args_replace.append(obj)
-        for tag in args_replace:
-            if isinstance(tag, list):
-                subs = []
-                for sub_ in tag:
-                    tag_replace = self.StringManipulator.replace_tags(sub_)
-                    subs.append(tag_replace)
-                args_and_tags_replace.append(subs)
-            else:
-                tag_replace = self.StringManipulator.replace_tags(tag)
-                args_and_tags_replace.append(tag_replace)
-        return args_and_tags_replace
-

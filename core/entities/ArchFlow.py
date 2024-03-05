@@ -13,7 +13,7 @@ class ArchFlow(ABC):
         self.DirectoryExplorer = DirectoryExplorer()
         self.StringManipulator = StringManipulator()
         self.OutputHandler = OutputHandler()
-        self.diretorio_original = os.getcwd()
+        self.root_path = os.getcwd()
 
     @abstractmethod
     def create_project(self, *args):
