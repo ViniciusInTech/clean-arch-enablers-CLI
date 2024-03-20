@@ -34,10 +34,53 @@
           "args": "terminal",
           "steps": [
             {"function_core_layer": ["","tem[1]"]},
+            {"create_folder": ["io/inputs"]},
+            {"create_folder": ["io/outputs"]},
+            {"create_file_based_in_template":  ["io/inputs/",
+              "<pc>args[1] use case input</pc>.java",
+              "use_case_input.txt", ["args[1]"]]},
+
+            {"create_file_based_in_template":  ["io/outputs/",
+              "<pc>args[1] use case output</pc>.java",
+              "use_case_output.txt", ["args[1]"]]},
+            {"return_root_path": "None"},
+
             {"function_adapters_layer": ["", "tem[1]"]},
             {"function_assembler_layer": ["", "tem[1]"]}
           ]
         },
+        "new_cuc": {
+          "args": "terminal",
+          "steps": [
+            {"function_core_layer": ["","tem[1]"]},
+            {"create_folder": ["io/inputs"]},
+
+            {"create_file_based_in_template":  ["io/inputs/",
+              "<pc>args[1] use case input</pc>.java",
+              "use_case_input.txt", ["args[1]"]]},
+
+            {"return_root_path": "None"},
+
+            {"function_adapters_layer": ["", "tem[1]"]},
+            {"function_assembler_layer": ["", "tem[1]"]}
+          ]
+        },
+        "new_suc": {
+          "args": "terminal",
+          "steps": [
+            {"function_core_layer": ["","tem[1]"]},
+            {"create_folder": ["io/outputs"]},
+
+            {"create_file_based_in_template":  ["io/outputs/",
+              "<pc>args[1] use case output</pc>.java",
+              "use_case_output.txt", ["args[1]"]]},
+            {"return_root_path": "None"},
+
+            {"function_adapters_layer": ["", "tem[1]"]},
+            {"function_assembler_layer": ["", "tem[1]"]}
+          ]
+        },
+
         "function_core_layer": {
           "args": "template",
           "steps": [
@@ -47,35 +90,19 @@
             {"create_file_based_in_template":  ["<sc>args[1]</sc>/", "<pc>args[1] use case</pc>.java", "use_case.txt",
               ["args[1]"]]},
             {"change_folder_partial_match": ["<sc>args[1]</sc>"]},
+            {"core_basic_dir": "None"},
+            {"create_folder": ["implementations/mappers"]},
 
-            {"create_folder": ["factories"]},
             {"create_file_based_in_template":  ["factories/", "<pc>args[1] use case factory</pc>.java",
               "use_case_factory.txt", ["args[1]"]]},
 
-            {"create_folder": ["factories/dependency_wrapper"]},
             {"create_file_based_in_template":  ["factories/dependency_wrapper/",
               "<pc>args[1] use case dependency wrapper</pc>.java",
               "dependency_wrapper.txt", ["args[1]"]]},
 
-            {"create_folder": ["implementations"]},
             {"create_file_based_in_template":  ["implementations/",
               "<pc>args[1] use case implementation</pc>.java",
-              "use_case_implementation.txt", ["args[1]"]]},
-            {"create_folder": ["implementations/mappers"]},
-            {"create_folder": ["implementations/ports"]},
-
-            {"create_folder": ["io"]},
-            {"create_folder": ["io/inputs"]},
-            {"create_file_based_in_template":  ["io/inputs/",
-              "<pc>args[1] use case input</pc>.java",
-              "use_case_input.txt", ["args[1]"]]},
-
-            {"create_folder": ["io/outputs"]},
-            {"create_file_based_in_template":  ["io/outputs/",
-              "<pc>args[1] use case output</pc>.java",
-              "use_case_output.txt", ["args[1]"]]},
-
-            {"return_root_path": "None"}
+              "use_case_implementation.txt", ["args[1]"]]}
           ]
         },
         "function_assembler_layer": {
@@ -113,6 +140,16 @@
                 ["args[0]", "args[1]", "args[2]", "args[3]"]]},
               {"return_root_path": "None"}
             ]
+        },
+        "core_basic_dir": {
+          "args": "None",
+          "steps": [
+            {"create_folder": ["factories"]},
+            {"create_folder": ["factories/dependency_wrapper"]},
+            {"create_folder": ["implementations"]},
+            {"create_folder": ["implementations/ports"]},
+            {"create_folder": ["io"]}
+          ]
         },
         "--version": {
             "args": "None",
