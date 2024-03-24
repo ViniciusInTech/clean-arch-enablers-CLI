@@ -80,7 +80,18 @@
             {"function_assembler_layer": ["", "tem[1]"]}
           ]
         },
-
+        "new_entity": {
+          "args": "template",
+          "steps": [
+            {"walk_to_entity_layer": ["Core"]},
+            {"create_folder": ["/entities/factories"]},
+            {"create_folder": ["/entities/implementations"]},
+            {"create_file_based_in_template": ["/entities/","<pc>args[1]</pc>.java", "entity.txt",["args[1]"]]},
+            {"create_file_based_in_template": ["/entities/factories/","<pc>args[1]</pc>Factory.java", "entityFactory.txt",["args[1]"]]},
+            {"create_file_based_in_template": ["/entities/implementations/","<pc>args[1]</pc>Implementation.java", "entityImplementation.txt",["args[1]"]]},
+            {"return_root_path": "None"}
+          ]
+        },
         "function_core_layer": {
           "args": "template",
           "steps": [
@@ -120,6 +131,14 @@
             {"walk_to_use_case_layer": ["Adaptadores"]},
             {"create_folder": ["<sc>args[1]</sc>"]},
             {"return_root_path": "None"}
+          ]
+        },
+        "walk_to_entity_layer": {
+          "args": "template",
+          "steps": [
+            {"change_folder_partial_match": ["args[0]", "target"]},
+            {"change_folder_partial_match": ["entities", "target"]},
+            {"go_up": "None"}
           ]
         },
         "walk_to_use_case_layer": {

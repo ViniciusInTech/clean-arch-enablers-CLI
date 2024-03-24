@@ -1,0 +1,16 @@
+package <group_id></group_id>.<artifact_id></artifact_id>.core.entities.factories;
+
+import <group_id></group_id>.<artifact_id></artifact_id>.core.entities.<pc>args[0]</pc>;
+import <group_id></group_id>.<artifact_id></artifact_id>.core.entities.implementations.<pc>args[0]</pc>Implementation;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class <pc>args[0]</pc>Factory {
+
+    public static <pc>args[0]</pc> makeNewInstance(){
+        return new <pc>args[0]</pc>Implementation();
+    }
+
+
+}

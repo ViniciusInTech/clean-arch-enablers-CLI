@@ -48,7 +48,8 @@ class ArchFlowJavaWeb(ArchFlow):
         return {"-v": self.version,
                 "--version": self.version,
                 "clear_all": self.clear_all_project,
-                "install_all_project": self.install_all_project
+                "install_all_project": self.install_all_project,
+                "go_up": self.go_up
                 }
 
     def clear_all_project(self):
@@ -56,6 +57,15 @@ class ArchFlowJavaWeb(ArchFlow):
         files_pom = self.DirectoryExplorer.list_files("pom.xml")
         for project in files_pom:
             self.clean_project(project)
+
+    def go_up(self):
+        try:
+            os.chdir('..')
+            self.OutputHandler.information_message("Directory changed to parent directory.")
+        except FileNotFoundError:
+            self.OutputHandler.alert_message("Parent directory not found.")
+        except PermissionError:
+            self.OutputHandler.alert_message("Permission denied to change directory.")
 
     def install_all_project(self):
         self.OutputHandler.information_message("starting installing of all projects")

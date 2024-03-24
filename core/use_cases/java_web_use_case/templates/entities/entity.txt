@@ -1,0 +1,13 @@
+package <group_id></group_id>.<artifact_id></artifact_id>.core.entities;
+
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Getter
+@Setter
+public abstract class <pc>args[0]</pc> {
+
+    protected Long id;
+
+}
