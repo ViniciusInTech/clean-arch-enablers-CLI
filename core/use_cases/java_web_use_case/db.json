@@ -33,7 +33,17 @@
         "new_fuc": {
           "args": "terminal",
           "steps": [
+            {"walk_to_use_case_layer": ["Core"]},
+            {"create_folder": ["<sc>args[1]</sc>"]},
+
+            {"create_file_based_in_template":  ["<sc>args[1]</sc>/", "<pc>args[1] use case</pc>.java", "use_case.txt",
+              ["args[1]"]]},
+
             {"function_core_layer": ["","tem[1]"]},
+            {"create_file_based_in_template":  ["implementations/",
+              "<pc>args[1] use case implementation</pc>.java",
+              "use_case_implementation.txt", ["args[1]"]]},
+
             {"create_folder": ["io/inputs"]},
             {"create_folder": ["io/outputs"]},
             {"create_file_based_in_template":  ["io/inputs/",
@@ -52,7 +62,16 @@
         "new_cuc": {
           "args": "terminal",
           "steps": [
+             {"walk_to_use_case_layer": ["Core"]},
+            {"create_folder": ["<sc>args[1]</sc>"]},
+
+            {"create_file_based_in_template":  ["<sc>args[1]</sc>/", "<pc>args[1] use case</pc>.java", "use_case_cuc.txt",
+              ["args[1]"]]},
+
             {"function_core_layer": ["","tem[1]"]},
+            {"create_file_based_in_template":  ["implementations/",
+              "<pc>args[1] use case implementation</pc>.java",
+              "implementation_cuc.txt", ["args[1]"]]},
             {"create_folder": ["io/inputs"]},
 
             {"create_file_based_in_template":  ["io/inputs/",
@@ -68,7 +87,15 @@
         "new_suc": {
           "args": "terminal",
           "steps": [
+            {"walk_to_use_case_layer": ["Core"]},
+            {"create_folder": ["<sc>args[1]</sc>"]},
+
+            {"create_file_based_in_template":  ["<sc>args[1]</sc>/", "<pc>args[1] use case</pc>.java", "use_case_suc.txt",
+              ["args[1]"]]},
             {"function_core_layer": ["","tem[1]"]},
+            {"create_file_based_in_template":  ["implementations/",
+              "<pc>args[1] use case implementation</pc>.java",
+              "implementation_suc.txt", ["args[1]"]]},
             {"create_folder": ["io/outputs"]},
 
             {"create_file_based_in_template":  ["io/outputs/",
@@ -95,11 +122,7 @@
         "function_core_layer": {
           "args": "template",
           "steps": [
-            {"walk_to_use_case_layer": ["Core"]},
-            {"create_folder": ["<sc>args[1]</sc>"]},
 
-            {"create_file_based_in_template":  ["<sc>args[1]</sc>/", "<pc>args[1] use case</pc>.java", "use_case.txt",
-              ["args[1]"]]},
             {"change_folder_partial_match": ["<sc>args[1]</sc>"]},
             {"core_basic_dir": "None"},
             {"create_folder": ["implementations/mappers"]},
@@ -109,11 +132,7 @@
 
             {"create_file_based_in_template":  ["factories/dependency_wrapper/",
               "<pc>args[1] use case dependency wrapper</pc>.java",
-              "dependency_wrapper.txt", ["args[1]"]]},
-
-            {"create_file_based_in_template":  ["implementations/",
-              "<pc>args[1] use case implementation</pc>.java",
-              "use_case_implementation.txt", ["args[1]"]]}
+              "dependency_wrapper.txt", ["args[1]"]]}
           ]
         },
         "function_assembler_layer": {

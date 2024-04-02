@@ -1,0 +1,13 @@
+package <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc>args[0]</sc>;
+
+import <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc>args[0]</sc>.io.inputs.<pc>args[0]</pc>UseCaseInput;
+import br.com.stockio.loggers.Logger;
+import br.com.stockio.use_cases.metadata.UseCaseMetadata;
+import br.com.stockio.use_cases.specifics.functions.FunctionUseCase;
+
+
+public abstract class <pc>args[0]</pc>UseCase extends ConsumerUseCase<<pc>args[0]</pc>UseCaseInput> {
+    protected <pc>args[0]</pc>UseCase(Logger logger) {
+            super(UseCaseMetadata.ofOpenAccessUseCase(<pc>args[0]</pc>UseCase.class, "use case for..."), logger);
+            }
+    }
