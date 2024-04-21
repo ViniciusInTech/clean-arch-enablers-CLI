@@ -74,7 +74,7 @@
               "implementation_cuc.txt", ["args[1]"]]},
             {"create_folder": ["io/inputs"]},
 
-            {"create_file_based_in_template":  ["io/inputs/",
+             {"create_file_based_in_template":  ["io/inputs/",
               "<pc>args[1] use case input</pc>.java",
               "use_case_input.txt", ["args[1]"]]},
 

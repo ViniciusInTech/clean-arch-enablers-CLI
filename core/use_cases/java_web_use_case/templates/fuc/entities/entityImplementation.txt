@@ -1,7 +1,0 @@
-package <group_id></group_id>.<artifact_id></artifact_id>.core.entities.implementations;
-
-import <group_id></group_id>.<artifact_id></artifact_id>.core.entities.<pc>args[0]</pc>;
-
-public class <pc>args[0]</pc>Implementation extends <pc>args[0]</pc> {
-
-}

@@ -1,7 +1,0 @@
-package <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc>args[0]</sc>.io.inputs;
-
-import br.com.stockio.use_cases.io.UseCaseInput;
-
-public class <pc>args[0]</pc>UseCaseInput extends UseCaseInput {
-    //Define the attributes for the input of the <pc>args[0]</pc>UseCase here.
-}

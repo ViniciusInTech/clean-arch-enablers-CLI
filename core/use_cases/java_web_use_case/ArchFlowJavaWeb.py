@@ -1,5 +1,5 @@
-from core.entities.ArchFlow import ArchFlow
-from core.entities.utils.Filter import Filter
+from arch_flow import ArchFlow
+from arch_flow import Filter
 import subprocess
 import os
 import xml.etree.ElementTree as ET
@@ -45,11 +45,13 @@ class ArchFlowJavaWeb(ArchFlow):
             self.OutputHandler.alert_message(f"Error executing Maven command: {e}")
 
     def functions_flow(self):
-        return {"-v": self.version,
+        return {
+                "create_project": self.create_project,
+                "-v": self.version,
                 "--version": self.version,
                 "clear_all": self.clear_all_project,
                 "install_all_project": self.install_all_project,
-                "go_up": self.go_up
+                "go_up": self.go_up,
                 }
 
     def clear_all_project(self):

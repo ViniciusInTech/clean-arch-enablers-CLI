@@ -1,5 +1,0 @@
-package <group_id></group_id>.<artifact_id></artifact_id>.core.use_cases.<sc>args[0]</sc>.io.outputs;
-
-public class <pc>args[0]</pc>UseCaseOutput {
-    //Define the attributes for the output of the <pc>args[0]</pc>UseCase here.
-}
