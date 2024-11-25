@@ -1,66 +1,251 @@
-# CAE(Clean arch enablers)
+# ✔️ cae-cli
+☕ Java & Kotlin edition
 
-O CAE foi concebido como uma ferramenta valiosa para desenvolvedores, simplificando e acelerando o processo de criação de projetos que adotam a Clean Architecture.
-Através de comandos simples no terminal, o CAE permite a criação de estruturas de projetos padronizadas de acordo com suas necessidades específicas.
-Além disso, viabiliza a criação ágil de casos de uso e a atualização de dependências entre as camadas do projeto.
+<br>
 
+Welcome to the open source CAE CLI tool repository! The _cae-cli_ is designed to make the experience of applying the _cae-framework_ effortless. With one simple command you can generate the whole structure of a new use case in your Java or Kotlin project, already including its components throughout the application layers (core, adapters and assemblers).
 
+<br>
 
-## Índice
+State Symbol Key:
 
-- [Instalação](#instalação)
-- [Uso](#uso)
-- [Contribuição](#contribuição)
-- [Licença](#licença)
+- ``✅`` — _Under release state_
+- ``✔️`` — _Under snapshot state_
+- ``⏳`` — _Under full development state_
 
-## Instalação
+<br>
 
-### Status da Instalação Atual (Windows)
+## 🔧 How to install it
 
-Atualmente, o CAE não oferece um instalador simplificado, o que é parte de nossos planos futuros. Isso se deve às melhorias e mudanças constantes em andamento. Uma versão mais intuitiva está em desenvolvimento, planejada para concluir ajustes na identidade visual, sintaxe e otimização do código.
+### Windows Plataform
 
-### Planos para Outros Sistemas Operacionais
+1. Clone the project.
+2. Run the ``cae-cli-installer.exe`` file.
+3. Add ``%CAE_CLI_HOME%`` to your system's or user's Path environment variable.
+4. To test the installation, open a command prompt and run ``cae ls``.
 
-Estamos comprometidos em tornar o CAE compatível com outros sistemas operacionais. Estamos trabalhando em tornar o código mais flexível para possibilitar o uso em plataformas diferentes.
+Expected result:
 
-### Uso Atual no Windows
+![image](https://github.com/user-attachments/assets/6013f1cc-78e2-42f3-8de2-5669fa174b06)
 
-Para utilizar o CAE no Windows atualmente, é necessário baixar o código-fonte do CAE. Após isso, modifique o arquivo .bat para apontar para a localização do executável principal do CAE em seu computador e adicione o CAE como uma variável de ambiente.
+### MacOS Plataform
 
-### Uso e Adaptação
-
-Posteriormente, ajuste o arquivo template .json para se adequar às suas necessidades específicas e utilize o CAE conforme desejado.
-
-## Uso
-
-Atualmente, o CAE oferece alguns comandos principais. O primeiro é utilizado para criar a estrutura completa do projeto e também para criar casos de uso.
-
-### Comando para Criação de Projeto
-
-A criação do projeto é realizada utilizando o seguinte comando:
-
+1. Clone the project
+2. Authorize file `cae-cli-macos-install.sh` to run with `chmod +x cae-cli-macos-install.sh`
+3. Run the ``cae-cli-macos-installer.sh`` in sudo mode.
+4. Add theses exports on `.zshrc` or `.bash_profile` file: 
 ```bash
-cae new project nome_projeto com.example
+export CAE_CLI_HOME="$HOME/cae"
+export CAE_META_STRUCTURE_TEMPLATES_PATH="$HOME/cae/file-templates"
+```
+5. Restart terminal with `source ~/.zshrc` or `source ~/.bash_profile`
+6. To test the installation, run ``cae ls``
+
+Expected result:
+
+![image](https://github.com/user-attachments/assets/6013f1cc-78e2-42f3-8de2-5669fa174b06)
+
+<br>
+
+## ▶️ Using it
+To run any command (except for ``new-project``), you must be in the root directory of a CAE project. A CAE project is defined as a Java or Kotlin project that contains a ``cae-settings.json`` file in its root directory. The format of this file is as follows:
+
+```json
+{
+    "organization": "br.com.stockio",
+    "domain": "empresas",
+    "monolayer": true,
+    "caeVersion": "0.11.0",
+    "useCasePaths": [
+        {
+            "layer": "core",
+            "location": "src/main/java/br/com/stockio/empresas/core/use_cases"
+        },
+        {
+            "layer": "adapters",
+            "location": "src/main/java/br/com/stockio/empresas/adapters/use_cases"
+        },
+        {
+            "layer": "assemblers",
+            "location": "src/main/java/br/com/stockio/empresas/assemblers/use_cases"
+        }
+    ]
+}
+````
+- ``organization``: your groupId.
+- ``domain``: your artifactId.
+- ``monolayer``: if the project is structured as a single unit or divided into smaller subprojects.
+- ``caeVersion``: cae-framework version being currently used.
+- ``useCasePaths``: paths the CLI will use to find use cases at the core, adapters and assemblers layers.
+
+<br>
+
+### ``✅`` ``cae new-fuc``
+Run this command for creating a new ``FunctionUseCase`` declaration in your CAE project.
+
+Accepted parameters:
+- **name**: the name of the use case.
+- **kotlin**: whether or not it should be generated in Kotlin.
+
+Expected effect:
+```bash
+├── core/                                                     # Core layer package
+│   ├── use_cases/                                            # Use cases package 
+│   │   ├── some_example/                                     # The new use case package [JUST CREATED]
+│   │   │   ├── SomeExampleUseCase.java/kt                    # Abstract class for the primary port of the new use case [JUST CREATED]
+│   │   │   ├── implementations/                              # Package for the implementation of the new use case [JUST CREATED]
+│   │   │   │   └── SomeExampleUseCaseImplementation.java/kt  # Implementation class of the new use case [JUST CREATED]
+│   │   │   ├── io/                                           # Package for the I/O declaration of the use case [JUST CREATED]
+│   │   │   │   ├── inputs/                                   # Package for input classes [JUST CREATED]
+│   │   │   │   │   └── SomeExampleUseCaseInput.java/kt       # Main input class for the new use case [JUST CREATED]
+│   │   │   │   └── output/                                   # Package for output classes [JUST CREATED]
+│   │   │   │       └── SomeExampleUseCaseOutput.java/kt      # Main output class for the new use case [JUST CREATED]
+
+├── adapters/                                                 # Adapters layer package
+│   ├── use_cases/                                            # Use cases package
+│   │   └── some_example/                                     # Package for the new use case adapters (starts empty) [JUST CREATED]
+
+├── assemblers/                                               # Assemblers layer
+│   ├── use_cases/                                            # Use cases package
+│   │   ├── some_example/                                     # Package for assembling the new use case [JUST CREATED]
+│   │   │   └── MyUseCaseAssembler.java/kt                    # Assembler class (Factory) for the use case [JUST CREATED]
+
 ```
 
-Este comando é utilizado para criar projetos completos, utilizando templates que podem ser personalizados através da manipulação do arquivo .json.
+<br>
 
-### Comando para Criação de casos de usos
+### ``✅`` ``cae new-cuc``
+Run this command for creating a new ``ConsumerUseCase`` declaration in your CAE project.
 
-A criação dos casos de uso é realizada utilizando o seguinte comando:
+Accepted parameters:
+- **name**: the name of the use case.
+- **kotlin**: whether or not it should be generated in Kotlin.
 
+Expected effect:
 ```bash
-cae new function nome_caso_de_uso
+├── core/                                                     # Core layer package
+│   ├── use_cases/                                            # Use cases package
+│   │   ├── some_example/                                     # The new use case package [JUST CREATED]
+│   │   │   ├── SomeExampleUseCase.java/kt                    # Abstract class for the primary port of the new use case [JUST CREATED]
+│   │   │   ├── implementations/                              # Package for the implementation of the new use case [JUST CREATED]
+│   │   │   │   └── SomeExampleUseCaseImplementation.java/kt  # Implementation class of the new use case [JUST CREATED]
+│   │   │   ├── io/                                           # Package for the I/O declaration of the use case [JUST CREATED]
+│   │   │   │   ├── inputs/                                   # Package for input classes [JUST CREATED]
+│   │   │   │   │   └── SomeExampleUseCaseInput.java/kt       # Main input class for the new use case [JUST CREATED]
+
+├── adapters/                                                 # Adapters layer package
+│   ├── use_cases/                                            # Use cases package
+│   │   └── some_example/                                     # Package for the new use case adapters (starts empty) [JUST CREATED]
+
+├── assemblers/                                               # Assemblers layer
+│   ├── use_cases/                                            # Use cases package
+│   │   ├── some_example/                                     # Package for assembling the new use case [JUST CREATED]
+│   │   │   └── MyUseCaseAssembler.java/kt                    # Assembler class (Factory) for the use case [JUST CREATED]
+
+```
+<br>
+
+### ``✅`` ``cae new-suc``
+Run this command for creating a new ``SupplierUseCase`` declaration in your CAE project.
+
+
+Accepted parameters:
+- **name**: the name of the use case.
+- **kotlin**: whether or not it should be generated in Kotlin.
+
+Expected effect:
+```bash
+├── core/                                                     # Core layer package
+│   ├── use_cases/                                            # Use cases package
+│   │   ├── some_example/                                     # The new use case package [JUST CREATED]
+│   │   │   ├── SomeExampleUseCase.java/kt                    # Abstract class for the primary port of the new use case [JUST CREATED]
+│   │   │   ├── implementations/                              # Package for the implementation of the new use case [JUST CREATED]
+│   │   │   │   └── SomeExampleUseCaseImplementation.java/kt  # Implementation class of the new use case [JUST CREATED]
+│   │   │   ├── io/                                           # Package for the I/O declaration of the use case [JUST CREATED]
+│   │   │   │   ├── outputs/                                  # Package for output classes [JUST CREATED]
+│   │   │   │   │   └── SomeExampleUseCaseOutput.java/kt      # Main output class for the new use case [JUST CREATED]
+
+├── adapters/                                                 # Adapters layer package
+│   ├── use_cases/                                            # Use cases package
+│   │   └── some_example/                                     # Package for the new use case adapters (starts empty) [JUST CREATED]
+
+├── assemblers/                                               # Assemblers layer
+│   ├── use_cases/                                            # Use cases package
+│   │   ├── some_example/                                     # Package for assembling the new use case [JUST CREATED]
+│   │   │   └── MyUseCaseAssembler.java/kt                    # Assembler class (Factory) for the use case [JUST CREATED]
+
+```
+<br>
+
+### ``✅`` ``cae new-ruc``
+Run this command for creating a new ``RunnableUseCase`` declaration in your CAE project.
+
+Accepted parameters:
+- **name**: the name of the use case.
+- **kotlin**: whether or not it should be generated in Kotlin.
+
+Expected effect:
+```bash
+├── core/                                                     # Core layer package
+│   ├── use_cases/                                            # Use cases package
+│   │   ├── some_example/                                     # The new use case package [JUST CREATED]
+│   │   │   ├── SomeExampleUseCase.java/kt                    # Abstract class for the primary port of the new use case [JUST CREATED]
+│   │   │   ├── implementations/                              # Package for the implementation of the new use case [JUST CREATED]
+│   │   │   │   └── SomeExampleUseCaseImplementation.java/kt  # Implementation class of the new use case [JUST CREATED]
+
+├── adapters/                                                 # Adapters layer package
+│   ├── use_cases/                                            # Use cases package
+│   │   └── some_example/                                     # Package for the new use case adapters (starts empty) [JUST CREATED]
+
+├── assemblers/                                               # Assemblers layer
+│   ├── use_cases/                                            # Use cases package
+│   │   ├── some_example/                                     # Package for assembling the new use case [JUST CREATED]
+│   │   │   └── MyUseCaseAssembler.java/kt                    # Assembler class (Factory) for the use case [JUST CREATED]
+
 ```
 
-Este comando é utilizando para a criação dos casos de usos, lembrando que temos suporte para as seguintes function: fuc, suc, cuc e ruc.
+<br>
 
-## Licença
+### ``✅`` ``cae new-project``
+Run this command for creating a new CAE project.
 
-O CAE foi desenvolvido por Carlos Vinicius e Lucio. A utilização por terceiros é gratuita, com a única exigência de créditos aos desenvolvedores.
+Accepted parameters:
+- **artifactId**: the name of the project.
+- **groupId**: name of the organization which owns the project.
+- **caeVersion**: the desired cae-framework version.
 
-### Perfil no GitHub
+Expected effect:
 
-- [Perfil de Carlos Vinicius](https://github.com/vinicius123131)
-- [Perfil de Lucio](https://github.com/julucinho)
+- A monolayer project with 3 main packages: core, adapters and assemblers. Multilayer project generation is suspended via CLI.
+- A ``cae-settings.json`` file created and properly set.
+- The ``pom.xml`` file created and properly set, including the script for the autodocumentation.
+- The ``LoggerBootstrap.java`` file with default settings for the automatic logging mechanism (feel free to change it).
+- The ``LoggerAdapter.java`` file which implements the ``Logger`` interface from the framework and adapts it for the `Slf4j` format (feel free to change it too).
+- The ``${artifactId}Documentation.java`` file which is invoked by the Maven Install phase due to the ``pom.xml`` settings for the autodocumentation process.
 
+<br>
+
+## 💡 Tutorials
+Tutorials will soon be available on the SDK's YouTube channel: [Clean Arch Enablers SDK](https://www.youtube.com/@CleanArchEnablersSDK).
+
+<br>
+
+## 🌐 Other components of the SDK:
+
+- ``✔️`` [cae-framework](https://github.com/clean-arch-enablers-project/cae-framework)
+- ``✔️`` [cae-utils-mapped-exceptions](https://github.com/clean-arch-enablers-project/cae-utils-mapped-exceptions)
+- ``✔️`` [cae-utils-http-client](https://github.com/clean-arch-enablers-project/cae-utils-http-client)
+- ``✔️`` [cae-common-primary-adapters](https://github.com/clean-arch-enablers-project/cae-common-primary-adapters)
+- ``✔️`` [cae-utils-env-vars](https://github.com/clean-arch-enablers-project/cae-utils-env-vars)
+- ``✔️`` [cae-utils-trier](https://github.com/clean-arch-enablers-project/cae-utils-trier)
+- ``✔️`` [cae-rdb](https://github.com/clean-arch-enablers-project/cae-rdb)
+- ``⏳`` [cae-service-catalog](https://github.com/clean-arch-enablers-project/cae-service-catalog)
+
+<br>
+<br>
+<br>
+<br>
+
+<p align="center">
+  CAE — Clean Architecture made easy.
+</p>
