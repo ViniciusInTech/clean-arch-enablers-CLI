@@ -52,3 +52,4 @@ echo export CAE_META_STRUCTURE_TEMPLATES_PATH="${CAE_META_STRUCTURE_TEMPLATES_PA
 
 copy .\components\cae-cli.jar %USERPROFILE%\cae
 xcopy .\components\file-templates %USERPROFILE%\cae\file-templates /E /I /H /Y
+pause
