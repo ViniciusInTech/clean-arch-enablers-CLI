@@ -1,36 +1,15 @@
-::[Bat To Exe Converter]
-::
-::YAwzoRdxOk+EWAnk
-::fBw5plQjdG8=
-::YAwzuBVtJxjWCl3EqQJgSA==
-::ZR4luwNxJguZRRnk
-::Yhs/ulQjdF+5
-::cxAkpRVqdFKZSDk=
-::cBs/ulQjdF+5
-::ZR41oxFsdFKZSDk=
-::eBoioBt6dFKZSDk=
-::cRo6pxp7LAbNWATEpCI=
-::egkzugNsPRvcWATEpCI=
-::dAsiuh18IRvcCxnZtBJQ
-::cRYluBh/LU+EWAnk
-::YxY4rhs+aU+JeA==
-::cxY6rQJ7JhzQF1fEqQJQ
-::ZQ05rAF9IBncCkqN+0xwdVs0
-::ZQ05rAF9IAHYFVzEqQJQ
-::eg0/rx1wNQPfEVWB+kM9LVsJDGQ=
-::fBEirQZwNQPfEVWB+kM9LVsJDGQ=
-::cRolqwZ3JBvQF1fEqQJQ
-::dhA7uBVwLU+EWDk=
-::YQ03rBFzNR3SWATElA==
-::dhAmsQZ3MwfNWATElA==
-::ZQ0/vhVqMQ3MEVWAtB9wSA==
-::Zg8zqx1/OA3MEVWAtB9wSA==
-::dhA7pRFwIByZRRnk
-::Zh4grVQjdCyDJGyX8VAjFBFbXwGOAEi7FrwI5+Ty4Nakg2ghV+M6NYzX04iHLvMH60nocIQR1Xtf1cgABVZRcAG/bwM4rHwMs3yAVw==
-::YB416Ek+ZG8=
-::
-::
-::978f952a14a936cc963da21a135fa983
+@echo off
+
+:: Find the first subdirectory in the download path
+for /d %%D in ("%~1\*") do (
+    set "REPO_DIR=%%D"
+)
+
+if not defined REPO_DIR (
+    echo ERROR: No repository directory found.
+    pause
+    exit /b 1
+)
 
 :: Verifica se o diretório %USERPROFILE%\cae existe
 if exist %USERPROFILE%\cae (
@@ -56,32 +35,40 @@ if exist %USERPROFILE%\.bashrc (
     echo .bashrc não encontrado. Pulando atualização de alias.
 )
 
-:: Verifica se o arquivo cae-cli.jar existe no caminho esperado e copia para o diretório %USERPROFILE%\cae
-if exist .\components\cae-cli.jar (
-    copy .\components\cae-cli.jar %USERPROFILE%\cae
+:: Find cae-cli.jar in the repository directory
+for /r "%REPO_DIR%" %%F in (cae-cli.jar) do (
+    set "JAR_PATH=%%F"
+)
+
+if defined JAR_PATH (
+    copy "%JAR_PATH%" %USERPROFILE%\cae
     if %errorlevel% neq 0 (
         echo ERRO: Falha ao copiar cae-cli.jar. Verifique permissões ou caminho.
         pause
-        exit /b
+        exit /b 1
     )
 ) else (
-    echo ERRO: O arquivo cae-cli.jar não foi encontrado no diretório .\components.
+    echo ERRO: O arquivo cae-cli.jar não foi encontrado no diretório do repositório.
     pause
-    exit /b
+    exit /b 1
 )
 
-:: Verifica se o diretório file-templates existe e copia para %USERPROFILE%\cae\file-templates
-if exist .\components\file-templates (
-    xcopy .\components\file-templates %USERPROFILE%\cae\file-templates /E /I /H /Y
+:: Find file-templates directory
+for /d /r "%REPO_DIR%" %%D in (file-templates) do (
+    set "TEMPLATES_DIR=%%D"
+)
+
+if defined TEMPLATES_DIR (
+    xcopy "%TEMPLATES_DIR%" %USERPROFILE%\cae\file-templates /E /I /H /Y
     if %errorlevel% neq 0 (
         echo ERRO: Falha ao copiar os arquivos do diretório file-templates.
         pause
-        exit /b
+        exit /b 1
     )
 ) else (
-    echo ERRO: O diretório file-templates não foi encontrado em .\components.
+    echo ERRO: O diretório file-templates não foi encontrado no repositório.
     pause
-    exit /b
+    exit /b 1
 )
 
 :: Mensagem final e pausa
